@@ -131,6 +131,28 @@ jobs:
             }
           }
 
+          if (fs.existsSync("app/latest.json")) {
+            try {
+              const latestApp = JSON.parse(fs.readFileSync("app/latest.json", "utf8"));
+              if (!latestApp.version || !semverRegex.test(latestApp.version)) {
+                console.error("FAIL: Invalid version in app/latest.json");
+                hasErrors = true;
+              }
+              if (!latestApp.platforms || typeof latestApp.platforms !== "object") {
+                console.error("FAIL: Missing platforms object in app/latest.json");
+                hasErrors = true;
+              } else {
+                console.log(`  ✓ Verified app/latest.json (v${latestApp.version})`);
+              }
+            } catch (err) {
+              console.error("FAIL: app/latest.json is not valid JSON:", err.message);
+              hasErrors = true;
+            }
+          } else {
+            console.error("FAIL: app/latest.json does not exist");
+            hasErrors = true;
+          }
+
           if (hasErrors) {
             console.error("\nRegistry validation FAILED.");
             process.exit(1);
