@@ -1,0 +1,140 @@
+name: Validate Plugin Registry
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate index.json & SHA-256
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run Schema and SHA-256 Validator
+        run: |
+          node -e '
+          const fs = require("fs");
+          const path = require("path");
+          const crypto = require("crypto");
+
+          console.log("==> Validating index.json syntax and schema...");
+          if (!fs.existsSync("index.json")) {
+            console.error("FAIL: index.json does not exist");
+            process.exit(1);
+          }
+
+          let index;
+          try {
+            index = JSON.parse(fs.readFileSync("index.json", "utf8"));
+          } catch (err) {
+            console.error("FAIL: index.json is not valid JSON:", err.message);
+            process.exit(1);
+          }
+
+          if (typeof index.schemaVersion !== "number" || index.schemaVersion < 1) {
+            console.error("FAIL: Invalid schemaVersion");
+            process.exit(1);
+          }
+
+          if (!index.updatedAt || isNaN(Date.parse(index.updatedAt))) {
+            console.error("FAIL: Invalid updatedAt timestamp");
+            process.exit(1);
+          }
+
+          if (!Array.isArray(index.plugins) || index.plugins.length === 0) {
+            console.error("FAIL: plugins must be a non-empty array");
+            process.exit(1);
+          }
+
+          const allowedCategories = ["system", "network", "remote", "active-directory", "utility", "monitoring"];
+          const allowedPermissions = [
+            "net.ping", "process.exec", "fs.external", "ldap.query",
+            "store.write", "terminal", "keychain"
+          ];
+          const semverRegex = /^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$/;
+          const sha256Regex = /^[a-f0-9]{64}$/i;
+
+          let hasErrors = false;
+
+          for (const plugin of index.plugins) {
+            console.log(`Checking plugin: ${plugin.id}`);
+            if (!plugin.id || !/^[a-z0-9-]+$/.test(plugin.id)) {
+              console.error(`FAIL [${plugin.id}]: Invalid plugin id format`);
+              hasErrors = true;
+            }
+            if (!plugin.name || !plugin.description) {
+              console.error(`FAIL [${plugin.id}]: name and description are required`);
+              hasErrors = true;
+            }
+            if (!plugin.category || !allowedCategories.includes(plugin.category)) {
+              console.error(`FAIL [${plugin.id}]: Invalid category ${plugin.category}`);
+              hasErrors = true;
+            }
+            if (!plugin.latestVersion || !semverRegex.test(plugin.latestVersion)) {
+              console.error(`FAIL [${plugin.id}]: Invalid latestVersion SemVer`);
+              hasErrors = true;
+            }
+            if (!Array.isArray(plugin.releases) || plugin.releases.length === 0) {
+              console.error(`FAIL [${plugin.id}]: releases must be non-empty`);
+              hasErrors = true;
+            }
+
+            for (const rel of plugin.releases || []) {
+              if (!semverRegex.test(rel.version)) {
+                console.error(`FAIL [${plugin.id} @ ${rel.version}]: Invalid release version format`);
+                hasErrors = true;
+              }
+              if (!sha256Regex.test(rel.sha256)) {
+                console.error(`FAIL [${plugin.id} @ ${rel.version}]: Invalid sha256 checksum format`);
+                hasErrors = true;
+              }
+              for (const perm of rel.permissions || []) {
+                if (!allowedPermissions.includes(perm)) {
+                  console.error(`FAIL [${plugin.id} @ ${rel.version}]: Disallowed permission "${perm}"`);
+                  hasErrors = true;
+                }
+              }
+
+              // Verify local archive SHA-256 if file exists in repository
+              const localZip = path.join("plugins", plugin.id, rel.version, "plugin.zip");
+              if (fs.existsSync(localZip)) {
+                const buffer = fs.readFileSync(localZip);
+                const actualHash = crypto.createHash("sha256").update(buffer).digest("hex").toLowerCase();
+                if (actualHash !== rel.sha256.toLowerCase()) {
+                  console.error(`FAIL [${plugin.id} @ ${rel.version}]: SHA-256 mismatch! Expected: ${rel.sha256}, actual: ${actualHash}`);
+                  hasErrors = true;
+                } else {
+                  console.log(`  ✓ Verified SHA-256 for ${localZip}`);
+                }
+              }
+            }
+          }
+
+          if (index.app) {
+            if (!semverRegex.test(index.app.latestVersion)) {
+              console.error("FAIL: Invalid app.latestVersion SemVer format");
+              hasErrors = true;
+            }
+            if (!index.app.updaterManifestUrl) {
+              console.error("FAIL: app.updaterManifestUrl is required");
+              hasErrors = true;
+            }
+          }
+
+          if (hasErrors) {
+            console.error("\nRegistry validation FAILED.");
+            process.exit(1);
+          }
+
+          console.log("\nAll registry validations PASSED successfully.");
+          '

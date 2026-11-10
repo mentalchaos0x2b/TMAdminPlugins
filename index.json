@@ -1,0 +1,376 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-11-10T15:00:00Z",
+  "plugins": [
+    {
+      "id": "network",
+      "name": "Network Monitor",
+      "description": "Мониторинг доступности удалённых ПК, ping в реальном времени с графиком задержек RTT и потерь пакетов.",
+      "author": {
+        "name": "TMAdmin Team",
+        "email": "support@tmadmin.local",
+        "url": "https://github.com/mentalchaos0x2b"
+      },
+      "category": "network",
+      "icon": "PulseOutline",
+      "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+      "license": "MIT",
+      "latestVersion": "1.0.0",
+      "releases": [
+        {
+          "version": "1.0.0",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-10T12:00:00Z",
+          "changelog": "Первый стабильный релиз блока сетевого мониторинга и графика пинга.",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.0/plugin.zip",
+          "sha256": "ee5c455d41ccfc17ffc385ba3d9e9013813580782c340505cb10085dcbe88b73",
+          "permissions": [
+            "net.ping",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "info",
+              "title": "Информация об узле",
+              "icon": "InformationCircleOutline",
+              "defaultSize": {
+                "w": 8,
+                "h": 6
+              },
+              "minSize": {
+                "w": 6,
+                "h": 4
+              },
+              "description": "Параметры текущего целевого узла (IP, статус, задержка, заметки)"
+            },
+            {
+              "id": "ping-chart",
+              "title": "График задержки (Ping)",
+              "icon": "PulseOutline",
+              "defaultSize": {
+                "w": 16,
+                "h": 8
+              },
+              "minSize": {
+                "w": 8,
+                "h": 6
+              },
+              "description": "График RTT в реальном времени с метриками min/avg/max/jitter/loss%"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tightvnc",
+      "name": "TightVNC Remote",
+      "description": "Быстрое подключение к удалённым ПК через TightVNC Viewer с авто-подстановкой пароля из OS Keychain.",
+      "author": {
+        "name": "TMAdmin Team",
+        "url": "https://github.com/mentalchaos0x2b"
+      },
+      "category": "remote",
+      "icon": "DesktopOutline",
+      "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+      "license": "MIT",
+      "latestVersion": "1.0.0",
+      "releases": [
+        {
+          "version": "1.0.0",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-10T12:00:00Z",
+          "changelog": "Интеграция с TightVNC Viewer и хранилищем паролей OS Keychain.",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/tightvnc/1.0.0/plugin.zip",
+          "sha256": "999ca0e61390001e1e92099771ec6d3e2286b71f9dcd7ede5c0e8f5e7ee7a527",
+          "permissions": [
+            "process.exec",
+            "fs.external",
+            "keychain"
+          ],
+          "blocks": [
+            {
+              "id": "vnc-launcher",
+              "title": "TightVNC",
+              "icon": "DesktopOutline",
+              "defaultSize": {
+                "w": 6,
+                "h": 4
+              },
+              "minSize": {
+                "w": 4,
+                "h": 3
+              },
+              "description": "Быстрый запуск сессии VNC (обычный, View-Only, File Transfer) к текущему target"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "laps",
+      "name": "LAPS Password Manager",
+      "description": "Безопасное чтение и ротация локального пароля администратора через Active Directory LAPS / Windows LAPS v2.",
+      "author": {
+        "name": "TMAdmin Team",
+        "url": "https://github.com/mentalchaos0x2b"
+      },
+      "category": "active-directory",
+      "icon": "KeyOutline",
+      "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+      "license": "MIT",
+      "latestVersion": "1.0.0",
+      "releases": [
+        {
+          "version": "1.0.0",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-10T12:00:00Z",
+          "changelog": "Поддержка атрибутов ms-Mcs-AdmPwd и msLAPS-Password с копированием в буфер.",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.0/plugin.zip",
+          "sha256": "0f1099a04f44cd5eb40d9f6f25b3607784e1407d0ccf059bc904df966d6be146",
+          "permissions": [
+            "ldap.query",
+            "keychain"
+          ],
+          "blocks": [
+            {
+              "id": "laps-viewer",
+              "title": "LAPS Пароль",
+              "icon": "KeyOutline",
+              "defaultSize": {
+                "w": 8,
+                "h": 5
+              },
+              "minSize": {
+                "w": 6,
+                "h": 4
+              },
+              "description": "Получение пароля локального администратора ПК и срока его действия из AD"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ldap",
+      "name": "Active Directory Inspector",
+      "description": "Карточка компьютера и пользователя в домене AD: подразделение (OU), членство в группах, ОС и статус блокировки.",
+      "author": {
+        "name": "TMAdmin Team",
+        "url": "https://github.com/mentalchaos0x2b"
+      },
+      "category": "active-directory",
+      "icon": "ServerOutline",
+      "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+      "license": "MIT",
+      "latestVersion": "1.0.0",
+      "releases": [
+        {
+          "version": "1.0.0",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-10T12:00:00Z",
+          "changelog": "Инспекция объектов компьютеров и доменных групп через LDAP.",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/ldap/1.0.0/plugin.zip",
+          "sha256": "849cdfdf807a558957875b98691b41acc47095fb25495776f5edd201be3a2e31",
+          "permissions": [
+            "ldap.query"
+          ],
+          "blocks": [
+            {
+              "id": "ad-computer",
+              "title": "AD Объект ПК",
+              "icon": "ServerOutline",
+              "defaultSize": {
+                "w": 10,
+                "h": 6
+              },
+              "minSize": {
+                "w": 6,
+                "h": 4
+              },
+              "description": "Доменные атрибуты компьютера, DN, версия Windows и группы безопасности"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smb",
+      "name": "SMB & Printer Audit",
+      "description": "Аудит сетевых шар, открытых SMB-сессий и подключённых принтеров на удалённой рабочей станции.",
+      "author": {
+        "name": "TMAdmin Team",
+        "url": "https://github.com/mentalchaos0x2b"
+      },
+      "category": "system",
+      "icon": "PrintOutline",
+      "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+      "license": "MIT",
+      "latestVersion": "1.0.0",
+      "releases": [
+        {
+          "version": "1.0.0",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-10T12:00:00Z",
+          "changelog": "Отчёт по сетевым принтерам, портам печати и общим папкам SMB.",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/smb/1.0.0/plugin.zip",
+          "sha256": "d6dcc509f96bd0cbec8b4d05abaa3d41fa98aa27b9897f2a56bff7ae62a3b72c",
+          "permissions": [
+            "process.exec",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "printer-audit",
+              "title": "Принтеры и SMB",
+              "icon": "PrintOutline",
+              "defaultSize": {
+                "w": 12,
+                "h": 6
+              },
+              "minSize": {
+                "w": 8,
+                "h": 4
+              },
+              "description": "Список установленных принтеров, драйверов и сетевых шар целевого ПК"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "terminal",
+      "name": "PTY PowerShell Terminal",
+      "description": "Встроенный интерактивный PTY-терминал (PowerShell / CMD) с привязкой к контексту текущего target.",
+      "author": {
+        "name": "TMAdmin Team",
+        "url": "https://github.com/mentalchaos0x2b"
+      },
+      "category": "system",
+      "icon": "TerminalOutline",
+      "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+      "license": "MIT",
+      "latestVersion": "1.0.0",
+      "releases": [
+        {
+          "version": "1.0.0",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-10T12:00:00Z",
+          "changelog": "Полноценная эмуляция терминала xterm.js поверх системного PTY.",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/terminal/1.0.0/plugin.zip",
+          "sha256": "3e6666a7515e25567087e6e2e72b0d791aaef8bdd0a6834b573290569f972c0a",
+          "permissions": [
+            "terminal"
+          ],
+          "blocks": [
+            {
+              "id": "pty",
+              "title": "Терминал",
+              "icon": "TerminalOutline",
+              "defaultSize": {
+                "w": 24,
+                "h": 8
+              },
+              "minSize": {
+                "w": 10,
+                "h": 5
+              },
+              "description": "Интерактивная консоль администратора с быстрыми командами"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wol-utility",
+      "name": "Wake-on-LAN Magic Packet",
+      "description": "Пробуждение выключенных рабочих станций по MAC-адресу через отправку UDP Magic Packet в подсеть.",
+      "author": {
+        "name": "TMAdmin Community",
+        "url": "https://github.com/mentalchaos0x2b/TMAdminPlugins"
+      },
+      "category": "utility",
+      "icon": "FlashOutline",
+      "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+      "license": "MIT",
+      "latestVersion": "1.2.0",
+      "releases": [
+        {
+          "version": "1.2.0",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-10T12:00:00Z",
+          "changelog": "Добавлено сохранение истории MAC-адресов и широковещательный порт 9/7.",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/wol-utility/1.2.0/plugin.zip",
+          "sha256": "ecdba2eded35b9216ba4ece4afac4c148c30e5988942828f0ad47d1f8b1c5033",
+          "permissions": [
+            "net.ping",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "wol-sender",
+              "title": "Wake-on-LAN",
+              "icon": "FlashOutline",
+              "defaultSize": {
+                "w": 8,
+                "h": 5
+              },
+              "minSize": {
+                "w": 6,
+                "h": 4
+              },
+              "description": "Отправка пакета пробуждения по MAC-адресу с проверкой выхода ПК на связь"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "port-scanner",
+      "name": "TCP Port & Service Scanner",
+      "description": "Экспресс-проверка открытых инфраструктурных TCP-портов (RDP 3389, WinRM 5985, SMB 445, VNC 5900, SSH 22).",
+      "author": {
+        "name": "TMAdmin Community",
+        "url": "https://github.com/mentalchaos0x2b/TMAdminPlugins"
+      },
+      "category": "monitoring",
+      "icon": "SpeedometerOutline",
+      "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+      "license": "MIT",
+      "latestVersion": "1.1.0",
+      "releases": [
+        {
+          "version": "1.1.0",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-10T12:00:00Z",
+          "changelog": "Настраиваемые профили портов и индикация времени TCP-рукопожатия.",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/port-scanner/1.1.0/plugin.zip",
+          "sha256": "ad4b8313e4f8877c4e81a0bbc975f9f6bb20814c0dd4addaad4af9907c2ded5a",
+          "permissions": [
+            "net.ping",
+            "process.exec"
+          ],
+          "blocks": [
+            {
+              "id": "tcp-scanner",
+              "title": "Сканер портов",
+              "icon": "SpeedometerOutline",
+              "defaultSize": {
+                "w": 10,
+                "h": 6
+              },
+              "minSize": {
+                "w": 6,
+                "h": 4
+              },
+              "description": "Проверка доступности базовых служб администрирования на целевом хосте"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "app": {
+    "latestVersion": "0.1.0",
+    "updaterManifestUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/app/latest.json"
+  }
+}
