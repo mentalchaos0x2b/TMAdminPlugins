@@ -58,8 +58,8 @@ jobs:
 
           const allowedCategories = ["system", "network", "remote", "active-directory", "utility", "monitoring"];
           const allowedPermissions = [
-            "net.ping", "process.exec", "fs.external", "ldap.query",
-            "store.write", "terminal", "keychain"
+            "net.ping", "process.exec", "fs.external", "fs.read", "fs.write",
+            "ldap.query", "store.write", "terminal", "keychain"
           ];
           const semverRegex = /^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$/;
           const sha256Regex = /^[a-f0-9]{64}$/i;

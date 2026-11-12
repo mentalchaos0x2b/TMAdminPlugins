@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-10T15:00:00Z",
+  "updatedAt": "2026-11-12T09:24:40Z",
   "plugins": [
     {
       "id": "network",
@@ -213,7 +213,7 @@
           "releasedAt": "2026-11-10T12:00:00Z",
           "changelog": "Отчёт по сетевым принтерам, портам печати и общим папкам SMB.",
           "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/smb/1.0.0/plugin.zip",
-          "sha256": "d6dcc509f96bd0cbec8b4d05abaa3d41fa98aa27b9897f2a56bff7ae62a3b72c",
+          "sha256": "7321b56dc89df2711fd8c973d7fb1047bdabd22605943b6a7e402d8d07b3b7a8",
           "permissions": [
             "process.exec",
             "store.write"
@@ -275,94 +275,6 @@
                 "h": 5
               },
               "description": "Интерактивная консоль администратора с быстрыми командами"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "wol-utility",
-      "name": "Wake-on-LAN Magic Packet",
-      "description": "Пробуждение выключенных рабочих станций по MAC-адресу через отправку UDP Magic Packet в подсеть.",
-      "author": {
-        "name": "TMAdmin Community",
-        "url": "https://github.com/mentalchaos0x2b/TMAdminPlugins"
-      },
-      "category": "utility",
-      "icon": "FlashOutline",
-      "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
-      "license": "MIT",
-      "latestVersion": "1.2.0",
-      "releases": [
-        {
-          "version": "1.2.0",
-          "minAppVersion": "0.1.0",
-          "releasedAt": "2026-11-10T12:00:00Z",
-          "changelog": "Добавлено сохранение истории MAC-адресов и широковещательный порт 9/7.",
-          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/wol-utility/1.2.0/plugin.zip",
-          "sha256": "ecdba2eded35b9216ba4ece4afac4c148c30e5988942828f0ad47d1f8b1c5033",
-          "permissions": [
-            "net.ping",
-            "store.write"
-          ],
-          "blocks": [
-            {
-              "id": "wol-sender",
-              "title": "Wake-on-LAN",
-              "icon": "FlashOutline",
-              "defaultSize": {
-                "w": 8,
-                "h": 5
-              },
-              "minSize": {
-                "w": 6,
-                "h": 4
-              },
-              "description": "Отправка пакета пробуждения по MAC-адресу с проверкой выхода ПК на связь"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "port-scanner",
-      "name": "TCP Port & Service Scanner",
-      "description": "Экспресс-проверка открытых инфраструктурных TCP-портов (RDP 3389, WinRM 5985, SMB 445, VNC 5900, SSH 22).",
-      "author": {
-        "name": "TMAdmin Community",
-        "url": "https://github.com/mentalchaos0x2b/TMAdminPlugins"
-      },
-      "category": "monitoring",
-      "icon": "SpeedometerOutline",
-      "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
-      "license": "MIT",
-      "latestVersion": "1.1.0",
-      "releases": [
-        {
-          "version": "1.1.0",
-          "minAppVersion": "0.1.0",
-          "releasedAt": "2026-11-10T12:00:00Z",
-          "changelog": "Настраиваемые профили портов и индикация времени TCP-рукопожатия.",
-          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/port-scanner/1.1.0/plugin.zip",
-          "sha256": "ad4b8313e4f8877c4e81a0bbc975f9f6bb20814c0dd4addaad4af9907c2ded5a",
-          "permissions": [
-            "net.ping",
-            "process.exec"
-          ],
-          "blocks": [
-            {
-              "id": "tcp-scanner",
-              "title": "Сканер портов",
-              "icon": "SpeedometerOutline",
-              "defaultSize": {
-                "w": 10,
-                "h": 6
-              },
-              "minSize": {
-                "w": 6,
-                "h": 4
-              },
-              "description": "Проверка доступности базовых служб администрирования на целевом хосте"
             }
           ]
         }

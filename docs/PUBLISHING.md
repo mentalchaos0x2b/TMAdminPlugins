@@ -30,6 +30,8 @@ plugin.zip
   - `net.ping` — отправка ICMP/ping запросов
   - `process.exec` — запуск исполняемых файлов
   - `fs.external` — доступ к папке external/ плагина
+  - `fs.read` — чтение файлов
+  - `fs.write` — запись и изменение файлов
   - `ldap.query` — выполнение запросов к Active Directory / LDAP
   - `store.write` — сохранение данных в постоянное хранилище
   - `terminal` — интеграция с терминалом PTY
