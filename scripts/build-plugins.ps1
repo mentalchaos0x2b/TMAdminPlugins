@@ -114,16 +114,50 @@ foreach ($srcFolder in $sourceFolders) {
         continue
     }
 
-    # Optional market.json
-    $marketJsonPath = Join-Path $srcFolder.FullName "market.json"
-    $marketMeta = $null
-    if (Test-Path $marketJsonPath) {
-        try {
-            $marketJsonText = [System.IO.File]::ReadAllText($marketJsonPath, [System.Text.UTF8Encoding]::new($false))
-            $marketMeta = $marketJsonText | ConvertFrom-Json
-        } catch {
-            Write-Warning "Failed to parse market.json for $id"
+    # Resolve author object
+    $resolvedAuthor = $null
+    if ($marketMeta -and $marketMeta.author) {
+        $resolvedAuthor = $marketMeta.author
+    } elseif ($existingPlugin -and $existingPlugin.author) {
+        $resolvedAuthor = $existingPlugin.author
+    } elseif ($author) {
+        if ($author -is [string]) {
+            $resolvedAuthor = [ordered]@{
+                "name" = $author
+                "url" = "https://github.com/mentalchaos0x2b"
+            }
+        } else {
+            $resolvedAuthor = $author
         }
+    } else {
+        $resolvedAuthor = [ordered]@{
+            "name" = "TMAdmin Core"
+            "url" = "https://github.com/mentalchaos0x2b"
+        }
+    }
+
+    # Resolve category
+    $resolvedCategory = "utility"
+    if ($marketMeta -and $marketMeta.category) {
+        $resolvedCategory = $marketMeta.category
+    } elseif ($existingPlugin -and $existingPlugin.category) {
+        $resolvedCategory = $existingPlugin.category
+    }
+
+    # Resolve license
+    $resolvedLicense = "MIT"
+    if ($marketMeta -and $marketMeta.license) {
+        $resolvedLicense = $marketMeta.license
+    } elseif ($existingPlugin -and $existingPlugin.license) {
+        $resolvedLicense = $existingPlugin.license
+    }
+
+    # Resolve repository
+    $resolvedRepository = "https://github.com/mentalchaos0x2b/TMAdminPlugins"
+    if ($marketMeta -and $marketMeta.repository) {
+        $resolvedRepository = $marketMeta.repository
+    } elseif ($existingPlugin -and $existingPlugin.repository) {
+        $resolvedRepository = $existingPlugin.repository
     }
 
     $destVersionDir = Join-Path $pluginsDir "$id/$version"
@@ -227,11 +261,11 @@ foreach ($srcFolder in $sourceFolders) {
             "id" = $id
             "name" = if ($marketMeta -and $marketMeta.name) { $marketMeta.name } else { $name }
             "description" = if ($marketMeta -and $marketMeta.description) { $marketMeta.description } else { $description }
-            "author" = if ($marketMeta -and $marketMeta.author) { $marketMeta.author } else { $author }
-            "category" = if ($marketMeta -and $marketMeta.category) { $marketMeta.category } else { "system" }
+            "author" = $resolvedAuthor
+            "category" = $resolvedCategory
             "icon" = if ($marketMeta -and $marketMeta.icon) { $marketMeta.icon } else { $icon }
-            "repository" = if ($marketMeta -and $marketMeta.repository) { $marketMeta.repository } else { "https://github.com/mentalchaos0x2b/TMAdminPlugins" }
-            "license" = if ($marketMeta -and $marketMeta.license) { $marketMeta.license } else { "MIT" }
+            "repository" = $resolvedRepository
+            "license" = $resolvedLicense
             "latestVersion" = $version
             "releases" = [System.Collections.ArrayList]@($releaseObj)
         }
@@ -240,17 +274,16 @@ foreach ($srcFolder in $sourceFolders) {
         if ($marketMeta) {
             if ($marketMeta.name) { $existingPlugin.name = $marketMeta.name }
             if ($marketMeta.description) { $existingPlugin.description = $marketMeta.description }
-            if ($marketMeta.author) { $existingPlugin.author = $marketMeta.author }
-            if ($marketMeta.category) { $existingPlugin.category = $marketMeta.category }
             if ($marketMeta.icon) { $existingPlugin.icon = $marketMeta.icon }
-            if ($marketMeta.repository) { $existingPlugin.repository = $marketMeta.repository }
-            if ($marketMeta.license) { $existingPlugin.license = $marketMeta.license }
         } else {
             if ($name) { $existingPlugin.name = $name }
             if ($description) { $existingPlugin.description = $description }
-            if ($author) { $existingPlugin.author = $author }
             if ($icon) { $existingPlugin.icon = $icon }
         }
+        $existingPlugin.author = $resolvedAuthor
+        $existingPlugin.category = $resolvedCategory
+        $existingPlugin.license = $resolvedLicense
+        $existingPlugin.repository = $resolvedRepository
 
         $existingPlugin.latestVersion = $version
 

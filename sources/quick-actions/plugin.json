@@ -6,9 +6,8 @@
   "description": "Панель быстрых действий (перезагрузка, служба, пинг)",
   "icon": "FlashOutline",
   "permissions": [
-    "system.exec",
-    "net.ping",
-    "service.manage"
+    "process.exec",
+    "net.ping"
   ],
   "blocks": [
     {

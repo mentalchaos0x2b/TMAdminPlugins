@@ -7,8 +7,7 @@
   "icon": "FolderOpenOutline",
   "permissions": [
     "fs.read",
-    "process.exec",
-    "fs.external"
+    "process.exec"
   ],
   "blocks": [
     {

@@ -1,0 +1,9 @@
+{
+  "category": "remote",
+  "license": "MIT",
+  "author": {
+    "name": "TMAdmin Team",
+    "url": "https://github.com/mentalchaos0x2b"
+  },
+  "minAppVersion": "0.1.0"
+}

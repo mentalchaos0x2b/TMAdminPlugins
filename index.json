@@ -1,6 +1,6 @@
 {
     "schemaVersion":  1,
-    "updatedAt":  "2026-11-18T12:09:15.132Z",
+    "updatedAt":  "2026-11-18T12:18:11.056Z",
     "plugins":  [
                     {
                         "id":  "network",
@@ -239,8 +239,11 @@
                         "id":  "network-share-browser",
                         "name":  "Сетевая папка _WORK",
                         "description":  "Проводник по сетевой папке \\\\pc5700\\_WORK с контекстным меню копирования пути и запуска через PSExec",
-                        "author":  "TMAdmin Core",
-                        "category":  "system",
+                        "author":  {
+                                       "name":  "TMAdmin Core",
+                                       "url":  "https://github.com/mentalchaos0x2b"
+                                   },
+                        "category":  "utility",
                         "icon":  "FolderOpenOutline",
                         "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
                         "license":  "MIT",
@@ -249,14 +252,13 @@
                                          {
                                              "version":  "1.0.0",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-18T12:09:14.385Z",
+                                             "releasedAt":  "2026-11-18T12:18:10.286Z",
                                              "changelog":  "Release version 1.0.0",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network-share-browser/1.0.0/plugin.zip",
-                                             "sha256":  "a43bab61ce6aa0562cac2ea02c26ecebea5bb690edd62e79b96281c93d84b58c",
+                                             "sha256":  "da50e570144b711499b453acc4bf3693570b45388fb7766f3c22092e6d267a79",
                                              "permissions":  [
                                                                  "fs.read",
-                                                                 "process.exec",
-                                                                 "fs.external"
+                                                                 "process.exec"
                                                              ],
                                              "blocks":  [
                                                             {
@@ -284,7 +286,10 @@
                         "name":  "Quick Actions",
                         "version":  "1.0.0",
                         "description":  "Панель быстрых действий (перезагрузка, служба, пинг)",
-                        "author":  "TMAdmin Core",
+                        "author":  {
+                                       "name":  "TMAdmin Core",
+                                       "url":  "https://github.com/mentalchaos0x2b"
+                                   },
                         "icon":  "FlashOutline",
                         "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/quick-actions/1.0.0/plugin.zip",
                         "sha256":  "da342f6146cb632bc34896549fa62ddff542dff90d12b37d0e60cbee62c7ec35",
@@ -315,14 +320,13 @@
                                          {
                                              "version":  "1.0.0",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-18T12:09:15.127Z",
+                                             "releasedAt":  "2026-11-18T12:18:11.052Z",
                                              "changelog":  "Release version 1.0.0",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/quick-actions/1.0.0/plugin.zip",
-                                             "sha256":  "730fa560ec3e63896d3cbb8044bda49d7178bd1254594ca14ed263bb0de318aa",
+                                             "sha256":  "451ad0141153e829a7d6b3f6f5163ca8a8e73b2f6dace90d0e6d53139de341c6",
                                              "permissions":  [
-                                                                 "system.exec",
-                                                                 "net.ping",
-                                                                 "service.manage"
+                                                                 "process.exec",
+                                                                 "net.ping"
                                                              ],
                                              "blocks":  [
                                                             {
@@ -342,7 +346,10 @@
                                                             }
                                                         ]
                                          }
-                                     ]
+                                     ],
+                        "category":  "utility",
+                        "license":  "MIT",
+                        "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins"
                     }
                 ],
     "app":  {
