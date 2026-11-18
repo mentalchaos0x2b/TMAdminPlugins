@@ -27,18 +27,58 @@ if (-not (Test-Path $pluginsDir)) {
 # Load or initialize index.json
 $indexData = [ordered]@{}
 if (Test-Path $indexJsonPath) {
-    $indexContent = [System.IO.File]::ReadAllText($indexJsonPath, (New-Object System.Text.UTF8Encoding $false))
+    $indexContent = [System.IO.File]::ReadAllText($indexJsonPath, [System.Text.UTF8Encoding]::new($false))
     $parsedIndex = $indexContent | ConvertFrom-Json
     if ($parsedIndex) {
         foreach ($key in $parsedIndex.psobject.properties.Name) {
-            $indexData[$key] = $parsedIndex.$key
+            $val = $parsedIndex.$key
+            if ($key -eq "plugins" -and $val) {
+                $pArr = [System.Collections.ArrayList]::new()
+                foreach ($p in $val) {
+                    $pObj = [ordered]@{}
+                    foreach ($pProp in $p.psobject.properties) {
+                        if ($pProp.Name -eq "releases" -and $pProp.Value) {
+                            $rArr = [System.Collections.ArrayList]::new()
+                            foreach ($r in $pProp.Value) {
+                                $rObj = [ordered]@{}
+                                foreach ($rProp in $r.psobject.properties) {
+                                    if ($rProp.Name -eq "permissions" -or $rProp.Name -eq "blocks") {
+                                        $subArr = [System.Collections.ArrayList]::new()
+                                        if ($rProp.Value) {
+                                            foreach ($item in $rProp.Value) {
+                                                [void]$subArr.Add($item)
+                                            }
+                                        }
+                                        $rObj[$rProp.Name] = $subArr
+                                    } else {
+                                        $rObj[$rProp.Name] = $rProp.Value
+                                    }
+                                }
+                                [void]$rArr.Add($rObj)
+                            }
+                            $pObj["releases"] = $rArr
+                        } else {
+                            $pObj[$pProp.Name] = $pProp.Value
+                        }
+                    }
+                    [void]$pArr.Add($pObj)
+                }
+                $indexData[$key] = $pArr
+            } else {
+                $indexData[$key] = $val
+            }
         }
     }
 }
+
 if (-not $indexData.Contains("plugins")) {
-    $indexData["plugins"] = [ordered]@{}
+    $indexData["plugins"] = [System.Collections.ArrayList]::new()
 }
-$indexData["updatedAt"] = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+
+$indexData["updatedAt"] = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
+if (-not $indexData.Contains("schemaVersion")) {
+    $indexData["schemaVersion"] = 1
+}
 
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
@@ -53,7 +93,7 @@ foreach ($srcFolder in $sourceFolders) {
     }
 
     try {
-        $pluginJsonText = [System.IO.File]::ReadAllText($pluginJsonPath, (New-Object System.Text.UTF8Encoding $false))
+        $pluginJsonText = [System.IO.File]::ReadAllText($pluginJsonPath, [System.Text.UTF8Encoding]::new($false))
         $pluginMeta = $pluginJsonText | ConvertFrom-Json
     } catch {
         Write-Error "Failed to parse plugin.json for $($srcFolder.Name): $_"
@@ -66,8 +106,8 @@ foreach ($srcFolder in $sourceFolders) {
     $description = $pluginMeta.description
     $author = $pluginMeta.author
     $icon = $pluginMeta.icon
-    $permissions = $pluginMeta.permissions
-    $blocks = $pluginMeta.blocks
+    $rawPermissions = $pluginMeta.permissions
+    $rawBlocks = $pluginMeta.blocks
 
     if (-not $id -or -not $version) {
         Write-Error "Invalid plugin.json in $($srcFolder.Name): 'id' and 'version' are required."
@@ -79,7 +119,7 @@ foreach ($srcFolder in $sourceFolders) {
     $marketMeta = $null
     if (Test-Path $marketJsonPath) {
         try {
-            $marketJsonText = [System.IO.File]::ReadAllText($marketJsonPath, (New-Object System.Text.UTF8Encoding $false))
+            $marketJsonText = [System.IO.File]::ReadAllText($marketJsonPath, [System.Text.UTF8Encoding]::new($false))
             $marketMeta = $marketJsonText | ConvertFrom-Json
         } catch {
             Write-Warning "Failed to parse market.json for $id"
@@ -96,7 +136,7 @@ foreach ($srcFolder in $sourceFolders) {
         Remove-Item $zipPath -Force
     }
 
-    # Create zip archive carefully excluding market.json, .DS_Store, Thumbs.db
+    # Create zip archive
     $zipFile = [System.IO.Compression.ZipFile]::Open($zipPath, [System.IO.Compression.ZipArchiveMode]::Create)
     try {
         $files = Get-ChildItem -Path $srcFolder.FullName -Recurse -File
@@ -106,7 +146,6 @@ foreach ($srcFolder in $sourceFolders) {
                 continue
             }
 
-            # Relative path from source folder root
             $relPath = $file.FullName.Substring($srcFolder.FullName.Length + 1)
             $relPathNormalized = $relPath -replace '\\', '/'
 
@@ -118,84 +157,132 @@ foreach ($srcFolder in $sourceFolders) {
     }
 
     # Calculate SHA256
-    $sha256Hash = (Get-FileHash -Path $zipPath -Algorithm SHA256).Hash.ToLower()
+    $hasher = [System.Security.Cryptography.SHA256]::Create()
+    $fs = [System.IO.File]::Open($zipPath, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [System.IO.FileShare]::Read)
+    try {
+        $hashBytes = $hasher.ComputeHash($fs)
+        $sha256Hash = [BitConverter]::ToString($hashBytes).Replace("-", "").ToLower()
+    }
+    finally {
+        $fs.Dispose()
+        $hasher.Dispose()
+    }
+
     $sha256SumLine = "$sha256Hash *plugin.zip"
     $sha256SumPath = Join-Path $destVersionDir "SHA256SUMS"
-    [System.IO.File]::WriteAllText($sha256SumPath, $sha256SumLine, (New-Object System.Text.UTF8Encoding $false))
+    [System.IO.File]::WriteAllText($sha256SumPath, $sha256SumLine, [System.Text.UTF8Encoding]::new($false))
 
-    # Update index.json structure
     $downloadUrl = "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/$id/$version/plugin.zip"
 
-    $pluginEntry = [ordered]@{
-        "id" = $id
+    # Prepare permissions ArrayList
+    $permList = [System.Collections.ArrayList]::new()
+    if ($rawPermissions) {
+        foreach ($p in $rawPermissions) {
+            [void]$permList.Add($p)
+        }
+    }
+
+    # Prepare blocks ArrayList
+    $blocksList = [System.Collections.ArrayList]::new()
+    if ($rawBlocks) {
+        foreach ($b in $rawBlocks) {
+            $bObj = [ordered]@{}
+            foreach ($prop in $b.psobject.properties) {
+                if ($prop.Name -eq "defaultSize" -or $prop.Name -eq "minSize") {
+                    $szObj = [ordered]@{}
+                    foreach ($szProp in $prop.Value.psobject.properties) {
+                        $szObj[$szProp.Name] = $szProp.Value
+                    }
+                    $bObj[$prop.Name] = $szObj
+                } else {
+                    $bObj[$prop.Name] = $prop.Value
+                }
+            }
+            [void]$blocksList.Add($bObj)
+        }
+    }
+
+    $releaseObj = [ordered]@{
         "version" = $version
-        "name" = $name
-        "description" = $description
-        "author" = $author
-        "icon" = $icon
+        "minAppVersion" = if ($marketMeta -and $marketMeta.minAppVersion) { $marketMeta.minAppVersion } else { "0.1.0" }
+        "releasedAt" = if ($marketMeta -and $marketMeta.releasedAt) { $marketMeta.releasedAt } else { (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ") }
+        "changelog" = if ($marketMeta -and $marketMeta.changelog) { $marketMeta.changelog } else { "Release version $version" }
         "downloadUrl" = $downloadUrl
         "sha256" = $sha256Hash
-        "permissions" = $permissions
-        "blocks" = $blocks
+        "permissions" = $permList
+        "blocks" = $blocksList
     }
 
-    if ($marketMeta) {
-        if ($marketMeta.category) { $pluginEntry["category"] = $marketMeta.category }
-        if ($marketMeta.license) { $pluginEntry["license"] = $marketMeta.license }
-        if ($marketMeta.repository) { $pluginEntry["repository"] = $marketMeta.repository }
-        if ($marketMeta.minAppVersion) { $pluginEntry["minAppVersion"] = $marketMeta.minAppVersion }
-        if ($marketMeta.changelog) { $pluginEntry["changelog"] = $marketMeta.changelog }
+    # Find existing plugin
+    $existingPlugin = $null
+    foreach ($p in $indexData["plugins"]) {
+        if ($p.id -eq $id) {
+            $existingPlugin = $p
+            break
+        }
     }
 
-    # Ensure plugins hashtable has the entry
-    $pluginsDict = $indexData["plugins"]
-    if ($pluginsDict -is [System.Collections.IDictionary]) {
-        if (-not $pluginsDict.Contains($id)) {
-            $pluginsDict[$id] = [ordered]@{}
+    if (-not $existingPlugin) {
+        $newPlugin = [ordered]@{
+            "id" = $id
+            "name" = if ($marketMeta -and $marketMeta.name) { $marketMeta.name } else { $name }
+            "description" = if ($marketMeta -and $marketMeta.description) { $marketMeta.description } else { $description }
+            "author" = if ($marketMeta -and $marketMeta.author) { $marketMeta.author } else { $author }
+            "category" = if ($marketMeta -and $marketMeta.category) { $marketMeta.category } else { "system" }
+            "icon" = if ($marketMeta -and $marketMeta.icon) { $marketMeta.icon } else { $icon }
+            "repository" = if ($marketMeta -and $marketMeta.repository) { $marketMeta.repository } else { "https://github.com/mentalchaos0x2b/TMAdminPlugins" }
+            "license" = if ($marketMeta -and $marketMeta.license) { $marketMeta.license } else { "MIT" }
+            "latestVersion" = $version
+            "releases" = [System.Collections.ArrayList]@($releaseObj)
         }
-        $versionDict = $pluginsDict[$id]
-        if (-not $versionDict) {
-            $versionDict = [ordered]@{}
-            $pluginsDict[$id] = $versionDict
-        }
-        if ($versionDict -is [System.Collections.IDictionary]) {
-            $versionDict["latestVersion"] = $version
-            $versionDict[$version] = $pluginEntry
-        } else {
-            $newVersionDict = [ordered]@{}
-            foreach ($k in $versionDict.psobject.properties.Name) {
-                $newVersionDict[$k] = $versionDict.$k
-            }
-            $newVersionDict["latestVersion"] = $version
-            $newVersionDict[$version] = $pluginEntry
-            $pluginsDict[$id] = $newVersionDict
-        }
+        [void]$indexData["plugins"].Add($newPlugin)
     } else {
-        $newPluginsDict = [ordered]@{}
-        foreach ($key in $pluginsDict.psobject.properties.Name) {
-            $newPluginsDict[$key] = $pluginsDict.$key
-        }
-        if (-not $newPluginsDict.Contains($id)) {
-            $newPluginsDict[$id] = [ordered]@{}
-        }
-        $targetVerDict = $newPluginsDict[$id]
-        if (-not $targetVerDict) {
-            $targetVerDict = [ordered]@{}
-            $newPluginsDict[$id] = $targetVerDict
-        }
-        if ($targetVerDict -is [System.Collections.IDictionary]) {
-            $targetVerDict["latestVersion"] = $version
-            $targetVerDict[$version] = $pluginEntry
+        if ($marketMeta) {
+            if ($marketMeta.name) { $existingPlugin.name = $marketMeta.name }
+            if ($marketMeta.description) { $existingPlugin.description = $marketMeta.description }
+            if ($marketMeta.author) { $existingPlugin.author = $marketMeta.author }
+            if ($marketMeta.category) { $existingPlugin.category = $marketMeta.category }
+            if ($marketMeta.icon) { $existingPlugin.icon = $marketMeta.icon }
+            if ($marketMeta.repository) { $existingPlugin.repository = $marketMeta.repository }
+            if ($marketMeta.license) { $existingPlugin.license = $marketMeta.license }
         } else {
-            $newVerDict = [ordered]@{}
-            foreach ($k in $targetVerDict.psobject.properties.Name) {
-                $newVerDict[$k] = $targetVerDict.$k
-            }
-            $newVerDict["latestVersion"] = $version
-            $newVerDict[$version] = $pluginEntry
-            $newPluginsDict[$id] = $newVerDict
+            if ($name) { $existingPlugin.name = $name }
+            if ($description) { $existingPlugin.description = $description }
+            if ($author) { $existingPlugin.author = $author }
+            if ($icon) { $existingPlugin.icon = $icon }
         }
-        $indexData["plugins"] = $newPluginsDict
+
+        $existingPlugin.latestVersion = $version
+
+        if ($existingPlugin.releases -isnot [System.Collections.ArrayList]) {
+            $relArr = [System.Collections.ArrayList]::new()
+            if ($existingPlugin.releases) {
+                foreach ($r in $existingPlugin.releases) {
+                    [void]$relArr.Add($r)
+                }
+            }
+            $existingPlugin.releases = $relArr
+        }
+
+        $foundRelease = $null
+        foreach ($r in $existingPlugin.releases) {
+            if ($r.version -eq $version) {
+                $foundRelease = $r
+                break
+            }
+        }
+
+        if ($foundRelease) {
+            $foundRelease.minAppVersion = $releaseObj.minAppVersion
+            $foundRelease.releasedAt = $releaseObj.releasedAt
+            $foundRelease.changelog = $releaseObj.changelog
+            $foundRelease.downloadUrl = $releaseObj.downloadUrl
+            $foundRelease.sha256 = $releaseObj.sha256
+            $foundRelease.permissions = $releaseObj.permissions
+            $foundRelease.blocks = $releaseObj.blocks
+        } else {
+            [void]$existingPlugin.releases.Add($releaseObj)
+        }
     }
 
     Write-Host "Processed plugin: $id ($version)" -ForegroundColor Green
@@ -203,10 +290,9 @@ foreach ($srcFolder in $sourceFolders) {
     Write-Host "  SHA256: $sha256Hash"
 }
 
-$indexData["updatedAt"] = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+$indexData["updatedAt"] = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
 
-# Save index.json as UTF-8 without BOM
-$jsonOutput = $indexData | ConvertTo-Json -Depth 10
-[System.IO.File]::WriteAllText($indexJsonPath, $jsonOutput, (New-Object System.Text.UTF8Encoding $false))
+$jsonOutput = $indexData | ConvertTo-Json -Depth 20
+[System.IO.File]::WriteAllText($indexJsonPath, $jsonOutput, [System.Text.UTF8Encoding]::new($false))
 
 Write-Host "Build completed successfully. index.json updated." -ForegroundColor Green
