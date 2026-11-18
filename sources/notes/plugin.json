@@ -1,0 +1,28 @@
+{
+    "id":  "notes",
+    "name":  "Заметки",
+    "version":  "0.1.0",
+    "author":  "TMAdmin Core",
+    "description":  "Быстрые рабочие заметки и напоминания администратора с постоянным автосохранением",
+    "icon":  "DocumentTextOutline",
+    "permissions":  [
+                        "store.write"
+                    ],
+    "blocks":  [
+                   {
+                       "id":  "notes",
+                       "title":  "Заметки",
+                       "entry":  "blocks/NotesBlock.vue",
+                       "icon":  "DocumentTextOutline",
+                       "description":  "Полноэкранный блок заметок с автосохранением, статистикой и адаптацией к любому размеру",
+                       "defaultSize":  {
+                                           "w":  24,
+                                           "h":  10
+                                       },
+                       "minSize":  {
+                                       "w":  6,
+                                       "h":  4
+                                   }
+                   }
+               ]
+}

@@ -1,0 +1,12 @@
+{
+    "author":  {
+                   "name":  "TMAdmin Team",
+                   "url":  "https://github.com/mentalchaos0x2b"
+               },
+    "name":  "Hello Plugin",
+    "changelog":  "Initial release",
+    "description":  "Приветственный плагин для проверки работы SDK",
+    "minAppVersion":  "0.1.0",
+    "category":  "utility",
+    "license":  "MIT"
+}

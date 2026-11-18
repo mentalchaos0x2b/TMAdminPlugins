@@ -1,0 +1,29 @@
+{
+    "id":  "ldap",
+    "name":  "Active Directory (LDAP)",
+    "version":  "1.0.0",
+    "author":  "TMAdmin Core",
+    "description":  "Карточка компьютера и пользователя в домене Active Directory: OU подразделения, ОС, последний вход, группы и статус учётной записи",
+    "icon":  "BusinessOutline",
+    "permissions":  [
+                        "ldap.query",
+                        "store.write"
+                    ],
+    "blocks":  [
+                   {
+                       "id":  "user-card",
+                       "title":  "Объект Active Directory",
+                       "entry":  "blocks/LdapComputerCard.vue",
+                       "icon":  "BusinessOutline",
+                       "description":  "Полная карточка учётной записи в Active Directory: DN, иерархия OU, операционная система, группы безопасности и статус",
+                       "defaultSize":  {
+                                           "w":  12,
+                                           "h":  8
+                                       },
+                       "minSize":  {
+                                       "w":  8,
+                                       "h":  6
+                                   }
+                   }
+               ]
+}

@@ -1,0 +1,12 @@
+{
+    "author":  {
+                   "name":  "TMAdmin Team",
+                   "url":  "https://github.com/mentalchaos0x2b"
+               },
+    "name":  "PTY PowerShell Terminal",
+    "changelog":  "РџРѕР»РЅРѕС†РµРЅРЅР°СЏ СЌРјСѓР»СЏС†РёСЏ С‚РµСЂРјРёРЅР°Р»Р° xterm.js РїРѕРІРµСЂС… СЃРёСЃС‚РµРјРЅРѕРіРѕ PTY.",
+    "description":  "Р’СЃС‚СЂРѕРµРЅРЅС‹Р№ РёРЅС‚РµСЂР°РєС‚РёРІРЅС‹Р№ PTY-С‚РµСЂРјРёРЅР°Р» (PowerShell / CMD) СЃ РїСЂРёРІСЏР·РєРѕР№ Рє РєРѕРЅС‚РµРєСЃС‚Сѓ С‚РµРєСѓС‰РµРіРѕ target.",
+    "minAppVersion":  "0.1.0",
+    "category":  "system",
+    "license":  "MIT"
+}

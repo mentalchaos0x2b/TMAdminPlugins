@@ -1,0 +1,44 @@
+{
+    "id":  "network",
+    "name":  "Network",
+    "version":  "1.0.0",
+    "author":  "TMAdmin Core",
+    "description":  "Сетевая диагностика: информация о целевом узле и график задержки RTT в реальном времени",
+    "icon":  "PulseOutline",
+    "permissions":  [
+                        "net.ping",
+                        "store.write"
+                    ],
+    "blocks":  [
+                   {
+                       "id":  "info",
+                       "title":  "Информация об узле",
+                       "entry":  "blocks/DeviceInfo.vue",
+                       "icon":  "InformationCircleOutline",
+                       "description":  "Параметры текущего целевого узла (IP, статус, задержка, заметки)",
+                       "defaultSize":  {
+                                           "w":  8,
+                                           "h":  6
+                                       },
+                       "minSize":  {
+                                       "w":  6,
+                                       "h":  4
+                                   }
+                   },
+                   {
+                       "id":  "ping-chart",
+                       "title":  "График задержки (Ping)",
+                       "entry":  "blocks/PingChart.vue",
+                       "icon":  "PulseOutline",
+                       "description":  "График RTT в реальном времени с метриками min/avg/max/jitter/loss%",
+                       "defaultSize":  {
+                                           "w":  16,
+                                           "h":  8
+                                       },
+                       "minSize":  {
+                                       "w":  8,
+                                       "h":  6
+                                   }
+                   }
+               ]
+}

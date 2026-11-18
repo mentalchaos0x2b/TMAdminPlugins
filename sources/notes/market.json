@@ -1,0 +1,12 @@
+{
+    "author":  {
+                   "name":  "TMAdmin Team",
+                   "url":  "https://github.com/mentalchaos0x2b"
+               },
+    "name":  "Notes / Scratchpad",
+    "changelog":  "Initial release",
+    "description":  "Заметки и быстрая бумага для сисадмина",
+    "minAppVersion":  "0.1.0",
+    "category":  "utility",
+    "license":  "MIT"
+}

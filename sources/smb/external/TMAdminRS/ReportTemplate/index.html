@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/style.css">
+    <link rel="shortcut icon" href="src/assets/icon.ico" type="image/x-icon">
+    <title>TMAdmin Remote Service</title>
+</head>
+<body>
+    <div class="tmrs-wrapper">
+        <header class="tmrs-header">
+            <div class="tmrs-logo"></div>
+            <div class="tmrs-row tmrs-navigation">
+                <a download="download" href="src/report.txt" class="tmrs-button">Скачать .txt</a>
+                <button id="tmrs-toggle-navigation" class="tmrs-button">Навигация</button>
+                <div id="tmrs-navigation-list" style="display: none;" class="tmrs-navigation-list"></div>
+            </div>
+        </header>
+        <div class="tmrs-loading">
+            <div class="tmrs-spinner"></div>
+        </div>
+        <main id="tmrs-report-body" class="tmrs-report-body"></main>
+    </div>
+    <script src="src/TemplateManager.js"></script>
+    <script src="src/_generated.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+    "id":  "hello",
+    "name":  "Hello World",
+    "version":  "1.0.0",
+    "author":  "TMAdmin Core",
+    "description":  "Пример системного плагина с рантайм-компиляцией SFC",
+    "icon":  "HandRightOutline",
+    "permissions":  [
+                        "store.write"
+                    ],
+    "blocks":  [
+                   {
+                       "id":  "hello",
+                       "title":  "Приветствие",
+                       "entry":  "blocks/Hello.vue",
+                       "icon":  "HandRightOutline",
+                       "description":  "Демонстрационный блок с интерактивным счётчиком и статусом target",
+                       "defaultSize":  {
+                                           "w":  8,
+                                           "h":  6
+                                       },
+                       "minSize":  {
+                                       "w":  4,
+                                       "h":  4
+                                   }
+                   }
+               ]
+}

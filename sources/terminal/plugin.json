@@ -1,0 +1,29 @@
+{
+    "id":  "terminal",
+    "name":  "Встроенный терминал",
+    "version":  "1.0.0",
+    "author":  "TMAdmin Core",
+    "description":  "Интерактивный PTY терминал PowerShell и CMD с быстрыми скриптами диагностики узла",
+    "icon":  "TerminalOutline",
+    "permissions":  [
+                        "terminal",
+                        "store.write"
+                    ],
+    "blocks":  [
+                   {
+                       "id":  "pty",
+                       "title":  "Встроенный терминал",
+                       "entry":  "blocks/TerminalBlock.vue",
+                       "icon":  "TerminalOutline",
+                       "description":  "PTY сессия PowerShell/CMD с авто-контекстом текущего узла",
+                       "defaultSize":  {
+                                           "w":  24,
+                                           "h":  8
+                                       },
+                       "minSize":  {
+                                       "w":  8,
+                                       "h":  4
+                                   }
+                   }
+               ]
+}

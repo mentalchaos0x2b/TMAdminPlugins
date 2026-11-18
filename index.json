@@ -2,14 +2,13 @@
     "plugins":  [
                     {
                         "id":  "network",
-                        "name":  "Network Monitor",
-                        "description":  "Мониторинг доступности удалённых ПК, ping в реальном времени с графиком задержек RTT и потерь пакетов.",
+                        "name":  "Network",
+                        "description":  "Сетевая диагностика: информация о целевом узле и график задержки RTT в реальном времени",
                         "author":  {
-                                       "name":  "TMAdmin Team",
-                                       "email":  "support@tmadmin.local",
+                                       "name":  "TMAdmin Core",
                                        "url":  "https://github.com/mentalchaos0x2b"
                                    },
-                        "category":  "network",
+                        "category":  "utility",
                         "icon":  "PulseOutline",
                         "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
                         "license":  "MIT",
@@ -18,10 +17,10 @@
                                          {
                                              "version":  "1.0.0",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-10T12:00:00Z",
-                                             "changelog":  "Первый стабильный релиз блока сетевого мониторинга и графика пинга.",
+                                             "releasedAt":  "2026-11-18T12:33:22.351Z",
+                                             "changelog":  "Release version 1.0.0",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.0/plugin.zip",
-                                             "sha256":  "ee5c455d41ccfc17ffc385ba3d9e9013813580782c340505cb10085dcbe88b73",
+                                             "sha256":  "2a8833842283bbf13100834adda7cb2caf19fe411c4fbbfa60a7eb2a26aba9d3",
                                              "permissions":  [
                                                                  "net.ping",
                                                                  "store.write"
@@ -30,7 +29,9 @@
                                                             {
                                                                 "id":  "info",
                                                                 "title":  "Информация об узле",
+                                                                "entry":  "blocks/DeviceInfo.vue",
                                                                 "icon":  "InformationCircleOutline",
+                                                                "description":  "Параметры текущего целевого узла (IP, статус, задержка, заметки)",
                                                                 "defaultSize":  {
                                                                                     "w":  8,
                                                                                     "h":  6
@@ -38,13 +39,14 @@
                                                                 "minSize":  {
                                                                                 "w":  6,
                                                                                 "h":  4
-                                                                            },
-                                                                "description":  "Параметры текущего целевого узла (IP, статус, задержка, заметки)"
+                                                                            }
                                                             },
                                                             {
                                                                 "id":  "ping-chart",
                                                                 "title":  "График задержки (Ping)",
+                                                                "entry":  "blocks/PingChart.vue",
                                                                 "icon":  "PulseOutline",
+                                                                "description":  "График RTT в реальном времени с метриками min/avg/max/jitter/loss%",
                                                                 "defaultSize":  {
                                                                                     "w":  16,
                                                                                     "h":  8
@@ -52,8 +54,7 @@
                                                                 "minSize":  {
                                                                                 "w":  8,
                                                                                 "h":  6
-                                                                            },
-                                                                "description":  "График RTT в реальном времени с метриками min/avg/max/jitter/loss%"
+                                                                            }
                                                             }
                                                         ]
                                          }
@@ -61,13 +62,13 @@
                     },
                     {
                         "id":  "laps",
-                        "name":  "LAPS Password Manager",
-                        "description":  "Безопасное чтение и ротация локального пароля администратора через Active Directory LAPS / Windows LAPS v2.",
+                        "name":  "LAPS Password",
+                        "description":  "Просмотр и ротация пароля локального администратора LAPS (Local Administrator Password Solution) в Active Directory",
                         "author":  {
-                                       "name":  "TMAdmin Team",
+                                       "name":  "TMAdmin Core",
                                        "url":  "https://github.com/mentalchaos0x2b"
                                    },
-                        "category":  "active-directory",
+                        "category":  "utility",
                         "icon":  "KeyOutline",
                         "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
                         "license":  "MIT",
@@ -76,19 +77,22 @@
                                          {
                                              "version":  "1.0.0",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-10T12:00:00Z",
-                                             "changelog":  "Поддержка атрибутов ms-Mcs-AdmPwd и msLAPS-Password с копированием в буфер.",
+                                             "releasedAt":  "2026-11-18T12:33:22.320Z",
+                                             "changelog":  "Release version 1.0.0",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.0/plugin.zip",
-                                             "sha256":  "0f1099a04f44cd5eb40d9f6f25b3607784e1407d0ccf059bc904df966d6be146",
+                                             "sha256":  "b19036981119b9dc6b3ca664721f446c4fce344bda4f878f9f8e39e23009d4b9",
                                              "permissions":  [
-                                                                 "ldap.query",
-                                                                 "keychain"
+                                                                 "process.exec",
+                                                                 "fs.external",
+                                                                 "store.write"
                                                              ],
                                              "blocks":  [
                                                             {
-                                                                "id":  "laps-viewer",
-                                                                "title":  "LAPS Пароль",
+                                                                "id":  "view",
+                                                                "title":  "Пароль LAPS",
+                                                                "entry":  "blocks/LapsPasswordBlock.vue",
                                                                 "icon":  "KeyOutline",
+                                                                "description":  "Пароль локального администратора целевого узла из Active Directory, срок действия, копирование и принудительная ротация",
                                                                 "defaultSize":  {
                                                                                     "w":  8,
                                                                                     "h":  5
@@ -96,8 +100,7 @@
                                                                 "minSize":  {
                                                                                 "w":  6,
                                                                                 "h":  4
-                                                                            },
-                                                                "description":  "Получение пароля локального администратора ПК и срока его действия из AD"
+                                                                            }
                                                             }
                                                         ]
                                          }
@@ -105,14 +108,14 @@
                     },
                     {
                         "id":  "ldap",
-                        "name":  "Active Directory Inspector",
-                        "description":  "Карточка компьютера и пользователя в домене AD: подразделение (OU), членство в группах, ОС и статус блокировки.",
+                        "name":  "Active Directory (LDAP)",
+                        "description":  "Карточка компьютера и пользователя в домене Active Directory: OU подразделения, ОС, последний вход, группы и статус учётной записи",
                         "author":  {
-                                       "name":  "TMAdmin Team",
+                                       "name":  "TMAdmin Core",
                                        "url":  "https://github.com/mentalchaos0x2b"
                                    },
-                        "category":  "active-directory",
-                        "icon":  "ServerOutline",
+                        "category":  "utility",
+                        "icon":  "BusinessOutline",
                         "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
                         "license":  "MIT",
                         "latestVersion":  "1.0.0",
@@ -120,27 +123,29 @@
                                          {
                                              "version":  "1.0.0",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-10T12:00:00Z",
-                                             "changelog":  "Инспекция объектов компьютеров и доменных групп через LDAP.",
+                                             "releasedAt":  "2026-11-18T12:33:22.343Z",
+                                             "changelog":  "Release version 1.0.0",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/ldap/1.0.0/plugin.zip",
-                                             "sha256":  "849cdfdf807a558957875b98691b41acc47095fb25495776f5edd201be3a2e31",
+                                             "sha256":  "a17814680e6e417e41b2b42c46d62d827228c3ebc833628c08f6285bc1b96f7d",
                                              "permissions":  [
-                                                                 "ldap.query"
+                                                                 "ldap.query",
+                                                                 "store.write"
                                                              ],
                                              "blocks":  [
                                                             {
-                                                                "id":  "ad-computer",
-                                                                "title":  "AD Объект ПК",
-                                                                "icon":  "ServerOutline",
+                                                                "id":  "user-card",
+                                                                "title":  "Объект Active Directory",
+                                                                "entry":  "blocks/LdapComputerCard.vue",
+                                                                "icon":  "BusinessOutline",
+                                                                "description":  "Полная карточка учётной записи в Active Directory: DN, иерархия OU, операционная система, группы безопасности и статус",
                                                                 "defaultSize":  {
-                                                                                    "w":  10,
-                                                                                    "h":  6
+                                                                                    "w":  12,
+                                                                                    "h":  8
                                                                                 },
                                                                 "minSize":  {
-                                                                                "w":  6,
-                                                                                "h":  4
-                                                                            },
-                                                                "description":  "Доменные атрибуты компьютера, DN, версия Windows и группы безопасности"
+                                                                                "w":  8,
+                                                                                "h":  6
+                                                                            }
                                                             }
                                                         ]
                                          }
@@ -148,13 +153,13 @@
                     },
                     {
                         "id":  "smb",
-                        "name":  "SMB \u0026 Printer Audit",
-                        "description":  "Аудит сетевых шар, открытых SMB-сессий и подключённых принтеров на удалённой рабочей станции.",
+                        "name":  "SMB Shares \u0026 Printers",
+                        "description":  "Сетевые папки SMB и подключенные принтеры на удалённом компьютере: отчёт по портам и драйверам, быстрое подключение принтера",
                         "author":  {
-                                       "name":  "TMAdmin Team",
+                                       "name":  "TMAdmin Core",
                                        "url":  "https://github.com/mentalchaos0x2b"
                                    },
-                        "category":  "system",
+                        "category":  "utility",
                         "icon":  "PrintOutline",
                         "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
                         "license":  "MIT",
@@ -163,28 +168,31 @@
                                          {
                                              "version":  "1.0.0",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-10T12:00:00Z",
-                                             "changelog":  "Отчёт по сетевым принтерам, портам печати и общим папкам SMB.",
+                                             "releasedAt":  "2026-11-18T12:33:23.112Z",
+                                             "changelog":  "Release version 1.0.0",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/smb/1.0.0/plugin.zip",
-                                             "sha256":  "7321b56dc89df2711fd8c973d7fb1047bdabd22605943b6a7e402d8d07b3b7a8",
+                                             "sha256":  "38f4eedf628a7868028274b35fd81b074050db2c5501ebbfa079ccf96a6119bf",
                                              "permissions":  [
                                                                  "process.exec",
+                                                                 "fs.external",
+                                                                 "terminal",
                                                                  "store.write"
                                                              ],
                                              "blocks":  [
                                                             {
-                                                                "id":  "printer-audit",
-                                                                "title":  "Принтеры и SMB",
+                                                                "id":  "shares",
+                                                                "title":  "Принтеры и сетевые ресурсы",
+                                                                "entry":  "blocks/PrintersAndSharesBlock.vue",
                                                                 "icon":  "PrintOutline",
+                                                                "description":  "Отчёт по подключённым сетевым/локальным принтерам и SMB-шарам на удалённом ПК, сценарий быстрого подключения принтера",
                                                                 "defaultSize":  {
-                                                                                    "w":  12,
-                                                                                    "h":  6
+                                                                                    "w":  16,
+                                                                                    "h":  8
                                                                                 },
                                                                 "minSize":  {
-                                                                                "w":  8,
-                                                                                "h":  4
-                                                                            },
-                                                                "description":  "Список установленных принтеров, драйверов и сетевых шар целевого ПК"
+                                                                                "w":  10,
+                                                                                "h":  6
+                                                                            }
                                                             }
                                                         ]
                                          }
@@ -192,13 +200,13 @@
                     },
                     {
                         "id":  "terminal",
-                        "name":  "PTY PowerShell Terminal",
-                        "description":  "Встроенный интерактивный PTY-терминал (PowerShell / CMD) с привязкой к контексту текущего target.",
+                        "name":  "Встроенный терминал",
+                        "description":  "Интерактивный PTY терминал PowerShell и CMD с быстрыми скриптами диагностики узла",
                         "author":  {
-                                       "name":  "TMAdmin Team",
+                                       "name":  "TMAdmin Core",
                                        "url":  "https://github.com/mentalchaos0x2b"
                                    },
-                        "category":  "system",
+                        "category":  "utility",
                         "icon":  "TerminalOutline",
                         "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
                         "license":  "MIT",
@@ -207,27 +215,29 @@
                                          {
                                              "version":  "1.0.0",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-10T12:00:00Z",
-                                             "changelog":  "Полноценная эмуляция терминала xterm.js поверх системного PTY.",
+                                             "releasedAt":  "2026-11-18T12:33:23.146Z",
+                                             "changelog":  "Release version 1.0.0",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/terminal/1.0.0/plugin.zip",
-                                             "sha256":  "3e6666a7515e25567087e6e2e72b0d791aaef8bdd0a6834b573290569f972c0a",
+                                             "sha256":  "83f088929bc87634f4da1e716483f7d9c99e6c097531e2af13bd7b4c9976d726",
                                              "permissions":  [
-                                                                 "terminal"
+                                                                 "terminal",
+                                                                 "store.write"
                                                              ],
                                              "blocks":  [
                                                             {
                                                                 "id":  "pty",
-                                                                "title":  "Терминал",
+                                                                "title":  "Встроенный терминал",
+                                                                "entry":  "blocks/TerminalBlock.vue",
                                                                 "icon":  "TerminalOutline",
+                                                                "description":  "PTY сессия PowerShell/CMD с авто-контекстом текущего узла",
                                                                 "defaultSize":  {
                                                                                     "w":  24,
                                                                                     "h":  8
                                                                                 },
                                                                 "minSize":  {
-                                                                                "w":  10,
-                                                                                "h":  5
-                                                                            },
-                                                                "description":  "Интерактивная консоль администратора с быстрыми командами"
+                                                                                "w":  8,
+                                                                                "h":  4
+                                                                            }
                                                             }
                                                         ]
                                          }
@@ -250,7 +260,7 @@
                                          {
                                              "version":  "1.0.1",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-18T12:29:54.858Z",
+                                             "releasedAt":  "2026-11-18T12:33:22.369Z",
                                              "changelog":  "Release version 1.0.1",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network-share-browser/1.0.1/plugin.zip",
                                              "sha256":  "8aba7ccb8978dc3adfbfa801a1305e30e651425d56a5d8d580161b8e2b1d8553",
@@ -295,7 +305,7 @@
                                          {
                                              "version":  "1.0.0",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-18T12:29:55.817Z",
+                                             "releasedAt":  "2026-11-18T12:33:23.077Z",
                                              "changelog":  "Release version 1.0.0",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/quick-actions/1.0.0/plugin.zip",
                                              "sha256":  "451ad0141153e829a7d6b3f6f5163ca8a8e73b2f6dace90d0e6d53139de341c6",
@@ -322,8 +332,96 @@
                                                         ]
                                          }
                                      ]
+                    },
+                    {
+                        "id":  "hello",
+                        "name":  "Hello World",
+                        "description":  "Пример системного плагина с рантайм-компиляцией SFC",
+                        "author":  {
+                                       "name":  "TMAdmin Core",
+                                       "url":  "https://github.com/mentalchaos0x2b"
+                                   },
+                        "category":  "utility",
+                        "icon":  "HandRightOutline",
+                        "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+                        "license":  "MIT",
+                        "latestVersion":  "1.0.0",
+                        "releases":  [
+                                         {
+                                             "version":  "1.0.0",
+                                             "minAppVersion":  "0.1.0",
+                                             "releasedAt":  "2026-11-18T12:33:22.294Z",
+                                             "changelog":  "Release version 1.0.0",
+                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/hello/1.0.0/plugin.zip",
+                                             "sha256":  "ab8e88baa03bbf709356484746dd094b083080dcb6109c8c65049a7176f6036f",
+                                             "permissions":  [
+                                                                 "store.write"
+                                                             ],
+                                             "blocks":  [
+                                                            {
+                                                                "id":  "hello",
+                                                                "title":  "Приветствие",
+                                                                "entry":  "blocks/Hello.vue",
+                                                                "icon":  "HandRightOutline",
+                                                                "description":  "Демонстрационный блок с интерактивным счётчиком и статусом target",
+                                                                "defaultSize":  {
+                                                                                    "w":  8,
+                                                                                    "h":  6
+                                                                                },
+                                                                "minSize":  {
+                                                                                "w":  4,
+                                                                                "h":  4
+                                                                            }
+                                                            }
+                                                        ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "id":  "notes",
+                        "name":  "Заметки",
+                        "description":  "Быстрые рабочие заметки и напоминания администратора с постоянным автосохранением",
+                        "author":  {
+                                       "name":  "TMAdmin Core",
+                                       "url":  "https://github.com/mentalchaos0x2b"
+                                   },
+                        "category":  "utility",
+                        "icon":  "DocumentTextOutline",
+                        "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+                        "license":  "MIT",
+                        "latestVersion":  "0.1.0",
+                        "releases":  [
+                                         {
+                                             "version":  "0.1.0",
+                                             "minAppVersion":  "0.1.0",
+                                             "releasedAt":  "2026-11-18T12:33:22.373Z",
+                                             "changelog":  "Release version 0.1.0",
+                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/notes/0.1.0/plugin.zip",
+                                             "sha256":  "50da760389f267b79cabf18dc60ead0c7b9f088f1d2500a6b583409f942e4dbc",
+                                             "permissions":  [
+                                                                 "store.write"
+                                                             ],
+                                             "blocks":  [
+                                                            {
+                                                                "id":  "notes",
+                                                                "title":  "Заметки",
+                                                                "entry":  "blocks/NotesBlock.vue",
+                                                                "icon":  "DocumentTextOutline",
+                                                                "description":  "Полноэкранный блок заметок с автосохранением, статистикой и адаптацией к любому размеру",
+                                                                "defaultSize":  {
+                                                                                    "w":  24,
+                                                                                    "h":  10
+                                                                                },
+                                                                "minSize":  {
+                                                                                "w":  6,
+                                                                                "h":  4
+                                                                            }
+                                                            }
+                                                        ]
+                                         }
+                                     ]
                     }
                 ],
-    "updatedAt":  "2026-11-18T12:29:55.823Z",
+    "updatedAt":  "2026-11-18T12:33:23.148Z",
     "schemaVersion":  1
 }

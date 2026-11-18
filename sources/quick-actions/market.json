@@ -1,9 +1,12 @@
 {
-  "category": "remote",
-  "license": "MIT",
-  "author": {
-    "name": "TMAdmin Team",
-    "url": "https://github.com/mentalchaos0x2b"
-  },
-  "minAppVersion": "0.1.0"
+    "author":  {
+                   "name":  "TMAdmin Core",
+                   "url":  "https://github.com/mentalchaos0x2b"
+               },
+    "name":  "Quick Actions",
+    "changelog":  "Release version 1.0.0",
+    "description":  "РџР°РЅРµР»СЊ Р±С‹СЃС‚СЂС‹С… РґРµР№СЃС‚РІРёР№ (РїРµСЂРµР·Р°РіСЂСѓР·РєР°, СЃР»СѓР¶Р±Р°, РїРёРЅРі)",
+    "minAppVersion":  "0.1.0",
+    "category":  "utility",
+    "license":  "MIT"
 }

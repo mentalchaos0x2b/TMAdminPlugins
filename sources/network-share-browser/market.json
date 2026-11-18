@@ -1,10 +1,12 @@
 {
-  "category": "system",
-  "license": "MIT",
-  "author": {
-    "name": "TMAdmin Core",
-    "url": "https://github.com/mentalchaos0x2b"
-  },
-  "minAppVersion": "0.1.0",
-  "changelog": "Добавлен встроенный external/PSX.exe и запуск через useExec().pluginSpawn"
+    "author":  {
+                   "name":  "TMAdmin Core",
+                   "url":  "https://github.com/mentalchaos0x2b"
+               },
+    "name":  "РЎРµС‚РµРІР°СЏ РїР°РїРєР° _WORK",
+    "changelog":  "Release version 1.0.1",
+    "description":  "РџСЂРѕРІРѕРґРЅРёРє РїРѕ СЃРµС‚РµРІРѕР№ РїР°РїРєРµ \\\\pc5700\\_WORK СЃ РєРѕРЅС‚РµРєСЃС‚РЅС‹Рј РјРµРЅСЋ РєРѕРїРёСЂРѕРІР°РЅРёСЏ РїСѓС‚Рё Рё Р·Р°РїСѓСЃРєР° С‡РµСЂРµР· PSExec",
+    "minAppVersion":  "0.1.0",
+    "category":  "utility",
+    "license":  "MIT"
 }

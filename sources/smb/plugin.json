@@ -1,0 +1,31 @@
+{
+    "id":  "smb",
+    "name":  "SMB Shares \u0026 Printers",
+    "version":  "1.0.0",
+    "author":  "TMAdmin Core",
+    "description":  "Сетевые папки SMB и подключенные принтеры на удалённом компьютере: отчёт по портам и драйверам, быстрое подключение принтера",
+    "icon":  "PrintOutline",
+    "permissions":  [
+                        "process.exec",
+                        "fs.external",
+                        "terminal",
+                        "store.write"
+                    ],
+    "blocks":  [
+                   {
+                       "id":  "shares",
+                       "title":  "Принтеры и сетевые ресурсы",
+                       "entry":  "blocks/PrintersAndSharesBlock.vue",
+                       "icon":  "PrintOutline",
+                       "description":  "Отчёт по подключённым сетевым/локальным принтерам и SMB-шарам на удалённом ПК, сценарий быстрого подключения принтера",
+                       "defaultSize":  {
+                                           "w":  16,
+                                           "h":  8
+                                       },
+                       "minSize":  {
+                                       "w":  10,
+                                       "h":  6
+                                   }
+                   }
+               ]
+}

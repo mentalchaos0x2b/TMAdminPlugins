@@ -1,0 +1,30 @@
+{
+    "id":  "laps",
+    "name":  "LAPS Password",
+    "version":  "1.0.0",
+    "author":  "TMAdmin Core",
+    "description":  "Просмотр и ротация пароля локального администратора LAPS (Local Administrator Password Solution) в Active Directory",
+    "icon":  "KeyOutline",
+    "permissions":  [
+                        "process.exec",
+                        "fs.external",
+                        "store.write"
+                    ],
+    "blocks":  [
+                   {
+                       "id":  "view",
+                       "title":  "Пароль LAPS",
+                       "entry":  "blocks/LapsPasswordBlock.vue",
+                       "icon":  "KeyOutline",
+                       "description":  "Пароль локального администратора целевого узла из Active Directory, срок действия, копирование и принудительная ротация",
+                       "defaultSize":  {
+                                           "w":  8,
+                                           "h":  5
+                                       },
+                       "minSize":  {
+                                       "w":  6,
+                                       "h":  4
+                                   }
+                   }
+               ]
+}
