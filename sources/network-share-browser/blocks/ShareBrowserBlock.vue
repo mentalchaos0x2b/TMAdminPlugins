@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from "vue";
+import { ref, computed, onMounted, onUnmounted, h, nextTick } from "vue";
 import { defineBlock, useTarget, useFs, useExec, useMessage } from "@tmadmin/sdk";
 import {
   NInput,
@@ -57,8 +57,7 @@ const dropdownOptions = [
   },
 ];
 
-// Helper to render icon for dropdown options
-import { h } from "vue";
+
 
 interface DirEntryItem {
   name: string;
@@ -173,7 +172,7 @@ async function handleSelectDropdown(key: string) {
   }
 }
 
-import { nextTick } from "vue";
+
 </script>
 
 <template>
