@@ -300,7 +300,7 @@
           "releasedAt": "2026-11-18T08:53:33.741Z",
           "changelog": "Первый релиз проводника сетевой папки \\\\pc5700\\_WORK с поддержкой PSExec.",
           "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network-share-browser/1.0.0/plugin.zip",
-          "sha256": "9778d3fc4af33cf8854acc80f333d9bf7ca61def941fce52609442d44537b3e1",
+          "sha256": "6ffdeb9f9540e22c1ee51714a29052cddaab2ddbf99ce0983a3dc7b64311cfeb",
           "permissions": [
             "fs.read",
             "process.exec"
@@ -322,7 +322,8 @@
             }
           ]
         }
-      ]
+      ],
+      "sha256": "6ffdeb9f9540e22c1ee51714a29052cddaab2ddbf99ce0983a3dc7b64311cfeb"
     }
   ],
   "app": {
