@@ -1,321 +1,400 @@
 {
-    "schemaVersion": 1,
-    "updatedAt": "2026-11-18T08:53:33.741Z",
-    "plugins": [
-        {
-            "id": "network",
-            "name": "Network Monitor",
-            "description": "РњРѕРЅРёС‚РѕСЂРёРЅРі РґРѕСЃС‚СѓРїРЅРѕСЃС‚Рё СѓРґР°Р»С‘РЅРЅС‹С… РџРљ, ping РІ СЂРµР°Р»СЊРЅРѕРј РІСЂРµРјРµРЅРё СЃ РіСЂР°С„РёРєРѕРј Р·Р°РґРµСЂР¶РµРє RTT Рё РїРѕС‚РµСЂСЊ РїР°РєРµС‚РѕРІ.",
-            "author": {
-                "name": "TMAdmin Team",
-                "email": "support@tmadmin.local",
-                "url": "https://github.com/mentalchaos0x2b"
-            },
-            "category": "network",
-            "icon": "PulseOutline",
-            "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
-            "license": "MIT",
-            "latestVersion": "1.0.0",
-            "releases": [
-                {
-                    "version": "1.0.0",
-                    "minAppVersion": "0.1.0",
-                    "releasedAt": "2026-11-10T12:00:00Z",
-                    "changelog": "РџРµСЂРІС‹Р№ СЃС‚Р°Р±РёР»СЊРЅС‹Р№ СЂРµР»РёР· Р±Р»РѕРєР° СЃРµС‚РµРІРѕРіРѕ РјРѕРЅРёС‚РѕСЂРёРЅРіР° Рё РіСЂР°С„РёРєР° РїРёРЅРіР°.",
-                    "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.0/plugin.zip",
-                    "sha256": "ee5c455d41ccfc17ffc385ba3d9e9013813580782c340505cb10085dcbe88b73",
-                    "permissions": [
-                        "net.ping",
-                        "store.write"
-                    ],
-                    "blocks": [
-                        {
-                            "id": "info",
-                            "title": "РРЅС„РѕСЂРјР°С†РёСЏ РѕР± СѓР·Р»Рµ",
-                            "icon": "InformationCircleOutline",
-                            "defaultSize": {
-                                "w": 8,
-                                "h": 6
-                            },
-                            "minSize": {
-                                "w": 6,
-                                "h": 4
-                            },
-                            "description": "РџР°СЂР°РјРµС‚СЂС‹ С‚РµРєСѓС‰РµРіРѕ С†РµР»РµРІРѕРіРѕ СѓР·Р»Р° (IP, СЃС‚Р°С‚СѓСЃ, Р·Р°РґРµСЂР¶РєР°, Р·Р°РјРµС‚РєРё)"
-                        },
-                        {
-                            "id": "ping-chart",
-                            "title": "Р“СЂР°С„РёРє Р·Р°РґРµСЂР¶РєРё (Ping)",
-                            "icon": "PulseOutline",
-                            "defaultSize": {
-                                "w": 16,
-                                "h": 8
-                            },
-                            "minSize": {
-                                "w": 8,
-                                "h": 6
-                            },
-                            "description": "Р“СЂР°С„РёРє RTT РІ СЂРµР°Р»СЊРЅРѕРј РІСЂРµРјРµРЅРё СЃ РјРµС‚СЂРёРєР°РјРё min/avg/max/jitter/loss%"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "id": "laps",
-            "name": "LAPS Password Manager",
-            "description": "Р‘РµР·РѕРїР°СЃРЅРѕРµ С‡С‚РµРЅРёРµ Рё СЂРѕС‚Р°С†РёСЏ Р»РѕРєР°Р»СЊРЅРѕРіРѕ РїР°СЂРѕР»СЏ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР° С‡РµСЂРµР· Active Directory LAPS / Windows LAPS v2.",
-            "author": {
-                "name": "TMAdmin Team",
-                "url": "https://github.com/mentalchaos0x2b"
-            },
-            "category": "active-directory",
-            "icon": "KeyOutline",
-            "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
-            "license": "MIT",
-            "latestVersion": "1.0.0",
-            "releases": [
-                {
-                    "version": "1.0.0",
-                    "minAppVersion": "0.1.0",
-                    "releasedAt": "2026-11-10T12:00:00Z",
-                    "changelog": "РџРѕРґРґРµСЂР¶РєР° Р°С‚СЂРёР±СѓС‚РѕРІ ms-Mcs-AdmPwd Рё msLAPS-Password СЃ РєРѕРїРёСЂРѕРІР°РЅРёРµРј РІ Р±СѓС„РµСЂ.",
-                    "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.0/plugin.zip",
-                    "sha256": "0f1099a04f44cd5eb40d9f6f25b3607784e1407d0ccf059bc904df966d6be146",
-                    "permissions": [
-                        "ldap.query",
-                        "keychain"
-                    ],
-                    "blocks": [
-                        {
-                            "id": "laps-viewer",
-                            "title": "LAPS РџР°СЂРѕР»СЊ",
-                            "icon": "KeyOutline",
-                            "defaultSize": {
-                                "w": 8,
-                                "h": 5
-                            },
-                            "minSize": {
-                                "w": 6,
-                                "h": 4
-                            },
-                            "description": "РџРѕР»СѓС‡РµРЅРёРµ РїР°СЂРѕР»СЏ Р»РѕРєР°Р»СЊРЅРѕРіРѕ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР° РџРљ Рё СЃСЂРѕРєР° РµРіРѕ РґРµР№СЃС‚РІРёСЏ РёР· AD"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "id": "ldap",
-            "name": "Active Directory Inspector",
-            "description": "РљР°СЂС‚РѕС‡РєР° РєРѕРјРїСЊСЋС‚РµСЂР° Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РІ РґРѕРјРµРЅРµ AD: РїРѕРґСЂР°Р·РґРµР»РµРЅРёРµ (OU), С‡Р»РµРЅСЃС‚РІРѕ РІ РіСЂСѓРїРїР°С…, РћРЎ Рё СЃС‚Р°С‚СѓСЃ Р±Р»РѕРєРёСЂРѕРІРєРё.",
-            "author": {
-                "name": "TMAdmin Team",
-                "url": "https://github.com/mentalchaos0x2b"
-            },
-            "category": "active-directory",
-            "icon": "ServerOutline",
-            "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
-            "license": "MIT",
-            "latestVersion": "1.0.0",
-            "releases": [
-                {
-                    "version": "1.0.0",
-                    "minAppVersion": "0.1.0",
-                    "releasedAt": "2026-11-10T12:00:00Z",
-                    "changelog": "РРЅСЃРїРµРєС†РёСЏ РѕР±СЉРµРєС‚РѕРІ РєРѕРјРїСЊСЋС‚РµСЂРѕРІ Рё РґРѕРјРµРЅРЅС‹С… РіСЂСѓРїРї С‡РµСЂРµР· LDAP.",
-                    "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/ldap/1.0.0/plugin.zip",
-                    "sha256": "849cdfdf807a558957875b98691b41acc47095fb25495776f5edd201be3a2e31",
-                    "permissions": [
-                        "ldap.query"
-                    ],
-                    "blocks": [
-                        {
-                            "id": "ad-computer",
-                            "title": "AD РћР±СЉРµРєС‚ РџРљ",
-                            "icon": "ServerOutline",
-                            "defaultSize": {
-                                "w": 10,
-                                "h": 6
-                            },
-                            "minSize": {
-                                "w": 6,
-                                "h": 4
-                            },
-                            "description": "Р”РѕРјРµРЅРЅС‹Рµ Р°С‚СЂРёР±СѓС‚С‹ РєРѕРјРїСЊСЋС‚РµСЂР°, DN, РІРµСЂСЃРёСЏ Windows Рё РіСЂСѓРїРїС‹ Р±РµР·РѕРїР°СЃРЅРѕСЃС‚Рё"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "id": "smb",
-            "name": "SMB & Printer Audit",
-            "description": "РђСѓРґРёС‚ СЃРµС‚РµРІС‹С… С€Р°СЂ, РѕС‚РєСЂС‹С‚С‹С… SMB-СЃРµСЃСЃРёР№ Рё РїРѕРґРєР»СЋС‡С‘РЅРЅС‹С… РїСЂРёРЅС‚РµСЂРѕРІ РЅР° СѓРґР°Р»С‘РЅРЅРѕР№ СЂР°Р±РѕС‡РµР№ СЃС‚Р°РЅС†РёРё.",
-            "author": {
-                "name": "TMAdmin Team",
-                "url": "https://github.com/mentalchaos0x2b"
-            },
-            "category": "system",
-            "icon": "PrintOutline",
-            "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
-            "license": "MIT",
-            "latestVersion": "1.0.0",
-            "releases": [
-                {
-                    "version": "1.0.0",
-                    "minAppVersion": "0.1.0",
-                    "releasedAt": "2026-11-10T12:00:00Z",
-                    "changelog": "РћС‚С‡С‘С‚ РїРѕ СЃРµС‚РµРІС‹Рј РїСЂРёРЅС‚РµСЂР°Рј, РїРѕСЂС‚Р°Рј РїРµС‡Р°С‚Рё Рё РѕР±С‰РёРј РїР°РїРєР°Рј SMB.",
-                    "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/smb/1.0.0/plugin.zip",
-                    "sha256": "7321b56dc89df2711fd8c973d7fb1047bdabd22605943b6a7e402d8d07b3b7a8",
-                    "permissions": [
-                        "process.exec",
-                        "store.write"
-                    ],
-                    "blocks": [
-                        {
-                            "id": "printer-audit",
-                            "title": "РџСЂРёРЅС‚РµСЂС‹ Рё SMB",
-                            "icon": "PrintOutline",
-                            "defaultSize": {
-                                "w": 12,
-                                "h": 6
-                            },
-                            "minSize": {
-                                "w": 8,
-                                "h": 4
-                            },
-                            "description": "РЎРїРёСЃРѕРє СѓСЃС‚Р°РЅРѕРІР»РµРЅРЅС‹С… РїСЂРёРЅС‚РµСЂРѕРІ, РґСЂР°Р№РІРµСЂРѕРІ Рё СЃРµС‚РµРІС‹С… С€Р°СЂ С†РµР»РµРІРѕРіРѕ РџРљ"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "id": "terminal",
-            "name": "PTY PowerShell Terminal",
-            "description": "Р’СЃС‚СЂРѕРµРЅРЅС‹Р№ РёРЅС‚РµСЂР°РєС‚РёРІРЅС‹Р№ PTY-С‚РµСЂРјРёРЅР°Р» (PowerShell / CMD) СЃ РїСЂРёРІСЏР·РєРѕР№ Рє РєРѕРЅС‚РµРєСЃС‚Сѓ С‚РµРєСѓС‰РµРіРѕ target.",
-            "author": {
-                "name": "TMAdmin Team",
-                "url": "https://github.com/mentalchaos0x2b"
-            },
-            "category": "system",
-            "icon": "TerminalOutline",
-            "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
-            "license": "MIT",
-            "latestVersion": "1.0.0",
-            "releases": [
-                {
-                    "version": "1.0.0",
-                    "minAppVersion": "0.1.0",
-                    "releasedAt": "2026-11-10T12:00:00Z",
-                    "changelog": "РџРѕР»РЅРѕС†РµРЅРЅР°СЏ СЌРјСѓР»СЏС†РёСЏ С‚РµСЂРјРёРЅР°Р»Р° xterm.js РїРѕРІРµСЂС… СЃРёСЃС‚РµРјРЅРѕРіРѕ PTY.",
-                    "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/terminal/1.0.0/plugin.zip",
-                    "sha256": "3e6666a7515e25567087e6e2e72b0d791aaef8bdd0a6834b573290569f972c0a",
-                    "permissions": [
-                        "terminal"
-                    ],
-                    "blocks": [
-                        {
-                            "id": "pty",
-                            "title": "РўРµСЂРјРёРЅР°Р»",
-                            "icon": "TerminalOutline",
-                            "defaultSize": {
-                                "w": 24,
-                                "h": 8
-                            },
-                            "minSize": {
-                                "w": 10,
-                                "h": 5
-                            },
-                            "description": "РРЅС‚РµСЂР°РєС‚РёРІРЅР°СЏ РєРѕРЅСЃРѕР»СЊ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР° СЃ Р±С‹СЃС‚СЂС‹РјРё РєРѕРјР°РЅРґР°РјРё"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "id": "network-share-browser",
-            "name": "РЎРµС‚РµРІР°СЏ РїР°РїРєР° _WORK",
-            "description": "РџСЂРѕРІРѕРґРЅРёРє РїРѕ СЃРµС‚РµРІРѕР№ РїР°РїРєРµ \\\\pc5700\\_WORK СЃ РєРѕРЅС‚РµРєСЃС‚РЅС‹Рј РјРµРЅСЋ РєРѕРїРёСЂРѕРІР°РЅРёСЏ РїСѓС‚Рё Рё Р·Р°РїСѓСЃРєР° С‡РµСЂРµР· PSExec",
-            "author": {
-                "name": "TMAdmin Core",
-                "url": "https://github.com/mentalchaos0x2b"
-            },
-            "category": "system",
-            "icon": "FolderOpenOutline",
-            "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
-            "license": "MIT",
-            "latestVersion": "1.0.0",
-            "releases": [
-                {
-                    "version": "1.0.0",
-                    "minAppVersion": "0.1.0",
-                    "releasedAt": "2026-11-18T08:53:33.741Z",
-                    "changelog": "РџРµСЂРІС‹Р№ СЂРµР»РёР· РїСЂРѕРІРѕРґРЅРёРєР° СЃРµС‚РµРІРѕР№ РїР°РїРєРё \\\\pc5700\\_WORK СЃ РїРѕРґРґРµСЂР¶РєРѕР№ PSExec.",
-                    "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network-share-browser/1.0.0/plugin.zip",
-                    "sha256": "1f5f398d35dde903b433d918c50af296f0cab17d43a93daab2959948f0a13b6d",
-                    "permissions": [
-                        "fs.read",
-                        "process.exec",
-                        "fs.external"
-                    ],
-                    "blocks": [
-                        {
-                            "id": "share-browser",
-                            "title": "РЎРµС‚РµРІР°СЏ РїР°РїРєР° _WORK",
-                            "icon": "FolderOpenOutline",
-                            "defaultSize": {
-                                "w": 12,
-                                "h": 6
-                            },
-                            "minSize": {
-                                "w": 8,
-                                "h": 4
-                            },
-                            "description": "РџСЂРѕРІРѕРґРЅРёРє СЃРµС‚РµРІРѕР№ РїР°РїРєРё \\\\pc5700\\_WORK СЃ РєРѕРЅС‚РµРєСЃС‚РЅС‹Рј РјРµРЅСЋ Рё PSExec Р·Р°РїСѓСЃРєРѕРј"
-                        }
-                    ]
-                }
-            ],
-            "sha256": "1f5f398d35dde903b433d918c50af296f0cab17d43a93daab2959948f0a13b6d"
-        },
-        {
-            "id": "quick-actions",
-            "name": "Quick Actions",
-            "version": "1.0.0",
-            "description": "Панель быстрых действий (перезагрузка, служба, пинг)",
-            "author": "TMAdmin Core",
-            "icon": "FlashOutline",
-            "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/quick-actions/1.0.0/plugin.zip",
-            "sha256": "da342f6146cb632bc34896549fa62ddff542dff90d12b37d0e60cbee62c7ec35",
-            "permissions": [
-                "system.exec",
-                "net.ping",
-                "service.manage"
-            ],
-            "blocks": [
-                {
-                    "id": "quick-actions",
-                    "title": "Быстрые действия",
-                    "entry": "blocks/QuickActionsBlock.vue",
-                    "icon": "FlashOutline",
-                    "description": "Панель быстрых системных действий",
-                    "defaultSize": {
-                        "w": 12,
-                        "h": 4
-                    },
-                    "minSize": {
-                        "w": 6,
-                        "h": 3
-                    }
-                }
-            ]
-        }
-    ],
-    "app": {
-        "latestVersion": "0.1.0",
-        "updaterManifestUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/app/latest.json"
-    }
+    "schemaVersion":  1,
+    "updatedAt":  "2026-11-18T11:59:36Z",
+    "plugins":  {
+                    "Count":  7,
+                    "Length":  7,
+                    "LongLength":  7,
+                    "Rank":  1,
+                    "SyncRoot":  [
+                                     {
+                                         "id":  "network",
+                                         "name":  "Network Monitor",
+                                         "description":  "РњРѕРЅРёС‚РѕСЂРёРЅРі РґРѕСЃС‚СѓРїРЅРѕСЃС‚Рё СѓРґР°Р»С‘РЅРЅС‹С… РџРљ, ping РІ СЂРµР°Р»СЊРЅРѕРј РІСЂРµРјРµРЅРё СЃ РіСЂР°С„РёРєРѕРј Р·Р°РґРµСЂР¶РµРє RTT Рё РїРѕС‚РµСЂСЊ РїР°РєРµС‚РѕРІ.",
+                                         "author":  {
+                                                        "name":  "TMAdmin Team",
+                                                        "email":  "support@tmadmin.local",
+                                                        "url":  "https://github.com/mentalchaos0x2b"
+                                                    },
+                                         "category":  "network",
+                                         "icon":  "PulseOutline",
+                                         "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+                                         "license":  "MIT",
+                                         "latestVersion":  "1.0.0",
+                                         "releases":  [
+                                                          {
+                                                              "version":  "1.0.0",
+                                                              "minAppVersion":  "0.1.0",
+                                                              "releasedAt":  "2026-11-10T12:00:00Z",
+                                                              "changelog":  "РџРµСЂРІС‹Р№ СЃС‚Р°Р±РёР»СЊРЅС‹Р№ СЂРµР»РёР· Р±Р»РѕРєР° СЃРµС‚РµРІРѕРіРѕ РјРѕРЅРёС‚РѕСЂРёРЅРіР° Рё РіСЂР°С„РёРєР° РїРёРЅРіР°.",
+                                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.0/plugin.zip",
+                                                              "sha256":  "ee5c455d41ccfc17ffc385ba3d9e9013813580782c340505cb10085dcbe88b73",
+                                                              "permissions":  [
+                                                                                  "net.ping",
+                                                                                  "store.write"
+                                                                              ],
+                                                              "blocks":  [
+                                                                             {
+                                                                                 "id":  "info",
+                                                                                 "title":  "РРЅС„РѕСЂРјР°С†РёСЏ РѕР± СѓР·Р»Рµ",
+                                                                                 "icon":  "InformationCircleOutline",
+                                                                                 "defaultSize":  {
+                                                                                                     "w":  8,
+                                                                                                     "h":  6
+                                                                                                 },
+                                                                                 "minSize":  {
+                                                                                                 "w":  6,
+                                                                                                 "h":  4
+                                                                                             },
+                                                                                 "description":  "РџР°СЂР°РјРµС‚СЂС‹ С‚РµРєСѓС‰РµРіРѕ С†РµР»РµРІРѕРіРѕ СѓР·Р»Р° (IP, СЃС‚Р°С‚СѓСЃ, Р·Р°РґРµСЂР¶РєР°, Р·Р°РјРµС‚РєРё)"
+                                                                             },
+                                                                             {
+                                                                                 "id":  "ping-chart",
+                                                                                 "title":  "Р“СЂР°С„РёРє Р·Р°РґРµСЂР¶РєРё (Ping)",
+                                                                                 "icon":  "PulseOutline",
+                                                                                 "defaultSize":  {
+                                                                                                     "w":  16,
+                                                                                                     "h":  8
+                                                                                                 },
+                                                                                 "minSize":  {
+                                                                                                 "w":  8,
+                                                                                                 "h":  6
+                                                                                             },
+                                                                                 "description":  "Р“СЂР°С„РёРє RTT РІ СЂРµР°Р»СЊРЅРѕРј РІСЂРµРјРµРЅРё СЃ РјРµС‚СЂРёРєР°РјРё min/avg/max/jitter/loss%"
+                                                                             }
+                                                                         ]
+                                                          }
+                                                      ]
+                                     },
+                                     {
+                                         "id":  "laps",
+                                         "name":  "LAPS Password Manager",
+                                         "description":  "Р‘РµР·РѕРїР°СЃРЅРѕРµ С‡С‚РµРЅРёРµ Рё СЂРѕС‚Р°С†РёСЏ Р»РѕРєР°Р»СЊРЅРѕРіРѕ РїР°СЂРѕР»СЏ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР° С‡РµСЂРµР· Active Directory LAPS / Windows LAPS v2.",
+                                         "author":  {
+                                                        "name":  "TMAdmin Team",
+                                                        "url":  "https://github.com/mentalchaos0x2b"
+                                                    },
+                                         "category":  "active-directory",
+                                         "icon":  "KeyOutline",
+                                         "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+                                         "license":  "MIT",
+                                         "latestVersion":  "1.0.0",
+                                         "releases":  [
+                                                          {
+                                                              "version":  "1.0.0",
+                                                              "minAppVersion":  "0.1.0",
+                                                              "releasedAt":  "2026-11-10T12:00:00Z",
+                                                              "changelog":  "РџРѕРґРґРµСЂР¶РєР° Р°С‚СЂРёР±СѓС‚РѕРІ ms-Mcs-AdmPwd Рё msLAPS-Password СЃ РєРѕРїРёСЂРѕРІР°РЅРёРµРј РІ Р±СѓС„РµСЂ.",
+                                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.0/plugin.zip",
+                                                              "sha256":  "0f1099a04f44cd5eb40d9f6f25b3607784e1407d0ccf059bc904df966d6be146",
+                                                              "permissions":  [
+                                                                                  "ldap.query",
+                                                                                  "keychain"
+                                                                              ],
+                                                              "blocks":  [
+                                                                             {
+                                                                                 "id":  "laps-viewer",
+                                                                                 "title":  "LAPS РџР°СЂРѕР»СЊ",
+                                                                                 "icon":  "KeyOutline",
+                                                                                 "defaultSize":  {
+                                                                                                     "w":  8,
+                                                                                                     "h":  5
+                                                                                                 },
+                                                                                 "minSize":  {
+                                                                                                 "w":  6,
+                                                                                                 "h":  4
+                                                                                             },
+                                                                                 "description":  "РџРѕР»СѓС‡РµРЅРёРµ РїР°СЂРѕР»СЏ Р»РѕРєР°Р»СЊРЅРѕРіРѕ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР° РџРљ Рё СЃСЂРѕРєР° РµРіРѕ РґРµР№СЃС‚РІРёСЏ РёР· AD"
+                                                                             }
+                                                                         ]
+                                                          }
+                                                      ]
+                                     },
+                                     {
+                                         "id":  "ldap",
+                                         "name":  "Active Directory Inspector",
+                                         "description":  "РљР°СЂС‚РѕС‡РєР° РєРѕРјРїСЊСЋС‚РµСЂР° Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РІ РґРѕРјРµРЅРµ AD: РїРѕРґСЂР°Р·РґРµР»РµРЅРёРµ (OU), С‡Р»РµРЅСЃС‚РІРѕ РІ РіСЂСѓРїРїР°С…, РћРЎ Рё СЃС‚Р°С‚СѓСЃ Р±Р»РѕРєРёСЂРѕРІРєРё.",
+                                         "author":  {
+                                                        "name":  "TMAdmin Team",
+                                                        "url":  "https://github.com/mentalchaos0x2b"
+                                                    },
+                                         "category":  "active-directory",
+                                         "icon":  "ServerOutline",
+                                         "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+                                         "license":  "MIT",
+                                         "latestVersion":  "1.0.0",
+                                         "releases":  [
+                                                          {
+                                                              "version":  "1.0.0",
+                                                              "minAppVersion":  "0.1.0",
+                                                              "releasedAt":  "2026-11-10T12:00:00Z",
+                                                              "changelog":  "РРЅСЃРїРµРєС†РёСЏ РѕР±СЉРµРєС‚РѕРІ РєРѕРјРїСЊСЋС‚РµСЂРѕРІ Рё РґРѕРјРµРЅРЅС‹С… РіСЂСѓРїРї С‡РµСЂРµР· LDAP.",
+                                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/ldap/1.0.0/plugin.zip",
+                                                              "sha256":  "849cdfdf807a558957875b98691b41acc47095fb25495776f5edd201be3a2e31",
+                                                              "permissions":  [
+                                                                                  "ldap.query"
+                                                                              ],
+                                                              "blocks":  [
+                                                                             {
+                                                                                 "id":  "ad-computer",
+                                                                                 "title":  "AD РћР±СЉРµРєС‚ РџРљ",
+                                                                                 "icon":  "ServerOutline",
+                                                                                 "defaultSize":  {
+                                                                                                     "w":  10,
+                                                                                                     "h":  6
+                                                                                                 },
+                                                                                 "minSize":  {
+                                                                                                 "w":  6,
+                                                                                                 "h":  4
+                                                                                             },
+                                                                                 "description":  "Р”РѕРјРµРЅРЅС‹Рµ Р°С‚СЂРёР±СѓС‚С‹ РєРѕРјРїСЊСЋС‚РµСЂР°, DN, РІРµСЂСЃРёСЏ Windows Рё РіСЂСѓРїРїС‹ Р±РµР·РѕРїР°СЃРЅРѕСЃС‚Рё"
+                                                                             }
+                                                                         ]
+                                                          }
+                                                      ]
+                                     },
+                                     {
+                                         "id":  "smb",
+                                         "name":  "SMB \u0026 Printer Audit",
+                                         "description":  "РђСѓРґРёС‚ СЃРµС‚РµРІС‹С… С€Р°СЂ, РѕС‚РєСЂС‹С‚С‹С… SMB-СЃРµСЃСЃРёР№ Рё РїРѕРґРєР»СЋС‡С‘РЅРЅС‹С… РїСЂРёРЅС‚РµСЂРѕРІ РЅР° СѓРґР°Р»С‘РЅРЅРѕР№ СЂР°Р±РѕС‡РµР№ СЃС‚Р°РЅС†РёРё.",
+                                         "author":  {
+                                                        "name":  "TMAdmin Team",
+                                                        "url":  "https://github.com/mentalchaos0x2b"
+                                                    },
+                                         "category":  "system",
+                                         "icon":  "PrintOutline",
+                                         "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+                                         "license":  "MIT",
+                                         "latestVersion":  "1.0.0",
+                                         "releases":  [
+                                                          {
+                                                              "version":  "1.0.0",
+                                                              "minAppVersion":  "0.1.0",
+                                                              "releasedAt":  "2026-11-10T12:00:00Z",
+                                                              "changelog":  "РћС‚С‡С‘С‚ РїРѕ СЃРµС‚РµРІС‹Рј РїСЂРёРЅС‚РµСЂР°Рј, РїРѕСЂС‚Р°Рј РїРµС‡Р°С‚Рё Рё РѕР±С‰РёРј РїР°РїРєР°Рј SMB.",
+                                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/smb/1.0.0/plugin.zip",
+                                                              "sha256":  "7321b56dc89df2711fd8c973d7fb1047bdabd22605943b6a7e402d8d07b3b7a8",
+                                                              "permissions":  [
+                                                                                  "process.exec",
+                                                                                  "store.write"
+                                                                              ],
+                                                              "blocks":  [
+                                                                             {
+                                                                                 "id":  "printer-audit",
+                                                                                 "title":  "РџСЂРёРЅС‚РµСЂС‹ Рё SMB",
+                                                                                 "icon":  "PrintOutline",
+                                                                                 "defaultSize":  {
+                                                                                                     "w":  12,
+                                                                                                     "h":  6
+                                                                                                 },
+                                                                                 "minSize":  {
+                                                                                                 "w":  8,
+                                                                                                 "h":  4
+                                                                                             },
+                                                                                 "description":  "РЎРїРёСЃРѕРє СѓСЃС‚Р°РЅРѕРІР»РµРЅРЅС‹С… РїСЂРёРЅС‚РµСЂРѕРІ, РґСЂР°Р№РІРµСЂРѕРІ Рё СЃРµС‚РµРІС‹С… С€Р°СЂ С†РµР»РµРІРѕРіРѕ РџРљ"
+                                                                             }
+                                                                         ]
+                                                          }
+                                                      ]
+                                     },
+                                     {
+                                         "id":  "terminal",
+                                         "name":  "PTY PowerShell Terminal",
+                                         "description":  "Р’СЃС‚СЂРѕРµРЅРЅС‹Р№ РёРЅС‚РµСЂР°РєС‚РёРІРЅС‹Р№ PTY-С‚РµСЂРјРёРЅР°Р» (PowerShell / CMD) СЃ РїСЂРёРІСЏР·РєРѕР№ Рє РєРѕРЅС‚РµРєСЃС‚Сѓ С‚РµРєСѓС‰РµРіРѕ target.",
+                                         "author":  {
+                                                        "name":  "TMAdmin Team",
+                                                        "url":  "https://github.com/mentalchaos0x2b"
+                                                    },
+                                         "category":  "system",
+                                         "icon":  "TerminalOutline",
+                                         "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+                                         "license":  "MIT",
+                                         "latestVersion":  "1.0.0",
+                                         "releases":  [
+                                                          {
+                                                              "version":  "1.0.0",
+                                                              "minAppVersion":  "0.1.0",
+                                                              "releasedAt":  "2026-11-10T12:00:00Z",
+                                                              "changelog":  "РџРѕР»РЅРѕС†РµРЅРЅР°СЏ СЌРјСѓР»СЏС†РёСЏ С‚РµСЂРјРёРЅР°Р»Р° xterm.js РїРѕРІРµСЂС… СЃРёСЃС‚РµРјРЅРѕРіРѕ PTY.",
+                                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/terminal/1.0.0/plugin.zip",
+                                                              "sha256":  "3e6666a7515e25567087e6e2e72b0d791aaef8bdd0a6834b573290569f972c0a",
+                                                              "permissions":  [
+                                                                                  "terminal"
+                                                                              ],
+                                                              "blocks":  [
+                                                                             {
+                                                                                 "id":  "pty",
+                                                                                 "title":  "РўРµСЂРјРёРЅР°Р»",
+                                                                                 "icon":  "TerminalOutline",
+                                                                                 "defaultSize":  {
+                                                                                                     "w":  24,
+                                                                                                     "h":  8
+                                                                                                 },
+                                                                                 "minSize":  {
+                                                                                                 "w":  10,
+                                                                                                 "h":  5
+                                                                                             },
+                                                                                 "description":  "РРЅС‚РµСЂР°РєС‚РёРІРЅР°СЏ РєРѕРЅСЃРѕР»СЊ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР° СЃ Р±С‹СЃС‚СЂС‹РјРё РєРѕРјР°РЅРґР°РјРё"
+                                                                             }
+                                                                         ]
+                                                          }
+                                                      ]
+                                     },
+                                     {
+                                         "id":  "network-share-browser",
+                                         "name":  "РЎРµС‚РµРІР°СЏ РїР°РїРєР° _WORK",
+                                         "description":  "РџСЂРѕРІРѕРґРЅРёРє РїРѕ СЃРµС‚РµРІРѕР№ РїР°РїРєРµ \\\\pc5700\\_WORK СЃ РєРѕРЅС‚РµРєСЃС‚РЅС‹Рј РјРµРЅСЋ РєРѕРїРёСЂРѕРІР°РЅРёСЏ РїСѓС‚Рё Рё Р·Р°РїСѓСЃРєР° С‡РµСЂРµР· PSExec",
+                                         "author":  {
+                                                        "name":  "TMAdmin Core",
+                                                        "url":  "https://github.com/mentalchaos0x2b"
+                                                    },
+                                         "category":  "system",
+                                         "icon":  "FolderOpenOutline",
+                                         "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+                                         "license":  "MIT",
+                                         "latestVersion":  "1.0.0",
+                                         "releases":  [
+                                                          {
+                                                              "version":  "1.0.0",
+                                                              "minAppVersion":  "0.1.0",
+                                                              "releasedAt":  "2026-11-18T08:53:33.741Z",
+                                                              "changelog":  "РџРµСЂРІС‹Р№ СЂРµР»РёР· РїСЂРѕРІРѕРґРЅРёРєР° СЃРµС‚РµРІРѕР№ РїР°РїРєРё \\\\pc5700\\_WORK СЃ РїРѕРґРґРµСЂР¶РєРѕР№ PSExec.",
+                                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network-share-browser/1.0.0/plugin.zip",
+                                                              "sha256":  "1f5f398d35dde903b433d918c50af296f0cab17d43a93daab2959948f0a13b6d",
+                                                              "permissions":  [
+                                                                                  "fs.read",
+                                                                                  "process.exec",
+                                                                                  "fs.external"
+                                                                              ],
+                                                              "blocks":  [
+                                                                             {
+                                                                                 "id":  "share-browser",
+                                                                                 "title":  "РЎРµС‚РµРІР°СЏ РїР°РїРєР° _WORK",
+                                                                                 "icon":  "FolderOpenOutline",
+                                                                                 "defaultSize":  {
+                                                                                                     "w":  12,
+                                                                                                     "h":  6
+                                                                                                 },
+                                                                                 "minSize":  {
+                                                                                                 "w":  8,
+                                                                                                 "h":  4
+                                                                                             },
+                                                                                 "description":  "РџСЂРѕРІРѕРґРЅРёРє СЃРµС‚РµРІРѕР№ РїР°РїРєРё \\\\pc5700\\_WORK СЃ РєРѕРЅС‚РµРєСЃС‚РЅС‹Рј РјРµРЅСЋ Рё PSExec Р·Р°РїСѓСЃРєРѕРј"
+                                                                             }
+                                                                         ]
+                                                          }
+                                                      ],
+                                         "sha256":  "1f5f398d35dde903b433d918c50af296f0cab17d43a93daab2959948f0a13b6d"
+                                     },
+                                     {
+                                         "id":  "quick-actions",
+                                         "name":  "Quick Actions",
+                                         "version":  "1.0.0",
+                                         "description":  "Панель быстрых действий (перезагрузка, служба, пинг)",
+                                         "author":  "TMAdmin Core",
+                                         "icon":  "FlashOutline",
+                                         "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/quick-actions/1.0.0/plugin.zip",
+                                         "sha256":  "da342f6146cb632bc34896549fa62ddff542dff90d12b37d0e60cbee62c7ec35",
+                                         "permissions":  [
+                                                             "system.exec",
+                                                             "net.ping",
+                                                             "service.manage"
+                                                         ],
+                                         "blocks":  [
+                                                        {
+                                                            "id":  "quick-actions",
+                                                            "title":  "Быстрые действия",
+                                                            "entry":  "blocks/QuickActionsBlock.vue",
+                                                            "icon":  "FlashOutline",
+                                                            "description":  "Панель быстрых системных действий",
+                                                            "defaultSize":  {
+                                                                                "w":  12,
+                                                                                "h":  4
+                                                                            },
+                                                            "minSize":  {
+                                                                            "w":  6,
+                                                                            "h":  3
+                                                                        }
+                                                        }
+                                                    ]
+                                     }
+                                 ],
+                    "IsReadOnly":  false,
+                    "IsFixedSize":  true,
+                    "IsSynchronized":  false,
+                    "quick-actions":  {
+                                          "latestVersion":  "1.0.0",
+                                          "1.0.0":  {
+                                                        "id":  "quick-actions",
+                                                        "version":  "1.0.0",
+                                                        "name":  "Quick Actions",
+                                                        "description":  "Панель быстрых действий (перезагрузка, служба, пинг)",
+                                                        "author":  "TMAdmin Core",
+                                                        "icon":  "FlashOutline",
+                                                        "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/quick-actions/1.0.0/plugin.zip",
+                                                        "sha256":  "730fa560ec3e63896d3cbb8044bda49d7178bd1254594ca14ed263bb0de318aa",
+                                                        "permissions":  [
+                                                                            "system.exec",
+                                                                            "net.ping",
+                                                                            "service.manage"
+                                                                        ],
+                                                        "blocks":  [
+                                                                       {
+                                                                           "id":  "quick-actions",
+                                                                           "title":  "Быстрые действия",
+                                                                           "entry":  "blocks/QuickActionsBlock.vue",
+                                                                           "icon":  "FlashOutline",
+                                                                           "description":  "Панель быстрых системных действий",
+                                                                           "defaultSize":  {
+                                                                                               "w":  12,
+                                                                                               "h":  4
+                                                                                           },
+                                                                           "minSize":  {
+                                                                                           "w":  6,
+                                                                                           "h":  3
+                                                                                       }
+                                                                       }
+                                                                   ]
+                                                    }
+                                      },
+                    "network-share-browser":  {
+                                                  "latestVersion":  "1.0.0",
+                                                  "1.0.0":  {
+                                                                "id":  "network-share-browser",
+                                                                "version":  "1.0.0",
+                                                                "name":  "Сетевая папка _WORK",
+                                                                "description":  "Проводник по сетевой папке \\\\pc5700\\_WORK с контекстным меню копирования пути и запуска через PSExec",
+                                                                "author":  "TMAdmin Core",
+                                                                "icon":  "FolderOpenOutline",
+                                                                "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network-share-browser/1.0.0/plugin.zip",
+                                                                "sha256":  "a43bab61ce6aa0562cac2ea02c26ecebea5bb690edd62e79b96281c93d84b58c",
+                                                                "permissions":  [
+                                                                                    "fs.read",
+                                                                                    "process.exec",
+                                                                                    "fs.external"
+                                                                                ],
+                                                                "blocks":  [
+                                                                               {
+                                                                                   "id":  "share-browser",
+                                                                                   "title":  "Сетевая папка _WORK",
+                                                                                   "entry":  "blocks/ShareBrowserBlock.vue",
+                                                                                   "icon":  "FolderOpenOutline",
+                                                                                   "description":  "Проводник сетевой папки \\\\pc5700\\_WORK с контекстным меню и PSExec запуском",
+                                                                                   "defaultSize":  {
+                                                                                                       "w":  12,
+                                                                                                       "h":  6
+                                                                                                   },
+                                                                                   "minSize":  {
+                                                                                                   "w":  8,
+                                                                                                   "h":  4
+                                                                                               }
+                                                                               }
+                                                                           ]
+                                                            }
+                                              }
+                },
+    "app":  {
+                "latestVersion":  "0.1.0",
+                "updaterManifestUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/app/latest.json"
+            }
 }
