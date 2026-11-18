@@ -1,0 +1,30 @@
+{
+  "id": "quick-actions",
+  "name": "Quick Actions",
+  "version": "1.0.0",
+  "author": "TMAdmin Core",
+  "description": "Панель быстрых действий (перезагрузка, служба, пинг)",
+  "icon": "FlashOutline",
+  "permissions": [
+    "system.exec",
+    "net.ping",
+    "service.manage"
+  ],
+  "blocks": [
+    {
+      "id": "quick-actions",
+      "title": "Быстрые действия",
+      "entry": "blocks/QuickActionsBlock.vue",
+      "icon": "FlashOutline",
+      "description": "Панель быстрых системных действий",
+      "defaultSize": {
+        "w": 12,
+        "h": 4
+      },
+      "minSize": {
+        "w": 6,
+        "h": 3
+      }
+    }
+  ]
+}

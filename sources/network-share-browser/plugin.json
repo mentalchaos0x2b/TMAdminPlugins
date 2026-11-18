@@ -1,29 +1,30 @@
-{
-  "id": "network-share-browser",
-  "name": "Сетевая папка _WORK",
-  "version": "1.0.0",
-  "author": "TMAdmin Core",
-  "description": "Проводник по сетевой папке \\\\pc5700\\_WORK с контекстным меню копирования пути и запуска через PSExec",
-  "icon": "FolderOpenOutline",
-  "permissions": [
-    "fs.read",
-    "process.exec"
-  ],
-  "blocks": [
-    {
-      "id": "share-browser",
-      "title": "Сетевая папка _WORK",
-      "entry": "blocks/ShareBrowserBlock.vue",
-      "icon": "FolderOpenOutline",
-      "description": "Проводник сетевой папки \\\\pc5700\\_WORK с контекстным меню и PSExec запуском",
-      "defaultSize": {
-        "w": 12,
-        "h": 6
-      },
-      "minSize": {
-        "w": 8,
-        "h": 4
-      }
-    }
-  ]
+﻿{
+  " id\: \network-share-browser\,
+ \name\: \Сетевая папка _WORK\,
+ \version\: \1.0.0\,
+ \author\: \TMAdmin Core\,
+ \description\: \Проводник по сетевой папке \\\\pc5700\\_WORK с контекстным меню копирования пути и запуска через PSExec\,
+ \icon\: \FolderOpenOutline\,
+ \permissions\: [
+ \fs.read\,
+ \process.exec\,
+ \fs.external\
+ ],
+ \blocks\: [
+ {
+ \id\: \share-browser\,
+ \title\: \Сетевая папка _WORK\,
+ \entry\: \blocks/ShareBrowserBlock.vue\,
+ \icon\: \FolderOpenOutline\,
+ \description\: \Проводник сетевой папки \\\\pc5700\\_WORK с контекстным меню и PSExec запуском\,
+ \defaultSize\: {
+ \w\: 12,
+ \h\: 6
+ },
+ \minSize\: {
+ \w\: 8,
+ \h\: 4
+ }
+ }
+ ]
 }

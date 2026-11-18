@@ -158,8 +158,8 @@ async function handleSelectDropdown(key: string) {
     }
     try {
       message.info(`Запуск через PSExec на хосте ${host}...`);
-      // psexec.exe \\{host} -i -d "{fullPath}"
-      const res = await execApi.hostSpawn("psexec.exe", [`\\\\${host}`, "-i", "-d", fullPath]);
+      // external/PSX.exe \\{host} -i -d "{fullPath}"
+      const res = await execApi.pluginSpawn("external/PSX.exe", [`\\\\${host}`, "-i", "-d", fullPath]);
       if (res.success || res.code === 0) {
         message.success(`PSExec успешно запущен на ${host}`);
       } else {
