@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-12T09:24:40Z",
+  "updatedAt": "2026-11-18T08:53:33.741Z",
   "plugins": [
     {
       "id": "network",
@@ -275,6 +275,50 @@
                 "h": 5
               },
               "description": "Интерактивная консоль администратора с быстрыми командами"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "network-share-browser",
+      "name": "Сетевая папка _WORK",
+      "description": "Проводник по сетевой папке \\\\pc5700\\_WORK с контекстным меню копирования пути и запуска через PSExec",
+      "author": {
+        "name": "TMAdmin Core",
+        "url": "https://github.com/mentalchaos0x2b"
+      },
+      "category": "system",
+      "icon": "FolderOpenOutline",
+      "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+      "license": "MIT",
+      "latestVersion": "1.0.0",
+      "releases": [
+        {
+          "version": "1.0.0",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-18T08:53:33.741Z",
+          "changelog": "Первый релиз проводника сетевой папки \\\\pc5700\\_WORK с поддержкой PSExec.",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network-share-browser/1.0.0/plugin.zip",
+          "sha256": "9778d3fc4af33cf8854acc80f333d9bf7ca61def941fce52609442d44537b3e1",
+          "permissions": [
+            "fs.read",
+            "process.exec"
+          ],
+          "blocks": [
+            {
+              "id": "share-browser",
+              "title": "Сетевая папка _WORK",
+              "icon": "FolderOpenOutline",
+              "defaultSize": {
+                "w": 12,
+                "h": 6
+              },
+              "minSize": {
+                "w": 8,
+                "h": 4
+              },
+              "description": "Проводник сетевой папки \\\\pc5700\\_WORK с контекстным меню и PSExec запуском"
             }
           ]
         }
