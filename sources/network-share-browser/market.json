@@ -4,7 +4,7 @@
     "url": "https://github.com/mentalchaos0x2b"
   },
   "name": "Сетевая папка _WORK",
-  "changelog": "Добавлено разрешение fs.external и очищен UTF-8 BOM",
+  "changelog": "Исправлен запуск PSX.exe (режимы -c -f и сетевой запуск без лишних кавычек) и обработка ExecSpawnResult.pid",
   "description": "Проводник по сетевой папке \\\\pc5700\\_WORK с контекстным меню копирования пути и запуска через PSExec",
   "minAppVersion": "0.1.0",
   "category": "utility",

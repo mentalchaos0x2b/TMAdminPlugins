@@ -17,7 +17,7 @@
                                          {
                                              "version":  "1.0.0",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-19T04:08:10.027Z",
+                                             "releasedAt":  "2026-11-19T04:46:54.896Z",
                                              "changelog":  "Release version 1.0.0",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.0/plugin.zip",
                                              "sha256":  "c8be80d5ffc6723a3fda4823e513d3b0eabf93fa19b40ad0f9cc91bfeb8b63af",
@@ -77,7 +77,7 @@
                                          {
                                              "version":  "1.0.0",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-19T04:08:09.974Z",
+                                             "releasedAt":  "2026-11-19T04:46:54.882Z",
                                              "changelog":  "Release version 1.0.0",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.0/plugin.zip",
                                              "sha256":  "d25c53a7e63d3ef79f9c5b5346c7369374819e74da3646de030f3109c1415983",
@@ -123,7 +123,7 @@
                                          {
                                              "version":  "1.0.0",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-19T04:08:10.001Z",
+                                             "releasedAt":  "2026-11-19T04:46:54.888Z",
                                              "changelog":  "Release version 1.0.0",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/ldap/1.0.0/plugin.zip",
                                              "sha256":  "d4d3e2a7219339dddead5d0c7af2eb0460b53f4c6600fe7c44364a7c647af437",
@@ -168,7 +168,7 @@
                                          {
                                              "version":  "1.0.0",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-19T04:08:11.743Z",
+                                             "releasedAt":  "2026-11-19T04:46:55.681Z",
                                              "changelog":  "Release version 1.0.0",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/smb/1.0.0/plugin.zip",
                                              "sha256":  "2a64369f0ad33380d0663654d36ba341dad7fe3a76e808c178ee3b595306c7e4",
@@ -215,7 +215,7 @@
                                          {
                                              "version":  "1.0.0",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-19T04:08:11.791Z",
+                                             "releasedAt":  "2026-11-19T04:46:55.696Z",
                                              "changelog":  "Release version 1.0.0",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/terminal/1.0.0/plugin.zip",
                                              "sha256":  "60a3bbd2b994729f4bb057b1bb1b0aa398ffb3fb767e715290675217ef2c21b4",
@@ -255,7 +255,7 @@
                         "icon":  "FolderOpenOutline",
                         "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
                         "license":  "MIT",
-                        "latestVersion":  "1.0.2",
+                        "latestVersion":  "1.0.3",
                         "releases":  [
                                          {
                                              "version":  "1.0.1",
@@ -315,6 +315,36 @@
                                                                             }
                                                             }
                                                         ]
+                                         },
+                                         {
+                                             "version":  "1.0.3",
+                                             "minAppVersion":  "0.1.0",
+                                             "releasedAt":  "2026-11-19T04:46:54.916Z",
+                                             "changelog":  "Release version 1.0.3",
+                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network-share-browser/1.0.3/plugin.zip",
+                                             "sha256":  "ae5b0b9f54b074704c4a078836bebf5c5e7747e79cd339518ce87083c6693128",
+                                             "permissions":  [
+                                                                 "fs.read",
+                                                                 "process.exec",
+                                                                 "fs.external"
+                                                             ],
+                                             "blocks":  [
+                                                            {
+                                                                "id":  "share-browser",
+                                                                "title":  "Сетевая папка _WORK",
+                                                                "entry":  "blocks/ShareBrowserBlock.vue",
+                                                                "icon":  "FolderOpenOutline",
+                                                                "description":  "Проводник сетевой папки \\\\pc5700\\_WORK с контекстным меню и PSExec запуском",
+                                                                "defaultSize":  {
+                                                                                    "w":  12,
+                                                                                    "h":  6
+                                                                                },
+                                                                "minSize":  {
+                                                                                "w":  8,
+                                                                                "h":  4
+                                                                            }
+                                                            }
+                                                        ]
                                          }
                                      ]
                     },
@@ -335,7 +365,7 @@
                                          {
                                              "version":  "1.0.0",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-19T04:08:11.643Z",
+                                             "releasedAt":  "2026-11-19T04:46:55.640Z",
                                              "changelog":  "Release version 1.0.0",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/quick-actions/1.0.0/plugin.zip",
                                              "sha256":  "b07a06aa2299045642abf3825f42d73f4051f77682e9ccdbb9d43cf32057ef1d",
@@ -380,7 +410,7 @@
                                          {
                                              "version":  "1.0.0",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-19T04:08:09.902Z",
+                                             "releasedAt":  "2026-11-19T04:46:54.847Z",
                                              "changelog":  "Release version 1.0.0",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/hello/1.0.0/plugin.zip",
                                              "sha256":  "9542a8fb05f368d7f6472fb31d7ae934756298aaef25c84796c04457823eaaed",
@@ -424,7 +454,7 @@
                                          {
                                              "version":  "0.1.0",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-19T04:08:10.100Z",
+                                             "releasedAt":  "2026-11-19T04:46:54.926Z",
                                              "changelog":  "Release version 0.1.0",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/notes/0.1.0/plugin.zip",
                                              "sha256":  "716199575eff700ef291b4c7f2b3b3a846072d19d9da8d43645f960cd6df14e0",
@@ -452,6 +482,6 @@
                                      ]
                     }
                 ],
-    "updatedAt":  "2026-11-19T04:08:11.794Z",
+    "updatedAt":  "2026-11-19T04:46:55.700Z",
     "schemaVersion":  1
 }

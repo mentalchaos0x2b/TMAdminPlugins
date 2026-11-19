@@ -51,8 +51,13 @@ const dropdownOptions = [
     icon: () => h(NIcon, null, { default: () => h(CopyOutline) }),
   },
   {
-    label: "Запустить на удалённом ПК (PSExec)",
-    key: "psexec",
+    label: "Запустить на удалённом ПК (PSExec — скопировать и запустить)",
+    key: "psexec-copy",
+    icon: () => h(NIcon, null, { default: () => h(TerminalOutline) }),
+  },
+  {
+    label: "Запустить с сетевого пути (PSExec — без копирования)",
+    key: "psexec-share",
     icon: () => h(NIcon, null, { default: () => h(TerminalOutline) }),
   },
 ];
@@ -150,7 +155,11 @@ async function handleSelectDropdown(key: string) {
     } catch (err) {
       message.error("Не удалось скопировать в буфер обмена");
     }
-  } else if (key === "psexec") {
+  } else if (key === "psexec-copy" || key === "psexec-share") {
+    if (selectedItem.value.isDir) {
+      message.warning("Выберите файл, а не папку");
+      return;
+    }
     const host = target.value?.host;
     if (!host) {
       message.warning("Узел (Target) не выбран. Укажите целевой хост в панели управления.");
@@ -158,12 +167,31 @@ async function handleSelectDropdown(key: string) {
     }
     try {
       message.info(`Запуск через PSExec на хосте ${host}...`);
-      // external/PSX.exe \\{host} -i -d "{fullPath}"
-      const res = await execApi.pluginSpawn("external/PSX.exe", [`\\\\${host}`, "-i", "-d", fullPath]);
-      if (res.success || res.code === 0) {
-        message.success(`PSExec успешно запущен на ${host}`);
+      const ext = fullPath.substring(fullPath.lastIndexOf(".")).toLowerCase();
+      let args: string[] = [];
+
+      if (key === "psexec-copy") {
+        if (ext === ".msi") {
+          args = [`\\\\${host}`, "-accepteula", "-i", "-d", "-s", "msiexec.exe", "/i", fullPath];
+        } else {
+          args = [`\\\\${host}`, "-accepteula", "-i", "-d", "-s", "-c", "-f", fullPath];
+        }
       } else {
-        message.error(`PSExec завершился с кодом ${res.code}: ${res.stderr || res.stdout || 'Ошибка'}`);
+        // psexec-share
+        if (ext === ".msi") {
+          args = [`\\\\${host}`, "-accepteula", "-i", "-d", "-s", "msiexec.exe", "/i", fullPath];
+        } else if (ext === ".bat" || ext === ".cmd") {
+          args = [`\\\\${host}`, "-accepteula", "-i", "-d", "-s", "cmd.exe", "/c", fullPath];
+        } else {
+          args = [`\\\\${host}`, "-accepteula", "-i", "-d", "-s", fullPath];
+        }
+      }
+
+      const res = await execApi.pluginSpawn("external/PSX.exe", args);
+      if (res && typeof res.pid === "number") {
+        message.success(`PSExec запущен на ${host} (PID: ${res.pid})`);
+      } else {
+        message.success(`PSExec запущен на ${host}`);
       }
     } catch (err: unknown) {
       const errorMsg = err instanceof Error ? err.message : String(err);
