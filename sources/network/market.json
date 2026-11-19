@@ -1,13 +1,14 @@
 {
-    "author":  {
-                   "name":  "TMAdmin Team",
-                   "email":  "support@tmadmin.local",
-                   "url":  "https://github.com/mentalchaos0x2b"
-               },
-    "name":  "Network Monitor",
-    "changelog":  "РџРµСЂРІС‹Р№ СЃС‚Р°Р±РёР»СЊРЅС‹Р№ СЂРµР»РёР· Р±Р»РѕРєР° СЃРµС‚РµРІРѕРіРѕ РјРѕРЅРёС‚РѕСЂРёРЅРіР° Рё РіСЂР°С„РёРєР° РїРёРЅРіР°.",
-    "description":  "РњРѕРЅРёС‚РѕСЂРёРЅРі РґРѕСЃС‚СѓРїРЅРѕСЃС‚Рё СѓРґР°Р»С‘РЅРЅС‹С… РџРљ, ping РІ СЂРµР°Р»СЊРЅРѕРј РІСЂРµРјРµРЅРё СЃ РіСЂР°С„РёРєРѕРј Р·Р°РґРµСЂР¶РµРє RTT Рё РїРѕС‚РµСЂСЊ РїР°РєРµС‚РѕРІ.",
-    "minAppVersion":  "0.1.0",
-    "category":  "network",
-    "license":  "MIT"
+  "author": {
+    "name": "TMAdmin Team",
+    "email": "support@tmadmin.local",
+    "url": "https://github.com/mentalchaos0x2b"
+  },
+  "name": "Сеть и Ping",
+  "changelog": "Первая стабильная версия сетевых утилит и пинга",
+  "description": "Пинг хостов, сканирование портов, проверка доступности сетевых узлов парка ПК",
+  "minAppVersion": "0.1.0",
+  "category": "network",
+  "license": "MIT",
+  "id": "network"
 }

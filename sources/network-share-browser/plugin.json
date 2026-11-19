@@ -1,13 +1,14 @@
-﻿{
+{
   "id": "network-share-browser",
   "name": "Сетевая папка _WORK",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "TMAdmin Core",
   "description": "Проводник по сетевой папке \\\\pc5700\\_WORK с контекстным меню копирования пути и запуска через PSExec",
   "icon": "FolderOpenOutline",
   "permissions": [
     "fs.read",
-    "process.exec"
+    "process.exec",
+    "fs.external"
   ],
   "blocks": [
     {

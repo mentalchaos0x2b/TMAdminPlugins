@@ -1,12 +1,13 @@
 {
-    "author":  {
-                   "name":  "TMAdmin Core",
-                   "url":  "https://github.com/mentalchaos0x2b"
-               },
-    "name":  "Quick Actions",
-    "changelog":  "Release version 1.0.0",
-    "description":  "РџР°РЅРµР»СЊ Р±С‹СЃС‚СЂС‹С… РґРµР№СЃС‚РІРёР№ (РїРµСЂРµР·Р°РіСЂСѓР·РєР°, СЃР»СѓР¶Р±Р°, РїРёРЅРі)",
-    "minAppVersion":  "0.1.0",
-    "category":  "utility",
-    "license":  "MIT"
+  "author": {
+    "name": "TMAdmin Core",
+    "url": "https://github.com/mentalchaos0x2b"
+  },
+  "name": "Быстрые действия",
+  "changelog": "Первая стабильная версия панели быстрых действий",
+  "description": "Панель быстрого запуска команд, скриптов и админских утилит для выбранного хоста",
+  "minAppVersion": "0.1.0",
+  "category": "utility",
+  "license": "MIT",
+  "id": "quick-actions"
 }

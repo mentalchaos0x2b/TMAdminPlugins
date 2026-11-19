@@ -1,12 +1,13 @@
 {
-    "author":  {
-                   "name":  "TMAdmin Team",
-                   "url":  "https://github.com/mentalchaos0x2b"
-               },
-    "name":  "LAPS Password Manager",
-    "changelog":  "РџРѕРґРґРµСЂР¶РєР° Р°С‚СЂРёР±СѓС‚РѕРІ ms-Mcs-AdmPwd Рё msLAPS-Password СЃ РєРѕРїРёСЂРѕРІР°РЅРёРµРј РІ Р±СѓС„РµСЂ.",
-    "description":  "Р‘РµР·РѕРїР°СЃРЅРѕРµ С‡С‚РµРЅРёРµ Рё СЂРѕС‚Р°С†РёСЏ Р»РѕРєР°Р»СЊРЅРѕРіРѕ РїР°СЂРѕР»СЏ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР° С‡РµСЂРµР· Active Directory LAPS / Windows LAPS v2.",
-    "minAppVersion":  "0.1.0",
-    "category":  "active-directory",
-    "license":  "MIT"
+  "author": {
+    "name": "TMAdmin Team",
+    "url": "https://github.com/mentalchaos0x2b"
+  },
+  "name": "LAPS Пароли",
+  "changelog": "Первая стабильная версия для управления LAPS паролями в домене",
+  "description": "Просмотр и управление паролями локального администратора Active Directory (LAPS)",
+  "minAppVersion": "0.1.0",
+  "category": "active-directory",
+  "license": "MIT",
+  "id": "laps"
 }

@@ -1,12 +1,13 @@
 {
-    "author":  {
-                   "name":  "TMAdmin Team",
-                   "url":  "https://github.com/mentalchaos0x2b"
-               },
-    "name":  "Active Directory Inspector",
-    "changelog":  "РРЅСЃРїРµРєС†РёСЏ РѕР±СЉРµРєС‚РѕРІ РєРѕРјРїСЊСЋС‚РµСЂРѕРІ Рё РґРѕРјРµРЅРЅС‹С… РіСЂСѓРїРї С‡РµСЂРµР· LDAP.",
-    "description":  "РљР°СЂС‚РѕС‡РєР° РєРѕРјРїСЊСЋС‚РµСЂР° Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РІ РґРѕРјРµРЅРµ AD: РїРѕРґСЂР°Р·РґРµР»РµРЅРёРµ (OU), С‡Р»РµРЅСЃС‚РІРѕ РІ РіСЂСѓРїРїР°С…, РћРЎ Рё СЃС‚Р°С‚СѓСЃ Р±Р»РѕРєРёСЂРѕРІРєРё.",
-    "minAppVersion":  "0.1.0",
-    "category":  "active-directory",
-    "license":  "MIT"
+  "author": {
+    "name": "TMAdmin Team",
+    "url": "https://github.com/mentalchaos0x2b"
+  },
+  "name": "LDAP Браузер",
+  "changelog": "Первая стабильная версия LDAP браузера",
+  "description": "Проводник по структуре Active Directory, поиск пользователей, компьютеров и групп",
+  "minAppVersion": "0.1.0",
+  "category": "active-directory",
+  "license": "MIT",
+  "id": "ldap"
 }
