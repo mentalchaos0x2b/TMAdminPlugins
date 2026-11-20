@@ -1,11 +1,11 @@
 {
-  "version": "0.1.0",
-  "notes": "Начальный релиз TMAdmin — рабочего пространства для системных администраторов.",
-  "pub_date": "2026-11-10T12:00:00Z",
+  "version": "1.0.3",
+  "notes": "Обновление TMAdmin v1.0.3: новая иконка и оформление установщиков, автообновление через TMAdminPlugins Releases, история подключений и кастомный фон с пост-эффектами.",
+  "pub_date": "2026-11-20T11:00:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "PLACEHOLDER_SIGNATURE_GENERATED_BY_TAURI_ACTION_DURING_RELEASE",
-      "url": "https://github.com/mentalchaos0x2b/TMAdminPlugins/releases/download/v0.1.0/TMAdmin_0.1.0_x64-setup.nsis.zip"
+      "signature": null,
+      "url": "https://github.com/mentalchaos0x2b/TMAdminPlugins/releases/download/v1.0.3/TMAdmin_1.0.3_x64-setup.exe"
     }
   }
 }
