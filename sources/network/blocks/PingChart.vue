@@ -29,6 +29,8 @@ const sharedStore = useSharedStore();
 const pluginStore = usePluginStore();
 
 const isPinging = ref<boolean>(false);
+const globalIsPinging = ref<boolean>(Boolean(sharedStore.get<boolean>("target.is_pinging")));
+const effectiveIsPinging = computed<boolean>(() => isPinging.value || globalIsPinging.value);
 const rttHistory = ref<(number | null)[]>([]);
 const activePingId = ref<string | null>(null);
 const unlistenFn = ref<(() => void) | null>(null);
@@ -37,8 +39,9 @@ const boxRef = ref<HTMLDivElement | null>(null);
 const canvasRef = ref<HTMLCanvasElement | null>(null);
 const mockTimer = ref<ReturnType<typeof setInterval> | null>(null);
 
-let chartInstance: Chart | null = null;
+let chartInstance: Chart<"line" | "bar", (number | null)[], string> | null = null;
 let resizeObserver: ResizeObserver | null = null;
+let unsubGlobalPingState: (() => void) | null = null;
 
 export interface HoveredChartPoint {
   seq: number;
@@ -151,7 +154,19 @@ async function stopPing(): Promise<void> {
   isPinging.value = false;
 }
 
-const togglePing = async () => (isPinging.value ? stopPing() : startPing());
+async function togglePing(): Promise<void> {
+  if (effectiveIsPinging.value) {
+    if (globalIsPinging.value) {
+      sharedStore.publish("target:ping_control", { action: "stop" });
+    }
+    if (isPinging.value) {
+      await stopPing();
+    }
+  } else {
+    if (!currentTargetHost.value) return;
+    await startPing();
+  }
+}
 
 function clearHistory(): void {
   rttHistory.value = [];
@@ -165,7 +180,9 @@ function clearHistory(): void {
   }
   if (chartInstance) {
     chartInstance.data.labels = [];
-    chartInstance.data.datasets[0].data = [];
+    for (const dataset of chartInstance.data.datasets) {
+      dataset.data = [];
+    }
     chartInstance.update();
   }
 }
@@ -232,9 +249,10 @@ function initOrUpdateChart(): void {
 
   const labels = rttHistory.value.map((_, i) => `#${i + 1}`);
   const data = rttHistory.value.map((v) => (v === null ? null : v));
+  const lossData = rttHistory.value.map((v) => (v === null ? 1 : null));
 
   if (!chartInstance) {
-    chartInstance = new Chart(ctx, {
+    chartInstance = new Chart<"line" | "bar", (number | null)[], string>(ctx, {
       type: "line",
       data: {
         labels,
@@ -270,6 +288,17 @@ function initOrUpdateChart(): void {
             pointHoverBorderColor: "#ffffff",
             pointHoverBorderWidth: 2,
             spanGaps: false,
+          },
+          {
+            type: "bar",
+            label: "Loss",
+            data: lossData,
+            yAxisID: "yLoss",
+            backgroundColor: "rgba(239, 68, 68, 0.28)",
+            borderColor: "#ef4444",
+            borderWidth: { top: 2, right: 0, bottom: 0, left: 0 },
+            barPercentage: 0.45,
+            categoryPercentage: 0.8,
           },
         ],
       },
@@ -332,12 +361,20 @@ function initOrUpdateChart(): void {
               callback: (val) => `${val} мс`,
             },
           },
+          yLoss: {
+            display: false,
+            min: 0,
+            max: 1,
+          },
         },
       },
     });
   } else {
     chartInstance.data.labels = labels;
     chartInstance.data.datasets[0].data = data;
+    if (chartInstance.data.datasets[1]) {
+      chartInstance.data.datasets[1].data = lossData;
+    }
     chartInstance.update();
   }
 }
@@ -426,6 +463,15 @@ function handleVisibilityChange(): void {
 }
 
 onMounted(() => {
+  globalIsPinging.value = Boolean(sharedStore.get<boolean>("target.is_pinging"));
+  unsubGlobalPingState = sharedStore.subscribe<boolean>("target.is_pinging", (val) => {
+    const nextGlobal = Boolean(val);
+    globalIsPinging.value = nextGlobal;
+    if (nextGlobal && isPinging.value) {
+      void stopPing();
+    }
+  });
+
   loadSamplesForHost(currentTargetHost.value);
   void nextTick(() => {
     initOrUpdateChart();
@@ -448,6 +494,10 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+  if (unsubGlobalPingState) {
+    unsubGlobalPingState();
+    unsubGlobalPingState = null;
+  }
   void stopPing();
   if (typeof document !== "undefined") {
     document.removeEventListener("visibilitychange", handleVisibilityChange);
@@ -500,13 +550,13 @@ onUnmounted(() => {
       <n-space size="small" class="top-btns" align="center">
         <n-button
           size="tiny"
-          :type="isPinging ? 'error' : 'primary'"
-          :secondary="isPinging"
+          :type="effectiveIsPinging ? 'error' : 'primary'"
+          :secondary="effectiveIsPinging"
           :disabled="!currentTargetHost"
           data-testid="ping-chart-toggle-btn"
           @click="togglePing"
         >
-          {{ isPinging ? "Стоп ping" : "Старт ping" }}
+          {{ effectiveIsPinging ? "Стоп ping" : "Старт ping" }}
         </n-button>
         <n-button
           size="tiny"

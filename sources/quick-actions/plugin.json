@@ -1,13 +1,16 @@
 {
   "id": "quick-actions",
   "name": "Quick Actions",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "TMAdmin Core",
   "description": "Панель быстрых действий (перезагрузка, служба, пинг)",
   "icon": "FlashOutline",
   "permissions": [
     "process.exec",
-    "net.ping"
+    "fs.external",
+    "net.ping",
+    "store.write",
+    "keychain"
   ],
   "blocks": [
     {
