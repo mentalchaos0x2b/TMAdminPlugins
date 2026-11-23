@@ -12,7 +12,7 @@
                         "icon":  "PulseOutline",
                         "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
                         "license":  "MIT",
-                        "latestVersion":  "1.0.2",
+                        "latestVersion":  "1.0.3",
                         "releases":  [
                                          {
                                              "version":  "1.0.0",
@@ -145,6 +145,50 @@
                                                                             }
                                                             }
                                                         ]
+                                         },
+                                         {
+                                             "version":  "1.0.3",
+                                             "minAppVersion":  "0.1.0",
+                                             "releasedAt":  "2026-11-23T16:44:56.943Z",
+                                             "changelog":  "Release version 1.0.3",
+                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.3/plugin.zip",
+                                             "sha256":  "5d032ad2e3911a541fd2ea8d0506c09a9a76ea0abf3c910277e7f2a38ad2bd93",
+                                             "permissions":  [
+                                                                 "net.ping",
+                                                                 "store.write"
+                                                             ],
+                                             "blocks":  [
+                                                            {
+                                                                "id":  "info",
+                                                                "title":  "Информация об узле",
+                                                                "entry":  "blocks/DeviceInfo.vue",
+                                                                "icon":  "InformationCircleOutline",
+                                                                "description":  "Параметры текущего целевого узла (IP, статус, задержка, заметки)",
+                                                                "defaultSize":  {
+                                                                                    "w":  8,
+                                                                                    "h":  6
+                                                                                },
+                                                                "minSize":  {
+                                                                                "w":  6,
+                                                                                "h":  4
+                                                                            }
+                                                            },
+                                                            {
+                                                                "id":  "ping-chart",
+                                                                "title":  "График задержки (Ping)",
+                                                                "entry":  "blocks/PingChart.vue",
+                                                                "icon":  "PulseOutline",
+                                                                "description":  "График RTT в реальном времени с метриками min/avg/max/jitter/loss%",
+                                                                "defaultSize":  {
+                                                                                    "w":  16,
+                                                                                    "h":  8
+                                                                                },
+                                                                "minSize":  {
+                                                                                "w":  8,
+                                                                                "h":  6
+                                                                            }
+                                                            }
+                                                        ]
                                          }
                                      ]
                     },
@@ -225,7 +269,7 @@
                                          {
                                              "version":  "1.0.2",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-23T16:20:54.422Z",
+                                             "releasedAt":  "2026-11-23T16:44:56.912Z",
                                              "changelog":  "Release version 1.0.2",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.2/plugin.zip",
                                              "sha256":  "143bc08a6b814ada6163724640719aed455967574e7f742c3f0c1a8a652d586b",
@@ -302,7 +346,7 @@
                                          {
                                              "version":  "1.0.1",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-23T16:20:55.433Z",
+                                             "releasedAt":  "2026-11-23T16:44:57.719Z",
                                              "changelog":  "Release version 1.0.1",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/smb/1.0.1/plugin.zip",
                                              "sha256":  "95f22bee891a7f14973bc863348725ec5c6d6c609ea4423048d08370c04a0df3",
@@ -378,7 +422,7 @@
                                          {
                                              "version":  "1.0.1",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-23T16:20:55.450Z",
+                                             "releasedAt":  "2026-11-23T16:44:57.829Z",
                                              "changelog":  "Release version 1.0.1",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/terminal/1.0.1/plugin.zip",
                                              "sha256":  "4365dca24196eae928f959c47ee77027fb35e277d990c3c43da4250c7395e081",
@@ -512,7 +556,7 @@
                                          {
                                              "version":  "1.0.4",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-23T16:20:54.484Z",
+                                             "releasedAt":  "2026-11-23T16:44:56.961Z",
                                              "changelog":  "Release version 1.0.4",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network-share-browser/1.0.4/plugin.zip",
                                              "sha256":  "7d383d1e9361c35f5a4050adb404de1ac366b82c49bc4aef99e6104fbdb921e1",
@@ -619,7 +663,7 @@
                                          {
                                              "version":  "1.0.2",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-23T16:20:55.369Z",
+                                             "releasedAt":  "2026-11-23T16:44:57.684Z",
                                              "changelog":  "Release version 1.0.2",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/quick-actions/1.0.2/plugin.zip",
                                              "sha256":  "e86246071c855a9fbf9bc94ae380b7544fde6f838ea4156a8ade1c63d2df8df3",
@@ -667,7 +711,7 @@
                                          {
                                              "version":  "0.1.0",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-23T16:20:54.488Z",
+                                             "releasedAt":  "2026-11-23T16:44:56.967Z",
                                              "changelog":  "Release version 0.1.0",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/notes/0.1.0/plugin.zip",
                                              "sha256":  "716199575eff700ef291b4c7f2b3b3a846072d19d9da8d43645f960cd6df14e0",
@@ -695,6 +739,6 @@
                                      ]
                     }
                 ],
-    "updatedAt":  "2026-11-23T16:20:55.452Z",
+    "updatedAt":  "2026-11-23T16:44:57.830Z",
     "schemaVersion":  1
 }

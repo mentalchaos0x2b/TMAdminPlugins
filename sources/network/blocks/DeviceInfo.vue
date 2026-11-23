@@ -1,20 +1,27 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from "vue";
-import { useTarget, useExec, usePluginStore, useSharedStore } from "@tmadmin/sdk";
+import { useTarget, useExec, usePluginStore, useSharedStore, useMessage } from "@tmadmin/sdk";
 import {
   NCard,
-  NDescriptions,
-  NDescriptionsItem,
   NTag,
   NButton,
   NInput,
+  NIcon,
+  NTooltip,
+  NSpace,
 } from "naive-ui";
+import {
+  CopyOutline,
+  CheckmarkOutline,
+  RefreshOutline,
+} from "@vicons/ionicons5";
 import { formatRtt, formatTimestamp } from "../lib/networkMetrics";
 
 const target = useTarget();
 const exec = useExec();
 const store = usePluginStore();
 const sharedStore = useSharedStore();
+const message = useMessage();
 
 const isPinging = ref<boolean>(false);
 const quickPingError = ref<string>("");
@@ -22,6 +29,36 @@ const quickPingResult = ref<{ ms: number | null; time: string } | null>(null);
 const noteText = ref<string>("");
 const saveStatus = ref<string>("");
 const sharedStats = ref<{ lossPercent?: number } | null>(null);
+const copiedField = ref<string | null>(null);
+
+async function copyText(value: string, fieldKey: string, label: string): Promise<void> {
+  if (!value || value === "–" || value === "– Не выбран –") return;
+  try {
+    await navigator?.clipboard?.writeText?.(value);
+    copiedField.value = fieldKey;
+    message.success(`${label} скопировано`);
+    setTimeout(() => {
+      if (copiedField.value === fieldKey) copiedField.value = null;
+    }, 1500);
+  } catch {
+    message.error("Не удалось скопировать в буфер обмена");
+  }
+}
+
+async function copyAllInfo(): Promise<void> {
+  const lines = [
+    `Хост: ${host.value || "-"}`,
+    `IP: ${ip.value}`,
+    `Статус: ${currentStatus.value.toUpperCase()}`,
+    `RTT: ${displayRtt.value}`,
+    `Потери: ${displayLoss.value}`,
+    `Проверено: ${displayLastChecked.value}`,
+  ];
+  if (noteText.value.trim()) {
+    lines.push(`Заметка: ${noteText.value.trim()}`);
+  }
+  await copyText(lines.join("\n"), "all", "Сводка об узле");
+}
 
 const host = computed<string>(() => target.value?.host || "localhost");
 const ip = computed<string>(() => target.value?.ip || "–");
@@ -152,40 +189,111 @@ async function saveNote(): Promise<void> {
     data-testid="device-info-block"
   >
     <div class="conn-top">
-      <span class="conn-title">Соединение и узел</span>
-      <n-tag
-        size="small"
-        :bordered="false"
-        :type="currentStatus === 'online' ? 'success' : currentStatus === 'offline' ? 'error' : 'default'"
-        class="status-tag"
-        data-testid="device-info-status"
-      >
-        {{ currentStatus.toUpperCase() }}
-      </n-tag>
+      <div class="conn-title-group">
+        <span class="conn-title">Соединение и узел</span>
+        <n-tag
+          size="small"
+          :bordered="false"
+          :type="currentStatus === 'online' ? 'success' : currentStatus === 'offline' ? 'error' : 'default'"
+          class="status-tag"
+          data-testid="device-info-status"
+        >
+          {{ currentStatus.toUpperCase() }}
+        </n-tag>
+      </div>
+      <n-space :size="4" align="center">
+        <n-tooltip trigger="hover">
+          <template #trigger>
+            <n-button
+              size="tiny"
+              quaternary
+              data-testid="device-info-copy-all-btn"
+              @click="copyAllInfo"
+            >
+              <template #icon>
+                <n-icon :component="copiedField === 'all' ? CheckmarkOutline : CopyOutline" />
+              </template>
+            </n-button>
+          </template>
+          <span>Копировать всю информацию</span>
+        </n-tooltip>
+        <n-tooltip trigger="hover">
+          <template #trigger>
+            <n-button
+              size="tiny"
+              secondary
+              :loading="isPinging"
+              :disabled="isPinging || !host"
+              data-testid="device-info-ping-btn"
+              @click="performQuickPing"
+            >
+              <template #icon>
+                <n-icon :component="RefreshOutline" />
+              </template>
+              {{ isPinging ? "Опрос..." : "Обновить" }}
+            </n-button>
+          </template>
+          <span>Выполнить быстрый опрос узла</span>
+        </n-tooltip>
+      </n-space>
     </div>
 
-    <n-descriptions
-      size="small"
-      :column="1"
-      label-placement="left"
-      class="info-descriptions"
-    >
-      <n-descriptions-item label="Хост">
-        <span class="val c-host" data-testid="device-info-host">{{ host || "– Не выбран –" }}</span>
-      </n-descriptions-item>
-      <n-descriptions-item label="Адрес IP">
-        <span class="val" data-testid="device-info-ip">{{ ip }}</span>
-      </n-descriptions-item>
-      <n-descriptions-item label="Задержка (RTT)">
-        <span class="val c-rtt" data-testid="device-info-rtt">{{ displayRtt }}</span>
-      </n-descriptions-item>
-      <n-descriptions-item label="Потери пакетов">
-        <span class="val c-loss" data-testid="device-info-loss">{{ displayLoss }}</span>
-      </n-descriptions-item>
-      <n-descriptions-item label="Проверено">
-        <span class="val" data-testid="device-info-last-checked">{{ displayLastChecked }}</span>
-      </n-descriptions-item>
-    </n-descriptions>
+    <div class="info-list">
+      <div class="info-row">
+        <span class="info-label">Хост</span>
+        <div class="info-value-wrap">
+          <span class="val c-host selectable" data-testid="device-info-host">{{ host || "– Не выбран –" }}</span>
+          <n-button
+            v-if="host"
+            size="tiny"
+            quaternary
+            class="copy-btn"
+            data-testid="device-info-copy-host-btn"
+            title="Копировать хост"
+            @click="copyText(host, 'host', 'Имя хоста')"
+          >
+            <template #icon>
+              <n-icon :size="13" :component="copiedField === 'host' ? CheckmarkOutline : CopyOutline" />
+            </template>
+          </n-button>
+        </div>
+      </div>
+
+      <div class="info-row">
+        <span class="info-label">Адрес IP</span>
+        <div class="info-value-wrap">
+          <span class="val selectable" data-testid="device-info-ip">{{ ip }}</span>
+          <n-button
+            v-if="ip && ip !== '–'"
+            size="tiny"
+            quaternary
+            class="copy-btn"
+            data-testid="device-info-copy-ip-btn"
+            title="Копировать IP"
+            @click="copyText(ip, 'ip', 'IP-адрес')"
+          >
+            <template #icon>
+              <n-icon :size="13" :component="copiedField === 'ip' ? CheckmarkOutline : CopyOutline" />
+            </template>
+          </n-button>
+        </div>
+      </div>
+
+      <div class="info-row">
+        <span class="info-label">Задержка (RTT)</span>
+        <span class="val c-rtt selectable" data-testid="device-info-rtt">{{ displayRtt }}</span>
+      </div>
+
+      <div class="info-row">
+        <span class="info-label">Потери пакетов</span>
+        <span class="val c-loss selectable" data-testid="device-info-loss">{{ displayLoss }}</span>
+      </div>
+
+      <div class="info-row">
+        <span class="info-label">Проверено</span>
+        <span class="val selectable" data-testid="device-info-last-checked">{{ displayLastChecked }}</span>
+      </div>
+    </div>
 
     <div class="note-section">
       <div class="note-input-row">
@@ -207,31 +315,19 @@ async function saveNote(): Promise<void> {
           OK
         </n-button>
       </div>
-      <n-tag
-        v-if="saveStatus"
-        type="success"
-        size="tiny"
-        :bordered="false"
-        class="saved-tag"
-        data-testid="device-info-save-status"
-      >
-        {{ saveStatus }}
-      </n-tag>
-    </div>
-
-    <div class="bottom-action-row">
-      <n-button
-        size="small"
-        secondary
-        :loading="isPinging"
-        :disabled="isPinging || !host"
-        class="refresh-btn"
-        data-testid="device-info-ping-btn"
-        @click="performQuickPing"
-      >
-        {{ isPinging ? "Опрос..." : "Обновить" }}
-      </n-button>
-      <span v-if="quickPingError" class="err-txt">{{ quickPingError }}</span>
+      <div v-if="saveStatus || quickPingError" class="bottom-feedback">
+        <n-tag
+          v-if="saveStatus"
+          type="success"
+          size="tiny"
+          :bordered="false"
+          class="saved-tag"
+          data-testid="device-info-save-status"
+        >
+          {{ saveStatus }}
+        </n-tag>
+        <span v-if="quickPingError" class="err-txt">{{ quickPingError }}</span>
+      </div>
     </div>
   </n-card>
 </template>
@@ -242,7 +338,7 @@ async function saveNote(): Promise<void> {
   width: 100%;
   box-sizing: border-box;
   background: transparent;
-  color: #e6edf3;
+  color: var(--tm-tx, #e6edf3);
   display: flex;
   flex-direction: column;
 }
@@ -258,47 +354,78 @@ async function saveNote(): Promise<void> {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 8px;
   flex-shrink: 0;
+}
+.conn-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
 }
 .conn-title {
   font-weight: 700;
   font-size: 12px;
-  color: #f0f6fc;
+  color: var(--tm-tx, #f0f6fc);
+  white-space: nowrap;
 }
 .status-tag {
   font-weight: 700;
   font-size: 9.5px;
 }
-.info-descriptions {
+.info-list {
+  display: flex;
+  flex-direction: column;
   background: rgba(0, 0, 0, 0.22);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
-  padding: 6px 8px;
+  border: 1px solid var(--tm-line, rgba(255, 255, 255, 0.06));
+  border-radius: 6px;
+  padding: 4px 10px;
 }
-:deep(.n-descriptions-table-wrapper) {
-  width: 100%;
-}
-:deep(.n-descriptions-table-row) {
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 5px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  min-width: 0;
 }
-:deep(.n-descriptions-table-row:last-child) {
+.info-row:last-child {
   border-bottom: none;
 }
-:deep(.n-descriptions-table-header) {
-  color: #8b949e !important;
-  font-size: 11px !important;
-  padding: 3px 0 !important;
-  width: 110px;
+.info-label {
+  color: var(--tm-mut, #8b949e);
+  font-size: 11.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
-:deep(.n-descriptions-table-content) {
-  padding: 3px 0 !important;
-  text-align: right;
+.info-value-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
 }
 .val {
-  font-family: monospace;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-weight: 600;
-  color: #f0f6fc;
-  font-size: 11.5px;
+  color: var(--tm-tx, #f0f6fc);
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.selectable {
+  user-select: text;
+  cursor: text;
+}
+.copy-btn {
+  padding: 0 3px;
+  height: 20px;
+  opacity: 0.75;
+  flex-shrink: 0;
+}
+.copy-btn:hover {
+  opacity: 1;
 }
 .c-host { color: #58a6ff; }
 .c-rtt { color: #18a058; }
@@ -307,6 +434,7 @@ async function saveNote(): Promise<void> {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  margin-top: auto;
 }
 .note-input-row {
   display: flex;
@@ -316,18 +444,14 @@ async function saveNote(): Promise<void> {
 .note-input {
   font-size: 11px;
 }
-.saved-tag {
-  align-self: flex-start;
-  font-size: 10px;
-}
-.bottom-action-row {
+.bottom-feedback {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: auto;
 }
-.refresh-btn {
-  font-size: 11px;
+.saved-tag {
+  align-self: flex-start;
+  font-size: 10px;
 }
 .err-txt {
   color: #e55353;
