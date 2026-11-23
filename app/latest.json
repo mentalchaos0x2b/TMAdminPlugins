@@ -1,11 +1,11 @@
 {
-  "version": "1.0.3",
-  "notes": "Обновление TMAdmin v1.0.3: новая иконка и оформление установщиков, автообновление через TMAdminPlugins Releases, история подключений и кастомный фон с пост-эффектами.",
-  "pub_date": "2026-11-20T11:00:00Z",
+  "version": "1.0.4",
+  "notes": "Обновление TMAdmin v1.0.4: современные нативные диалоги Windows, оффлайн-режим и локальные плагины в Market, персистентная установка из Studio, onTargetConnect/onTargetReset в SDK, график задержки в стиле Диспетчера задач и быстрый таймаут LAPS.",
+  "pub_date": "2026-11-23T16:20:00Z",
   "platforms": {
     "windows-x86_64": {
       "signature": null,
-      "url": "https://github.com/mentalchaos0x2b/TMAdminPlugins/releases/download/v1.0.3/TMAdmin_1.0.3_x64-setup.exe"
+      "url": "https://github.com/mentalchaos0x2b/TMAdminPlugins/releases/download/v1.0.4/TMAdmin_1.0.4_x64-setup.exe"
     }
   }
 }

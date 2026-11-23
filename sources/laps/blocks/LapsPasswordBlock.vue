@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from "vue";
-import { defineBlock, useTarget, usePluginStore, useExec, useMessage } from "@tmadmin/sdk";
+import {
+  defineBlock,
+  useTarget,
+  onTargetConnect,
+  onTargetReset,
+  usePluginStore,
+  useExec,
+  useMessage,
+} from "@tmadmin/sdk";
 import {
   NButton,
   NTag,
@@ -44,6 +52,8 @@ const isQuerying = ref(false);
 const isRotating = ref(false);
 const copiedToast = ref(false);
 const lapsData = ref<LapsRecord | null>(null);
+const LAPS_QUERY_TIMEOUT_MS = 6000;
+let queryGeneration = 0;
 
 const activeHost = computed(() => target.value?.host || "localhost");
 const expirationInfo = computed(() => {
@@ -75,27 +85,86 @@ function loadCachedOrInit(): void {
 }
 
 loadCachedOrInit();
-onMounted(() => loadCachedOrInit());
+onMounted(() => {
+  loadCachedOrInit();
+  const host = target.value?.host?.trim();
+  const status = target.value?.status;
+  if (host && status && status !== "idle" && !lapsData.value) {
+    void runLaps(false, host);
+  }
+});
 watch(
   () => target.value?.host,
-  () => {
-    loadCachedOrInit();
+  (newHost, oldHost) => {
+    if (!newHost) {
+      lapsData.value = null;
+      isRevealed.value = false;
+      copiedToast.value = false;
+      return;
+    }
+    if (newHost !== oldHost) {
+      isRevealed.value = false;
+      copiedToast.value = false;
+      loadCachedOrInit();
+    }
   },
 );
 
-async function runLaps(reset: boolean): Promise<void> {
-  const host = activeHost.value.split(".")[0] || activeHost.value;
+onTargetConnect((event) => {
+  isRevealed.value = false;
+  copiedToast.value = false;
+  const connectHost = event.host?.trim();
+  if (connectHost) {
+    void runLaps(false, connectHost);
+  }
+});
+
+onTargetReset(() => {
+  queryGeneration++;
+  isQuerying.value = false;
+  isRotating.value = false;
+  lapsData.value = null;
+  isRevealed.value = false;
+  copiedToast.value = false;
+});
+
+function withTimeout<T>(promise: Promise<T>, timeoutMs: number, messageText: string): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error(messageText)), timeoutMs);
+    promise.then(
+      (val) => {
+        clearTimeout(timer);
+        resolve(val);
+      },
+      (err) => {
+        clearTimeout(timer);
+        reject(err);
+      },
+    );
+  });
+}
+
+async function runLaps(reset: boolean, hostOverride?: string): Promise<void> {
+  const targetHost = (hostOverride ?? activeHost.value).trim();
+  if (!targetHost) return;
+  const host = targetHost.split(".")[0] || targetHost;
+  const gen = ++queryGeneration;
   if (reset) isRotating.value = true;
   else isQuerying.value = true;
 
   try {
     const args = reset ? [host, "-r"] : [host];
-    const res = await exec.pluginExec("laps.exe", args);
+    const res = await withTimeout(
+      exec.pluginExec("laps.exe", args),
+      LAPS_QUERY_TIMEOUT_MS,
+      `Таймаут поиска пароля LAPS (${LAPS_QUERY_TIMEOUT_MS / 1000} с)`,
+    );
+    if (gen !== queryGeneration) return;
     if (res && res.stdout && res.stdout.trim()) {
       const parsed = parseLapsOutput(res.stdout);
       lapsData.value = parsed;
       await store.set(`laps:${host}`, parsed, { persist: "temp" });
-      await store.set(`laps:${activeHost.value}`, parsed, { persist: "temp" });
+      await store.set(`laps:${targetHost}`, parsed, { persist: "temp" });
       message.success(
         reset
           ? "Пароль LAPS сброшен (помечен к ротации)"
@@ -105,14 +174,17 @@ async function runLaps(reset: boolean): Promise<void> {
     }
     throw new Error(res?.stderr || "Пустой ответ от laps.exe");
   } catch (err) {
+    if (gen !== queryGeneration) return;
     if (!reset) {
       lapsData.value = null;
     }
     const msg = err instanceof Error ? err.message : String(err);
     message.error(msg);
   } finally {
-    isQuerying.value = false;
-    isRotating.value = false;
+    if (gen === queryGeneration) {
+      isQuerying.value = false;
+      isRotating.value = false;
+    }
   }
 }
 

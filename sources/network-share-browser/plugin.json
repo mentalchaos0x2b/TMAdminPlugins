@@ -1,7 +1,7 @@
 {
   "id": "network-share-browser",
-  "name": "Сетевая папка _WORK",
-  "version": "1.0.3",
+  "name": "Easy SMB",
+  "version": "1.0.4",
   "author": "TMAdmin Core",
   "description": "Проводник по сетевой папке \\\\pc5700\\_WORK с контекстным меню копирования пути и запуска через PSExec",
   "icon": "FolderOpenOutline",

@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from "vue";
-import { defineBlock, useTarget, usePluginStore, useExec, useMessage } from "@tmadmin/sdk";
+import {
+  defineBlock,
+  useTarget,
+  onTargetConnect,
+  onTargetReset,
+  usePluginStore,
+  useExec,
+  useMessage,
+} from "@tmadmin/sdk";
 import {
   NInput,
   NButton,
@@ -87,6 +95,26 @@ watch(
     loadReport(val);
   },
 );
+
+onTargetConnect((event) => {
+  const host = event.host?.trim() || target.value?.host?.trim() || "";
+  if (!host) return;
+  targetHostInput.value = host;
+  if (!isLoading.value) {
+    void handleRefresh();
+  }
+});
+
+onTargetReset((event) => {
+  printers.value = [];
+  shares.value = [];
+  hasScanned.value = false;
+  if (event.reason === "cleared" || event.reason === "disconnected") {
+    targetHostInput.value = "";
+  } else {
+    targetHostInput.value = target.value?.host || "";
+  }
+});
 
 async function handleRefresh(): Promise<void> {
   const host = currentHost.value;

@@ -2,6 +2,8 @@
 import { ref, computed, watch, onMounted, onUnmounted, nextTick } from "vue";
 import {
   useTarget,
+  onTargetConnect,
+  onTargetReset,
   useExec,
   useSharedStore,
   usePluginStore,
@@ -27,6 +29,9 @@ const target = useTarget();
 const exec = useExec();
 const sharedStore = useSharedStore();
 const pluginStore = usePluginStore();
+
+const MAX_POINTS = 60;
+const FIXED_LABELS: string[] = Array.from({ length: MAX_POINTS }, (_, i) => `#${i + 1}`);
 
 const isPinging = ref<boolean>(false);
 const globalIsPinging = ref<boolean>(Boolean(sharedStore.get<boolean>("target.is_pinging")));
@@ -95,7 +100,7 @@ function loadSamplesForHost(host: string): void {
 }
 
 function addPoint(ms: number | null): void {
-  rttHistory.value = appendRttPoint(rttHistory.value, ms, 60);
+  rttHistory.value = appendRttPoint(rttHistory.value, ms, MAX_POINTS);
   const host = currentTargetHost.value;
   if (host) {
     const key = getSamplesKey(host);
@@ -168,9 +173,30 @@ async function togglePing(): Promise<void> {
   }
 }
 
+function buildChartSeries(history: readonly (number | null)[]): {
+  labels: string[];
+  rttData: (number | null)[];
+  lossData: (number | null)[];
+} {
+  const slice = history.slice(-MAX_POINTS);
+  const rttData: (number | null)[] = Array.from({ length: MAX_POINTS }, (_, i) =>
+    i < slice.length ? (slice[i] ?? null) : null,
+  );
+  const lossData: (number | null)[] = Array.from({ length: MAX_POINTS }, (_, i) =>
+    i < slice.length && slice[i] === null ? 1 : null,
+  );
+  return {
+    labels: [...FIXED_LABELS],
+    rttData,
+    lossData,
+  };
+}
+
 function clearHistory(): void {
   rttHistory.value = [];
   hoveredPoint.value = null;
+  lastSyncedTimestamp = null;
+  lastSyncedMs = null;
   if (currentTargetHost.value) {
     const key = getSamplesKey(currentTargetHost.value);
     void pluginStore.set(key, [], { persist: "temp" });
@@ -179,19 +205,23 @@ function clearHistory(): void {
     }
   }
   if (chartInstance) {
-    chartInstance.data.labels = [];
-    for (const dataset of chartInstance.data.datasets) {
-      dataset.data = [];
+    const series = buildChartSeries([]);
+    chartInstance.data.labels = series.labels;
+    chartInstance.data.datasets[0].data = series.rttData;
+    if (chartInstance.data.datasets[1]) {
+      chartInstance.data.datasets[1].data = series.lossData;
     }
-    chartInstance.update();
+    chartInstance.update("none");
   }
 }
 
 function setHoveredPointByIndex(idx: number): void {
+  if (idx < 0 || idx >= rttHistory.value.length) return;
   const rtt = rttHistory.value[idx] ?? null;
   const boxWidth = boxRef.value?.getBoundingClientRect().width || 400;
-  const total = rttHistory.value.length;
-  const x = total <= 1 ? boxWidth / 2 : (idx / (total - 1)) * (boxWidth - 40) + 20;
+  const x =
+    chartInstance?.scales?.x?.getPixelForValue(idx) ??
+    (idx / (MAX_POINTS - 1)) * Math.max(1, boxWidth - 56) + 48;
   hoveredPoint.value = {
     seq: idx + 1,
     rtt,
@@ -224,15 +254,11 @@ const tooltipStyle = computed(() => {
 });
 
 function getHitSpotStyle(idx: number): Record<string, string> {
-  const total = rttHistory.value.length;
-  if (total <= 1) {
-    return { left: "50%", top: "0%", width: "40px", height: "100%", transform: "translateX(-50%)" };
-  }
-  const pct = (idx / (total - 1)) * 92 + 4;
+  const pct = (idx / (MAX_POINTS - 1)) * 88 + 8;
   return {
     left: `${pct}%`,
     top: "0%",
-    width: "20px",
+    width: "12px",
     height: "100%",
     transform: "translateX(-50%)",
   };
@@ -247,9 +273,7 @@ function initOrUpdateChart(): void {
   const ctx = canvasRef.value.getContext?.("2d");
   if (!ctx) return;
 
-  const labels = rttHistory.value.map((_, i) => `#${i + 1}`);
-  const data = rttHistory.value.map((v) => (v === null ? null : v));
-  const lossData = rttHistory.value.map((v) => (v === null ? 1 : null));
+  const { labels, rttData: data, lossData } = buildChartSeries(rttHistory.value);
 
   if (!chartInstance) {
     chartInstance = new Chart<"line" | "bar", (number | null)[], string>(ctx, {
@@ -262,7 +286,7 @@ function initOrUpdateChart(): void {
             data,
             borderColor: "#18a058",
             borderWidth: 2,
-            tension: 0.25,
+            tension: 0.2,
             fill: true,
             backgroundColor: (context: ScriptableContext<"line">) => {
               const { chart } = context;
@@ -274,16 +298,23 @@ function initOrUpdateChart(): void {
               return gradient;
             },
             pointBackgroundColor: (context: ScriptableContext<"line">) => {
+              if (context.dataIndex >= rttHistory.value.length) return "transparent";
               const val = context.raw;
               return val === null ? "#e55353" : "#18a058";
             },
-            pointBorderColor: "#ffffff",
+            pointBorderColor: (context: ScriptableContext<"line">) => {
+              if (context.dataIndex >= rttHistory.value.length) return "transparent";
+              return "#ffffff";
+            },
             pointBorderWidth: 1,
             pointRadius: (context: ScriptableContext<"line">) => {
+              if (context.dataIndex >= rttHistory.value.length) return 0;
               const val = context.raw;
-              return val === null ? 4 : 3;
+              return val === null ? 4 : 2.5;
             },
-            pointHoverRadius: 6,
+            pointHoverRadius: (context: ScriptableContext<"line">) => {
+              return context.dataIndex >= rttHistory.value.length ? 0 : 5;
+            },
             pointHoverBackgroundColor: "#63e2b7",
             pointHoverBorderColor: "#ffffff",
             pointHoverBorderWidth: 2,
@@ -305,7 +336,14 @@ function initOrUpdateChart(): void {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        animation: { duration: 150 },
+        animation: false,
+        transitions: {
+          active: {
+            animation: {
+              duration: 0,
+            },
+          },
+        },
         interaction: {
           mode: "index",
           intersect: false,
@@ -326,6 +364,10 @@ function initOrUpdateChart(): void {
                 return;
               }
               const idx = dataPoint.dataIndex;
+              if (idx < 0 || idx >= rttHistory.value.length) {
+                hoveredPoint.value = null;
+                return;
+              }
               const rtt = rttHistory.value[idx] ?? null;
               hoveredPoint.value = {
                 seq: idx + 1,
@@ -346,11 +388,17 @@ function initOrUpdateChart(): void {
               color: "#8b949e",
               font: { size: 9, family: "monospace" },
               maxRotation: 0,
+              minRotation: 0,
+              autoSkip: true,
+              maxTicksLimit: 7,
             },
           },
           y: {
             beginAtZero: true,
             suggestedMax: 35,
+            afterFit: (axis) => {
+              axis.width = 48;
+            },
             grid: {
               color: "rgba(255, 255, 255, 0.06)",
               tickColor: "rgba(255, 255, 255, 0.08)",
@@ -375,7 +423,7 @@ function initOrUpdateChart(): void {
     if (chartInstance.data.datasets[1]) {
       chartInstance.data.datasets[1].data = lossData;
     }
-    chartInstance.update();
+    chartInstance.update("none");
   }
 }
 
@@ -422,20 +470,38 @@ watch(
     if (next !== prev) {
       lastSyncedTimestamp = null;
       lastSyncedMs = null;
-    }
-    if (next !== prev && Boolean(next)) {
-      loadSamplesForHost(next);
-      if (isPinging.value) {
-        await stopPing();
-        await startPing();
-      }
-    } else if (!next && prev) {
-      loadSamplesForHost("");
-      if (isPinging.value) {
+      clearHistory();
+      if (isPinging.value || activePingId.value || mockTimer.value) {
         await stopPing();
       }
     }
   },
+);
+
+onTargetConnect(() => {
+  lastSyncedTimestamp = null;
+  lastSyncedMs = null;
+});
+
+onTargetReset(() => {
+  lastSyncedTimestamp = null;
+  lastSyncedMs = null;
+  clearHistory();
+  if (isPinging.value || activePingId.value || mockTimer.value) {
+    void stopPing();
+  }
+});
+
+watch(
+  () => sharedStore.get<boolean>("target.is_pinging"),
+  (val) => {
+    const nextGlobal = Boolean(val);
+    globalIsPinging.value = nextGlobal;
+    if (nextGlobal && isPinging.value) {
+      void stopPing();
+    }
+  },
+  { immediate: true },
 );
 
 watch(
@@ -646,6 +712,8 @@ onUnmounted(() => {
   flex-direction: column;
   height: 100%;
   width: 100%;
+  min-width: 0;
+  min-height: 0;
   box-sizing: border-box;
   padding: 6px 8px;
   gap: 6px;
@@ -660,6 +728,8 @@ onUnmounted(() => {
   gap: 8px;
   flex-wrap: nowrap;
   flex-shrink: 0;
+  min-width: 0;
+  overflow: hidden;
 }
 .top-left {
   display: flex;
@@ -686,8 +756,11 @@ onUnmounted(() => {
   font-family: monospace;
   font-size: 10.5px;
   color: #8b949e;
+  min-width: 0;
+  flex: 1;
   overflow: hidden;
   white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .top-metrics b {
   color: #e6edf3;
@@ -704,9 +777,9 @@ onUnmounted(() => {
 }
 .canvas-box {
   flex: 1;
-  min-height: 80px;
+  min-width: 0;
+  min-height: 0;
   width: 100%;
-  height: 100%;
   position: relative;
   background: rgba(0, 0, 0, 0.28);
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -716,6 +789,8 @@ onUnmounted(() => {
 .ping-canvas {
   width: 100% !important;
   height: 100% !important;
+  max-width: 100%;
+  max-height: 100%;
   display: block;
 }
 .ping-point-hit-zone {

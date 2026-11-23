@@ -1,7 +1,7 @@
 {
     "id":  "smb",
-    "name":  "SMB Shares \u0026 Printers",
-    "version":  "1.0.0",
+    "name":  "Принтеры и SMB",
+    "version":  "1.0.1",
     "author":  "TMAdmin Core",
     "description":  "Сетевые папки SMB и подключенные принтеры на удалённом компьютере: отчёт по портам и драйверам, быстрое подключение принтера",
     "icon":  "PrintOutline",

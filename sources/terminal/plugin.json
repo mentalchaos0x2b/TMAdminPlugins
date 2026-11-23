@@ -1,7 +1,7 @@
 {
     "id":  "terminal",
-    "name":  "Встроенный терминал",
-    "version":  "1.0.0",
+    "name":  "Терминал",
+    "version":  "1.0.1",
     "author":  "TMAdmin Core",
     "description":  "Интерактивный PTY терминал PowerShell и CMD с быстрыми скриптами диагностики узла",
     "icon":  "TerminalOutline",

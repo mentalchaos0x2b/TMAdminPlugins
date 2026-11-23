@@ -1,7 +1,7 @@
 {
     "id":  "laps",
-    "name":  "LAPS Password",
-    "version":  "1.0.0",
+    "name":  "Windows LAPS",
+    "version":  "1.0.2",
     "author":  "TMAdmin Core",
     "description":  "Просмотр и ротация пароля локального администратора LAPS (Local Administrator Password Solution) в Active Directory",
     "icon":  "KeyOutline",
