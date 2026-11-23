@@ -1,0 +1,30 @@
+{
+  "id": "osaitp-cards",
+  "name": "Поиск карточек (OSAITP)",
+  "version": "1.0.1",
+  "author": "Averkin Roman",
+  "description": "Быстрый поиск карточек и документов в сетевом хранилище (\\\\fs2\\OSAITP или произвольной папке) с фильтрацией, сортировкой и историей запросов",
+  "icon": "SearchOutline",
+  "permissions": [
+    "fs.read",
+    "process.exec",
+    "store.write"
+  ],
+  "blocks": [
+    {
+      "id": "file-search",
+      "title": "Быстрый поиск карточек",
+      "entry": "blocks/FileSearch.vue",
+      "icon": "SearchOutline",
+      "defaultSize": {
+        "w": 12,
+        "h": 8
+      },
+      "minSize": {
+        "w": 8,
+        "h": 5
+      },
+      "description": "Быстрый поиск карточек и файлов в папках сетевого хранилища с открытием в проводнике и копированием пути"
+    }
+  ]
+}

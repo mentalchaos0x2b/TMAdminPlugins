@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from "vue";
-import { useTarget, useExec, usePluginStore, useSharedStore, useMessage } from "@tmadmin/sdk";
+import { useTarget, useExec, useSharedStore, useMessage } from "@tmadmin/sdk";
 import {
   NCard,
   NTag,
   NButton,
-  NInput,
   NIcon,
   NTooltip,
   NSpace,
@@ -19,15 +18,12 @@ import { formatRtt, formatTimestamp } from "../lib/networkMetrics";
 
 const target = useTarget();
 const exec = useExec();
-const store = usePluginStore();
 const sharedStore = useSharedStore();
 const message = useMessage();
 
 const isPinging = ref<boolean>(false);
 const quickPingError = ref<string>("");
 const quickPingResult = ref<{ ms: number | null; time: string } | null>(null);
-const noteText = ref<string>("");
-const saveStatus = ref<string>("");
 const sharedStats = ref<{ lossPercent?: number } | null>(null);
 const copiedField = ref<string | null>(null);
 
@@ -54,9 +50,6 @@ async function copyAllInfo(): Promise<void> {
     `Потери: ${displayLoss.value}`,
     `Проверено: ${displayLastChecked.value}`,
   ];
-  if (noteText.value.trim()) {
-    lines.push(`Заметка: ${noteText.value.trim()}`);
-  }
   await copyText(lines.join("\n"), "all", "Сводка об узле");
 }
 
@@ -95,18 +88,7 @@ const displayLastChecked = computed<string>(() => {
   return formatTimestamp(target.value?.lastChecked);
 });
 
-const noteStorageKey = computed<string>(() =>
-  host.value ? `note_${host.value}` : "note_default",
-);
-
-function loadNote(): void {
-  const stored = store.get<string>(noteStorageKey.value);
-  noteText.value = typeof stored === "string" ? stored : "";
-}
-
-loadNote();
 onMounted(async () => {
-  loadNote();
   try {
     const saved = await sharedStore.get<{ lossPercent?: number }>("network.latest_stats");
     if (saved) sharedStats.value = saved;
@@ -124,7 +106,6 @@ sharedStore.subscribe<{ stats?: { lossPercent?: number } }>("network:ping_tick",
 watch(
   () => target.value?.host,
   () => {
-    loadNote();
     quickPingResult.value = null;
     quickPingError.value = "";
   },
@@ -170,14 +151,6 @@ async function performQuickPing(): Promise<void> {
   } finally {
     isPinging.value = false;
   }
-}
-
-async function saveNote(): Promise<void> {
-  saveStatus.value = "Сохранено";
-  await store.set(noteStorageKey.value, noteText.value, { persist: "permanent" });
-  setTimeout(() => {
-    saveStatus.value = "";
-  }, 2000);
 }
 </script>
 
@@ -295,40 +268,7 @@ async function saveNote(): Promise<void> {
       </div>
     </div>
 
-    <div class="note-section">
-      <div class="note-input-row">
-        <n-input
-          v-model:value="noteText"
-          size="small"
-          placeholder="Заметка об узле..."
-          :input-props="({ 'data-testid': 'device-info-note-input' } as Record<string, unknown>)"
-          class="note-input"
-          @keydown.enter="saveNote"
-        />
-        <n-button
-          size="small"
-          type="primary"
-          secondary
-          data-testid="device-info-note-save-btn"
-          @click="saveNote"
-        >
-          OK
-        </n-button>
-      </div>
-      <div v-if="saveStatus || quickPingError" class="bottom-feedback">
-        <n-tag
-          v-if="saveStatus"
-          type="success"
-          size="tiny"
-          :bordered="false"
-          class="saved-tag"
-          data-testid="device-info-save-status"
-        >
-          {{ saveStatus }}
-        </n-tag>
-        <span v-if="quickPingError" class="err-txt">{{ quickPingError }}</span>
-      </div>
-    </div>
+    <span v-if="quickPingError" class="err-txt">{{ quickPingError }}</span>
   </n-card>
 </template>
 
@@ -345,8 +285,8 @@ async function saveNote(): Promise<void> {
 :deep(.n-card__content) {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 8px 10px !important;
+  gap: 6px;
+  padding: 6px 10px !important;
   height: 100%;
   box-sizing: border-box;
 }
@@ -379,14 +319,14 @@ async function saveNote(): Promise<void> {
   background: rgba(0, 0, 0, 0.22);
   border: 1px solid var(--tm-line, rgba(255, 255, 255, 0.06));
   border-radius: 6px;
-  padding: 4px 10px;
+  padding: 2px 10px;
 }
 .info-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  padding: 5px 0;
+  padding: 4px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   min-width: 0;
 }
