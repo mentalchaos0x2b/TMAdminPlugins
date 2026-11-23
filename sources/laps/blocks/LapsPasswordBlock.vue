@@ -15,6 +15,8 @@ import {
   NSpace,
   NIcon,
   NTooltip,
+  NPopover,
+  NSwitch,
 } from "naive-ui";
 import {
   KeyOutline,
@@ -26,6 +28,7 @@ import {
   SyncOutline,
   PersonOutline,
   TimeOutline,
+  SettingsOutline,
 } from "@vicons/ionicons5";
 import {
   maskPassword,
@@ -52,8 +55,14 @@ const isQuerying = ref(false);
 const isRotating = ref(false);
 const copiedToast = ref(false);
 const lapsData = ref<LapsRecord | null>(null);
+const autoLoadOnConnect = ref<boolean>(store.get<boolean>("autoLoadOnConnect") ?? true);
 const LAPS_QUERY_TIMEOUT_MS = 6000;
 let queryGeneration = 0;
+
+function handleToggleAutoLoad(val: boolean): void {
+  autoLoadOnConnect.value = val;
+  void store.set("autoLoadOnConnect", val, { persist: "permanent" });
+}
 
 const activeHost = computed(() => target.value?.host || "localhost");
 const expirationInfo = computed(() => {
@@ -89,7 +98,7 @@ onMounted(() => {
   loadCachedOrInit();
   const host = target.value?.host?.trim();
   const status = target.value?.status;
-  if (host && status && status !== "idle" && !lapsData.value) {
+  if (autoLoadOnConnect.value && host && status && status !== "idle" && !lapsData.value) {
     void runLaps(false, host);
   }
 });
@@ -114,7 +123,7 @@ onTargetConnect((event) => {
   isRevealed.value = false;
   copiedToast.value = false;
   const connectHost = event.host?.trim();
-  if (connectHost) {
+  if (autoLoadOnConnect.value && connectHost) {
     void runLaps(false, connectHost);
   }
 });
@@ -214,12 +223,38 @@ async function copyPassword(): Promise<void> {
         <b data-testid="laps-target-host">{{ activeHost }}</b>
       </n-tag>
 
-      <n-tag size="small" :bordered="false" class="acc-tag">
-        <template #icon>
-          <n-icon :component="PersonOutline" />
-        </template>
-        <span data-testid="laps-account-name">{{ lapsData?.accountName || "Administrator" }}</span>
-      </n-tag>
+      <n-space :size="4" align="center">
+        <n-tag size="small" :bordered="false" class="acc-tag">
+          <template #icon>
+            <n-icon :component="PersonOutline" />
+          </template>
+          <span data-testid="laps-account-name">{{ lapsData?.accountName || "Administrator" }}</span>
+        </n-tag>
+
+        <n-popover trigger="click" placement="bottom-end">
+          <template #trigger>
+            <n-button
+              size="tiny"
+              quaternary
+              data-testid="laps-settings-btn"
+              title="Настройки LAPS"
+            >
+              <template #icon>
+                <n-icon :component="SettingsOutline" />
+              </template>
+            </n-button>
+          </template>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 2px 0;">
+            <span style="font-size: 12px;">Автоматически загружать при подключении</span>
+            <n-switch
+              :value="autoLoadOnConnect"
+              size="small"
+              data-testid="laps-autoload-switch"
+              @update:value="handleToggleAutoLoad"
+            />
+          </div>
+        </n-popover>
+      </n-space>
     </div>
 
     <!-- Поле пароля с кнопками действий -->

@@ -118,8 +118,6 @@ foreach ($srcFolder in $sourceFolders) {
     $resolvedAuthor = $null
     if ($marketMeta -and $marketMeta.author) {
         $resolvedAuthor = $marketMeta.author
-    } elseif ($existingPlugin -and $existingPlugin.author) {
-        $resolvedAuthor = $existingPlugin.author
     } elseif ($author) {
         if ($author -is [string]) {
             $resolvedAuthor = [ordered]@{
@@ -129,6 +127,8 @@ foreach ($srcFolder in $sourceFolders) {
         } else {
             $resolvedAuthor = $author
         }
+    } elseif ($existingPlugin -and $existingPlugin.author) {
+        $resolvedAuthor = $existingPlugin.author
     } else {
         $resolvedAuthor = [ordered]@{
             "name" = "TMAdmin Core"

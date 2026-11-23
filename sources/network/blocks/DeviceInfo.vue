@@ -285,8 +285,8 @@ async function performQuickPing(): Promise<void> {
 :deep(.n-card__content) {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 6px 10px !important;
+  gap: 4px;
+  padding: 0 !important;
   height: 100%;
   box-sizing: border-box;
 }
@@ -316,10 +316,12 @@ async function performQuickPing(): Promise<void> {
 .info-list {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
   background: rgba(0, 0, 0, 0.22);
   border: 1px solid var(--tm-line, rgba(255, 255, 255, 0.06));
   border-radius: 6px;
-  padding: 2px 10px;
+  padding: 2px 8px;
 }
 .info-row {
   display: flex;

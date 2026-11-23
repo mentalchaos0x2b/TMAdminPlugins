@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { ref, computed, watch, onUnmounted } from "vue";
+import { ref, computed, watch, onMounted, onUnmounted } from "vue";
 import {
   defineBlock,
+  useTarget,
+  onTargetConnect,
+  onTargetReset,
   useFs,
   useExec,
   useMessage,
@@ -19,6 +22,7 @@ import {
   NRadioGroup,
   NRadioButton,
   NPopover,
+  NSwitch,
 } from "naive-ui";
 import {
   SearchOutline,
@@ -29,6 +33,7 @@ import {
   DocumentTextOutline,
   FolderOutline,
   TimeOutline,
+  SettingsOutline,
 } from "@vicons/ionicons5";
 
 defineBlock({
@@ -39,13 +44,23 @@ defineBlock({
   minSize: { w: 8, h: 5 },
 });
 
+const target = useTarget();
 const { dir } = useFs();
 const exec = useExec();
 const message = useMessage();
 const store = usePluginStore();
 
 const searchPath = ref<string>(store.get<string>("searchPath") ?? "\\\\fs2\\OSAITP");
+const autoSyncTarget = ref<boolean>(store.get<boolean>("autoSyncTarget") ?? true);
 const searchQuery = ref<string>("");
+
+function handleToggleAutoSyncTarget(val: boolean): void {
+  autoSyncTarget.value = val;
+  void store.set("autoSyncTarget", val, { persist: "permanent" });
+  if (val && target.value?.host?.trim()) {
+    searchQuery.value = target.value.host.trim();
+  }
+}
 const isLoading = ref<boolean>(false);
 const isOpening = ref<boolean>(false);
 const results = ref<Array<{ name: string; path: string; isDir: boolean; size: number }>>([]);
@@ -274,6 +289,52 @@ watch(searchPath, (newPath) => {
   void store.set("searchPath", newPath.trim(), { persist: "permanent" });
 });
 
+watch(
+  () => target.value?.host,
+  (newHost) => {
+    if (!autoSyncTarget.value) return;
+    const clean = newHost?.trim() ?? "";
+    if (clean !== searchQuery.value) {
+      if (debounceTimer) clearTimeout(debounceTimer);
+      searchQuery.value = clean;
+      if (!clean) {
+        results.value = [];
+        hasSearched.value = false;
+        isLoading.value = false;
+      }
+    }
+  },
+  { immediate: true },
+);
+
+onTargetConnect((event) => {
+  if (!autoSyncTarget.value) return;
+  const host = event.host?.trim();
+  if (host) {
+    if (debounceTimer) clearTimeout(debounceTimer);
+    searchQuery.value = host;
+    void executeSearch();
+  }
+});
+
+onTargetReset(({ reason }) => {
+  if (!autoSyncTarget.value) return;
+  if (debounceTimer) clearTimeout(debounceTimer);
+  searchGeneration++;
+  results.value = [];
+  hasSearched.value = false;
+  isLoading.value = false;
+  if (reason === "cleared") {
+    searchQuery.value = "";
+  }
+});
+
+onMounted(() => {
+  if (autoSyncTarget.value && target.value?.host?.trim()) {
+    searchQuery.value = target.value.host.trim();
+  }
+});
+
 onUnmounted(() => {
   if (debounceTimer) clearTimeout(debounceTimer);
   searchGeneration++;
@@ -361,11 +422,35 @@ onUnmounted(() => {
       >
         Искать
       </n-button>
+
+      <n-popover trigger="click" placement="bottom-end">
+        <template #trigger>
+          <n-button
+            size="small"
+            quaternary
+            title="Настройки поиска"
+            data-testid="cards-settings-btn"
+          >
+            <template #icon>
+              <n-icon :component="SettingsOutline" />
+            </template>
+          </n-button>
+        </template>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 2px 0;">
+          <span style="font-size: 12px;">Автоподстановка target в поиск</span>
+          <n-switch
+            :value="autoSyncTarget"
+            size="small"
+            data-testid="cards-autosync-switch"
+            @update:value="handleToggleAutoSyncTarget"
+          />
+        </div>
+      </n-popover>
     </div>
 
     <!-- Панель фильтров и статистики -->
     <div v-if="hasSearched && results.length > 0" class="filter-bar">
-      <n-radio-group v-model:value="filterType" size="small">
+      <n-radio-group v-model:value="filterType" size="tiny">
         <n-radio-button value="all">Все ({{ results.length }})</n-radio-button>
         <n-radio-button value="files">
           Файлы ({{ results.filter((i) => !i.isDir).length }})
@@ -375,7 +460,7 @@ onUnmounted(() => {
         </n-radio-button>
       </n-radio-group>
 
-      <n-tag size="small" type="info" :bordered="false">
+      <n-tag size="tiny" type="info" :bordered="false">
         Найдено: {{ displayedResults.length }}
       </n-tag>
     </div>
@@ -418,12 +503,12 @@ onUnmounted(() => {
               Размер
               <span v-if="sortBy === 'size'">{{ sortOrder === 'asc' ? '▲' : '▼' }}</span>
             </th>
-            <th style="width: 140px; text-align: center;">Действия</th>
+            <th style="width: 156px; text-align: center;">Действия</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="item in displayedResults" :key="item.path">
-            <td style="text-align: center; color: #8b949e;">
+            <td style="text-align: center; color: var(--tm-mut, #8b949e);">
               <n-icon :component="item.isDir ? FolderOpenOutline : getFileIcon(item.name)" />
             </td>
             <td>
@@ -431,11 +516,11 @@ onUnmounted(() => {
               <n-tag v-if="item.isDir" size="tiny" type="info" style="margin-left: 6px">Папка</n-tag>
             </td>
             <td class="mono path-cell" :title="item.path">{{ item.path }}</td>
-            <td style="text-align: right; color: #8b949e;">
+            <td style="text-align: right; color: var(--tm-mut, #8b949e);">
               {{ item.isDir ? "—" : formatSize(item.size) }}
             </td>
             <td style="text-align: center;">
-              <n-space justify="center" :size="4">
+              <n-space justify="center" :size="4" :wrap="false">
                 <n-button
                   size="tiny"
                   secondary
@@ -482,8 +567,8 @@ onUnmounted(() => {
 .file-search-root {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 6px 8px;
+  gap: 4px;
+  padding: 0;
   height: 100%;
   width: 100%;
   min-width: 0;
@@ -497,14 +582,14 @@ onUnmounted(() => {
 .compact-bar {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   flex-shrink: 0;
   min-width: 0;
 }
 
 .path-input {
-  flex: 0 1 210px;
-  min-width: 110px;
+  flex: 0 1 185px;
+  min-width: 100px;
 }
 
 /* Обёртка для поля поиска */
