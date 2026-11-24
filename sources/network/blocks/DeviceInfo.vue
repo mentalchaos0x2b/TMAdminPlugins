@@ -282,6 +282,9 @@ async function performQuickPing(): Promise<void> {
   display: flex;
   flex-direction: column;
 }
+:deep(.n-card-content) {
+  padding: 0 !important;
+}
 :deep(.n-card__content) {
   display: flex;
   flex-direction: column;

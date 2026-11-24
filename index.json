@@ -1,1150 +1,1194 @@
 {
-    "plugins":  [
-                    {
-                        "id":  "network",
-                        "name":  "Мониторинг сети",
-                        "description":  "Сетевая диагностика: информация о целевом узле и график задержки RTT в реальном времени",
-                        "author":  {
-                                       "name":  "TMAdmin Core",
-                                       "url":  "https://github.com/mentalchaos0x2b"
-                                   },
-                        "category":  "utility",
-                        "icon":  "PulseOutline",
-                        "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
-                        "license":  "MIT",
-                        "latestVersion":  "1.0.6",
-                        "releases":  [
-                                         {
-                                             "version":  "1.0.0",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-19T04:46:54.896Z",
-                                             "changelog":  "Release version 1.0.0",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.0/plugin.zip",
-                                             "sha256":  "c8be80d5ffc6723a3fda4823e513d3b0eabf93fa19b40ad0f9cc91bfeb8b63af",
-                                             "permissions":  [
-                                                                 "net.ping",
-                                                                 "store.write"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "info",
-                                                                "title":  "Информация об узле",
-                                                                "entry":  "blocks/DeviceInfo.vue",
-                                                                "icon":  "InformationCircleOutline",
-                                                                "description":  "Параметры текущего целевого узла (IP, статус, задержка, заметки)",
-                                                                "defaultSize":  {
-                                                                                    "w":  8,
-                                                                                    "h":  6
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  6,
-                                                                                "h":  4
-                                                                            }
-                                                            },
-                                                            {
-                                                                "id":  "ping-chart",
-                                                                "title":  "График задержки (Ping)",
-                                                                "entry":  "blocks/PingChart.vue",
-                                                                "icon":  "PulseOutline",
-                                                                "description":  "График RTT в реальном времени с метриками min/avg/max/jitter/loss%",
-                                                                "defaultSize":  {
-                                                                                    "w":  16,
-                                                                                    "h":  8
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  8,
-                                                                                "h":  6
-                                                                            }
-                                                            }
-                                                        ]
-                                         },
-                                         {
-                                             "version":  "1.0.1",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-20T10:21:20.003Z",
-                                             "changelog":  "Release version 1.0.1",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.1/plugin.zip",
-                                             "sha256":  "4f97d263781da17827e167de756622f924fd33251ec293c639fc48af1b49cccc",
-                                             "permissions":  [
-                                                                 "net.ping",
-                                                                 "store.write"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "info",
-                                                                "title":  "Информация об узле",
-                                                                "entry":  "blocks/DeviceInfo.vue",
-                                                                "icon":  "InformationCircleOutline",
-                                                                "description":  "Параметры текущего целевого узла (IP, статус, задержка, заметки)",
-                                                                "defaultSize":  {
-                                                                                    "w":  8,
-                                                                                    "h":  6
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  6,
-                                                                                "h":  4
-                                                                            }
-                                                            },
-                                                            {
-                                                                "id":  "ping-chart",
-                                                                "title":  "График задержки (Ping)",
-                                                                "entry":  "blocks/PingChart.vue",
-                                                                "icon":  "PulseOutline",
-                                                                "description":  "График RTT в реальном времени с метриками min/avg/max/jitter/loss%",
-                                                                "defaultSize":  {
-                                                                                    "w":  16,
-                                                                                    "h":  8
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  8,
-                                                                                "h":  6
-                                                                            }
-                                                            }
-                                                        ]
-                                         },
-                                         {
-                                             "version":  "1.0.2",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-23T16:20:54.442Z",
-                                             "changelog":  "Release version 1.0.2",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.2/plugin.zip",
-                                             "sha256":  "90f1c0de8350f3c6372125886550de4a518b05d4fd11cf324179b76d3cfed038",
-                                             "permissions":  [
-                                                                 "net.ping",
-                                                                 "store.write"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "info",
-                                                                "title":  "Информация об узле",
-                                                                "entry":  "blocks/DeviceInfo.vue",
-                                                                "icon":  "InformationCircleOutline",
-                                                                "description":  "Параметры текущего целевого узла (IP, статус, задержка, заметки)",
-                                                                "defaultSize":  {
-                                                                                    "w":  8,
-                                                                                    "h":  6
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  6,
-                                                                                "h":  4
-                                                                            }
-                                                            },
-                                                            {
-                                                                "id":  "ping-chart",
-                                                                "title":  "График задержки (Ping)",
-                                                                "entry":  "blocks/PingChart.vue",
-                                                                "icon":  "PulseOutline",
-                                                                "description":  "График RTT в реальном времени с метриками min/avg/max/jitter/loss%",
-                                                                "defaultSize":  {
-                                                                                    "w":  16,
-                                                                                    "h":  8
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  8,
-                                                                                "h":  6
-                                                                            }
-                                                            }
-                                                        ]
-                                         },
-                                         {
-                                             "version":  "1.0.3",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-23T16:44:56.943Z",
-                                             "changelog":  "Release version 1.0.3",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.3/plugin.zip",
-                                             "sha256":  "5d032ad2e3911a541fd2ea8d0506c09a9a76ea0abf3c910277e7f2a38ad2bd93",
-                                             "permissions":  [
-                                                                 "net.ping",
-                                                                 "store.write"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "info",
-                                                                "title":  "Информация об узле",
-                                                                "entry":  "blocks/DeviceInfo.vue",
-                                                                "icon":  "InformationCircleOutline",
-                                                                "description":  "Параметры текущего целевого узла (IP, статус, задержка, заметки)",
-                                                                "defaultSize":  {
-                                                                                    "w":  8,
-                                                                                    "h":  6
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  6,
-                                                                                "h":  4
-                                                                            }
-                                                            },
-                                                            {
-                                                                "id":  "ping-chart",
-                                                                "title":  "График задержки (Ping)",
-                                                                "entry":  "blocks/PingChart.vue",
-                                                                "icon":  "PulseOutline",
-                                                                "description":  "График RTT в реальном времени с метриками min/avg/max/jitter/loss%",
-                                                                "defaultSize":  {
-                                                                                    "w":  16,
-                                                                                    "h":  8
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  8,
-                                                                                "h":  6
-                                                                            }
-                                                            }
-                                                        ]
-                                         },
-                                         {
-                                             "version":  "1.0.4",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-23T16:54:53.584Z",
-                                             "changelog":  "Release version 1.0.4",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.4/plugin.zip",
-                                             "sha256":  "8e2513979641bcf19bd11e30343e059c5224745a9d35e2ae52ac9e01f937eea6",
-                                             "permissions":  [
-                                                                 "net.ping",
-                                                                 "store.write"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "info",
-                                                                "title":  "Информация об узле",
-                                                                "entry":  "blocks/DeviceInfo.vue",
-                                                                "icon":  "InformationCircleOutline",
-                                                                "description":  "Параметры текущего целевого узла (IP, статус, задержка, заметки)",
-                                                                "defaultSize":  {
-                                                                                    "w":  8,
-                                                                                    "h":  6
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  6,
-                                                                                "h":  4
-                                                                            }
-                                                            },
-                                                            {
-                                                                "id":  "ping-chart",
-                                                                "title":  "График задержки (Ping)",
-                                                                "entry":  "blocks/PingChart.vue",
-                                                                "icon":  "PulseOutline",
-                                                                "description":  "График RTT в реальном времени с метриками min/avg/max/jitter/loss%",
-                                                                "defaultSize":  {
-                                                                                    "w":  16,
-                                                                                    "h":  8
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  8,
-                                                                                "h":  6
-                                                                            }
-                                                            }
-                                                        ]
-                                         },
-                                         {
-                                             "version":  "1.0.5",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-24T10:42:35.978Z",
-                                             "changelog":  "Release version 1.0.5",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.5/plugin.zip",
-                                             "sha256":  "13844a97f0bc32c228ba532db250881b7afb7bc8f2c8eccc5c48a82821bd8e9a",
-                                             "permissions":  [
-                                                                 "net.ping",
-                                                                 "store.write"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "info",
-                                                                "title":  "Информация об узле",
-                                                                "entry":  "blocks/DeviceInfo.vue",
-                                                                "icon":  "InformationCircleOutline",
-                                                                "description":  "Параметры текущего целевого узла (IP, статус, задержка, заметки)",
-                                                                "defaultSize":  {
-                                                                                    "w":  8,
-                                                                                    "h":  6
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  6,
-                                                                                "h":  4
-                                                                            }
-                                                            },
-                                                            {
-                                                                "id":  "ping-chart",
-                                                                "title":  "График задержки (Ping)",
-                                                                "entry":  "blocks/PingChart.vue",
-                                                                "icon":  "PulseOutline",
-                                                                "description":  "График RTT в реальном времени с метриками min/avg/max/jitter/loss%",
-                                                                "defaultSize":  {
-                                                                                    "w":  16,
-                                                                                    "h":  8
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  8,
-                                                                                "h":  6
-                                                                            }
-                                                            }
-                                                        ]
-                                         },
-                                         {
-                                             "version":  "1.0.6",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-24T12:22:35.137Z",
-                                             "changelog":  "Release version 1.0.6",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.6/plugin.zip",
-                                             "sha256":  "d3452b1c9e324b4c887e5f204761a5334d7b383a380292694519fdfea92da38d",
-                                             "permissions":  [
-                                                                 "net.ping",
-                                                                 "store.write"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "info",
-                                                                "title":  "Информация об узле",
-                                                                "entry":  "blocks/DeviceInfo.vue",
-                                                                "icon":  "InformationCircleOutline",
-                                                                "description":  "Параметры текущего целевого узла (IP, статус, задержка, заметки)",
-                                                                "defaultSize":  {
-                                                                                    "w":  8,
-                                                                                    "h":  6
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  6,
-                                                                                "h":  4
-                                                                            }
-                                                            },
-                                                            {
-                                                                "id":  "ping-chart",
-                                                                "title":  "График задержки (Ping)",
-                                                                "entry":  "blocks/PingChart.vue",
-                                                                "icon":  "PulseOutline",
-                                                                "description":  "График RTT в реальном времени с метриками min/avg/max/jitter/loss%",
-                                                                "defaultSize":  {
-                                                                                    "w":  16,
-                                                                                    "h":  8
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  8,
-                                                                                "h":  6
-                                                                            }
-                                                            }
-                                                        ]
-                                         }
-                                     ]
-                    },
-                    {
-                        "id":  "laps",
-                        "name":  "Windows LAPS",
-                        "description":  "Просмотр и ротация пароля локального администратора LAPS (Local Administrator Password Solution) в Active Directory",
-                        "author":  {
-                                       "name":  "TMAdmin Core",
-                                       "url":  "https://github.com/mentalchaos0x2b"
-                                   },
-                        "category":  "utility",
-                        "icon":  "KeyOutline",
-                        "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
-                        "license":  "MIT",
-                        "latestVersion":  "1.0.5",
-                        "releases":  [
-                                         {
-                                             "version":  "1.0.0",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-20T10:21:19.988Z",
-                                             "changelog":  "Release version 1.0.0",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.0/plugin.zip",
-                                             "sha256":  "d25c53a7e63d3ef79f9c5b5346c7369374819e74da3646de030f3109c1415983",
-                                             "permissions":  [
-                                                                 "process.exec",
-                                                                 "fs.external",
-                                                                 "store.write"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "view",
-                                                                "title":  "Пароль LAPS",
-                                                                "entry":  "blocks/LapsPasswordBlock.vue",
-                                                                "icon":  "KeyOutline",
-                                                                "description":  "Пароль локального администратора целевого узла из Active Directory, срок действия, копирование и принудительная ротация",
-                                                                "defaultSize":  {
-                                                                                    "w":  8,
-                                                                                    "h":  5
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  6,
-                                                                                "h":  4
-                                                                            }
-                                                            }
-                                                        ]
-                                         },
-                                         {
-                                             "version":  "1.0.1",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-23T15:25:54.390Z",
-                                             "changelog":  "Release version 1.0.1",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.1/plugin.zip",
-                                             "sha256":  "988a29ad889244d868166d63b269c90dd1d2be63f1788cf0addfc4a639c6e605",
-                                             "permissions":  [
-                                                                 "process.exec",
-                                                                 "fs.external",
-                                                                 "store.write"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "view",
-                                                                "title":  "Пароль LAPS",
-                                                                "entry":  "blocks/LapsPasswordBlock.vue",
-                                                                "icon":  "KeyOutline",
-                                                                "description":  "Пароль локального администратора целевого узла из Active Directory, срок действия, копирование и принудительная ротация",
-                                                                "defaultSize":  {
-                                                                                    "w":  8,
-                                                                                    "h":  5
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  6,
-                                                                                "h":  4
-                                                                            }
-                                                            }
-                                                        ]
-                                         },
-                                         {
-                                             "version":  "1.0.2",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-23T16:54:53.557Z",
-                                             "changelog":  "Release version 1.0.2",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.2/plugin.zip",
-                                             "sha256":  "143bc08a6b814ada6163724640719aed455967574e7f742c3f0c1a8a652d586b",
-                                             "permissions":  [
-                                                                 "process.exec",
-                                                                 "fs.external",
-                                                                 "store.write"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "view",
-                                                                "title":  "Пароль LAPS",
-                                                                "entry":  "blocks/LapsPasswordBlock.vue",
-                                                                "icon":  "KeyOutline",
-                                                                "description":  "Пароль локального администратора целевого узла из Active Directory, срок действия, копирование и принудительная ротация",
-                                                                "defaultSize":  {
-                                                                                    "w":  8,
-                                                                                    "h":  5
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  6,
-                                                                                "h":  4
-                                                                            }
-                                                            }
-                                                        ]
-                                         },
-                                         {
-                                             "version":  "1.0.3",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-24T10:00:46.463Z",
-                                             "changelog":  "Release version 1.0.3",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.3/plugin.zip",
-                                             "sha256":  "06247a1d54b5361aa8a315d21b3752bf08b73ca0e997a4087b52b2bc00ebf774",
-                                             "permissions":  [
-                                                                 "process.exec",
-                                                                 "fs.external",
-                                                                 "store.write"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "view",
-                                                                "title":  "Пароль LAPS",
-                                                                "entry":  "blocks/LapsPasswordBlock.vue",
-                                                                "icon":  "KeyOutline",
-                                                                "description":  "Пароль локального администратора целевого узла из Active Directory, срок действия, копирование и принудительная ротация",
-                                                                "defaultSize":  {
-                                                                                    "w":  8,
-                                                                                    "h":  5
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  6,
-                                                                                "h":  4
-                                                                            }
-                                                            }
-                                                        ]
-                                         },
-                                         {
-                                             "version":  "1.0.4",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-24T10:42:35.947Z",
-                                             "changelog":  "Release version 1.0.4",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.4/plugin.zip",
-                                             "sha256":  "f292393d534373ef2c7a791e8733e1e89a757917276f88486baac2577f38a827",
-                                             "permissions":  [
-                                                                 "process.exec",
-                                                                 "fs.external",
-                                                                 "store.write"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "view",
-                                                                "title":  "Пароль LAPS",
-                                                                "entry":  "blocks/LapsPasswordBlock.vue",
-                                                                "icon":  "KeyOutline",
-                                                                "description":  "Пароль локального администратора целевого узла из Active Directory, срок действия, копирование и принудительная ротация",
-                                                                "defaultSize":  {
-                                                                                    "w":  8,
-                                                                                    "h":  5
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  6,
-                                                                                "h":  4
-                                                                            }
-                                                            }
-                                                        ]
-                                         },
-                                         {
-                                             "version":  "1.0.5",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-24T12:22:35.113Z",
-                                             "changelog":  "Release version 1.0.5",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.5/plugin.zip",
-                                             "sha256":  "52345a2234e0c782c8d403597c57d9b6478f1a932b75a6a5a0616c36c1e9a01d",
-                                             "permissions":  [
-                                                                 "process.exec",
-                                                                 "fs.external",
-                                                                 "store.write"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "view",
-                                                                "title":  "Пароль LAPS",
-                                                                "entry":  "blocks/LapsPasswordBlock.vue",
-                                                                "icon":  "KeyOutline",
-                                                                "description":  "Пароль локального администратора целевого узла из Active Directory, срок действия, копирование и принудительная ротация",
-                                                                "defaultSize":  {
-                                                                                    "w":  8,
-                                                                                    "h":  5
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  6,
-                                                                                "h":  4
-                                                                            }
-                                                            }
-                                                        ]
-                                         }
-                                     ]
-                    },
-                    {
-                        "id":  "smb",
-                        "name":  "Принтеры и SMB",
-                        "description":  "Сетевые папки SMB и подключенные принтеры на удалённом компьютере: отчёт по портам и драйверам, быстрое подключение принтера",
-                        "author":  {
-                                       "name":  "TMAdmin Core",
-                                       "url":  "https://github.com/mentalchaos0x2b"
-                                   },
-                        "category":  "utility",
-                        "icon":  "PrintOutline",
-                        "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
-                        "license":  "MIT",
-                        "latestVersion":  "1.0.1",
-                        "releases":  [
-                                         {
-                                             "version":  "1.0.0",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-20T10:21:21.058Z",
-                                             "changelog":  "Release version 1.0.0",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/smb/1.0.0/plugin.zip",
-                                             "sha256":  "2a64369f0ad33380d0663654d36ba341dad7fe3a76e808c178ee3b595306c7e4",
-                                             "permissions":  [
-                                                                 "process.exec",
-                                                                 "fs.external",
-                                                                 "terminal",
-                                                                 "store.write"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "shares",
-                                                                "title":  "Принтеры и сетевые ресурсы",
-                                                                "entry":  "blocks/PrintersAndSharesBlock.vue",
-                                                                "icon":  "PrintOutline",
-                                                                "description":  "Отчёт по подключённым сетевым/локальным принтерам и SMB-шарам на удалённом ПК, сценарий быстрого подключения принтера",
-                                                                "defaultSize":  {
-                                                                                    "w":  16,
-                                                                                    "h":  8
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  10,
-                                                                                "h":  6
-                                                                            }
-                                                            }
-                                                        ]
-                                         },
-                                         {
-                                             "version":  "1.0.1",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-24T12:22:36.188Z",
-                                             "changelog":  "Release version 1.0.1",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/smb/1.0.1/plugin.zip",
-                                             "sha256":  "95f22bee891a7f14973bc863348725ec5c6d6c609ea4423048d08370c04a0df3",
-                                             "permissions":  [
-                                                                 "process.exec",
-                                                                 "fs.external",
-                                                                 "terminal",
-                                                                 "store.write"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "shares",
-                                                                "title":  "Принтеры и сетевые ресурсы",
-                                                                "entry":  "blocks/PrintersAndSharesBlock.vue",
-                                                                "icon":  "PrintOutline",
-                                                                "description":  "Отчёт по подключённым сетевым/локальным принтерам и SMB-шарам на удалённом ПК, сценарий быстрого подключения принтера",
-                                                                "defaultSize":  {
-                                                                                    "w":  16,
-                                                                                    "h":  8
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  10,
-                                                                                "h":  6
-                                                                            }
-                                                            }
-                                                        ]
-                                         }
-                                     ]
-                    },
-                    {
-                        "id":  "terminal",
-                        "name":  "Терминал",
-                        "description":  "Интерактивный PTY терминал PowerShell и CMD с быстрыми скриптами диагностики узла",
-                        "author":  {
-                                       "name":  "TMAdmin Core",
-                                       "url":  "https://github.com/mentalchaos0x2b"
-                                   },
-                        "category":  "utility",
-                        "icon":  "TerminalOutline",
-                        "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
-                        "license":  "MIT",
-                        "latestVersion":  "1.0.1",
-                        "releases":  [
-                                         {
-                                             "version":  "1.0.0",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-20T10:21:21.077Z",
-                                             "changelog":  "Release version 1.0.0",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/terminal/1.0.0/plugin.zip",
-                                             "sha256":  "60a3bbd2b994729f4bb057b1bb1b0aa398ffb3fb767e715290675217ef2c21b4",
-                                             "permissions":  [
-                                                                 "terminal",
-                                                                 "store.write"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "pty",
-                                                                "title":  "Встроенный терминал",
-                                                                "entry":  "blocks/TerminalBlock.vue",
-                                                                "icon":  "TerminalOutline",
-                                                                "description":  "PTY сессия PowerShell/CMD с авто-контекстом текущего узла",
-                                                                "defaultSize":  {
-                                                                                    "w":  24,
-                                                                                    "h":  8
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  8,
-                                                                                "h":  4
-                                                                            }
-                                                            }
-                                                        ]
-                                         },
-                                         {
-                                             "version":  "1.0.1",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-24T12:22:36.222Z",
-                                             "changelog":  "Release version 1.0.1",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/terminal/1.0.1/plugin.zip",
-                                             "sha256":  "4365dca24196eae928f959c47ee77027fb35e277d990c3c43da4250c7395e081",
-                                             "permissions":  [
-                                                                 "terminal",
-                                                                 "store.write"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "pty",
-                                                                "title":  "Встроенный терминал",
-                                                                "entry":  "blocks/TerminalBlock.vue",
-                                                                "icon":  "TerminalOutline",
-                                                                "description":  "PTY сессия PowerShell/CMD с авто-контекстом текущего узла",
-                                                                "defaultSize":  {
-                                                                                    "w":  24,
-                                                                                    "h":  8
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  8,
-                                                                                "h":  4
-                                                                            }
-                                                            }
-                                                        ]
-                                         }
-                                     ]
-                    },
-                    {
-                        "id":  "network-share-browser",
-                        "name":  "Easy SMB",
-                        "description":  "Проводник по сетевой папке \\\\pc5700\\_WORK с контекстным меню копирования пути и запуска через PSExec",
-                        "author":  {
-                                       "name":  "TMAdmin Core",
-                                       "url":  "https://github.com/mentalchaos0x2b"
-                                   },
-                        "category":  "utility",
-                        "icon":  "FolderOpenOutline",
-                        "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
-                        "license":  "MIT",
-                        "latestVersion":  "1.0.4",
-                        "releases":  [
-                                         {
-                                             "version":  "1.0.1",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-18T12:48:59.862Z",
-                                             "changelog":  "Release version 1.0.1",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network-share-browser/1.0.1/plugin.zip",
-                                             "sha256":  "8aba7ccb8978dc3adfbfa801a1305e30e651425d56a5d8d580161b8e2b1d8553",
-                                             "permissions":  [
-                                                                 "fs.read",
-                                                                 "process.exec"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "share-browser",
-                                                                "title":  "Сетевая папка _WORK",
-                                                                "entry":  "blocks/ShareBrowserBlock.vue",
-                                                                "icon":  "FolderOpenOutline",
-                                                                "description":  "Проводник сетевой папки \\\\pc5700\\_WORK с контекстным меню и PSExec запуском",
-                                                                "defaultSize":  {
-                                                                                    "w":  12,
-                                                                                    "h":  6
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  8,
-                                                                                "h":  4
-                                                                            }
-                                                            }
-                                                        ]
-                                         },
-                                         {
-                                             "version":  "1.0.2",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-19T04:08:10.089Z",
-                                             "changelog":  "Release version 1.0.2",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network-share-browser/1.0.2/plugin.zip",
-                                             "sha256":  "d48a62144990b37070b55f7d5ccbcc62d4ef277cb2d7b7da48821f8ebe96a55f",
-                                             "permissions":  [
-                                                                 "fs.read",
-                                                                 "process.exec",
-                                                                 "fs.external"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "share-browser",
-                                                                "title":  "Сетевая папка _WORK",
-                                                                "entry":  "blocks/ShareBrowserBlock.vue",
-                                                                "icon":  "FolderOpenOutline",
-                                                                "description":  "Проводник сетевой папки \\\\pc5700\\_WORK с контекстным меню и PSExec запуском",
-                                                                "defaultSize":  {
-                                                                                    "w":  12,
-                                                                                    "h":  6
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  8,
-                                                                                "h":  4
-                                                                            }
-                                                            }
-                                                        ]
-                                         },
-                                         {
-                                             "version":  "1.0.3",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-20T10:21:20.032Z",
-                                             "changelog":  "Release version 1.0.3",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network-share-browser/1.0.3/plugin.zip",
-                                             "sha256":  "ae5b0b9f54b074704c4a078836bebf5c5e7747e79cd339518ce87083c6693128",
-                                             "permissions":  [
-                                                                 "fs.read",
-                                                                 "process.exec",
-                                                                 "fs.external"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "share-browser",
-                                                                "title":  "Сетевая папка _WORK",
-                                                                "entry":  "blocks/ShareBrowserBlock.vue",
-                                                                "icon":  "FolderOpenOutline",
-                                                                "description":  "Проводник сетевой папки \\\\pc5700\\_WORK с контекстным меню и PSExec запуском",
-                                                                "defaultSize":  {
-                                                                                    "w":  12,
-                                                                                    "h":  6
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  8,
-                                                                                "h":  4
-                                                                            }
-                                                            }
-                                                        ]
-                                         },
-                                         {
-                                             "version":  "1.0.4",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-24T12:22:35.179Z",
-                                             "changelog":  "Release version 1.0.4",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network-share-browser/1.0.4/plugin.zip",
-                                             "sha256":  "7d383d1e9361c35f5a4050adb404de1ac366b82c49bc4aef99e6104fbdb921e1",
-                                             "permissions":  [
-                                                                 "fs.read",
-                                                                 "process.exec",
-                                                                 "fs.external"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "share-browser",
-                                                                "title":  "Сетевая папка _WORK",
-                                                                "entry":  "blocks/ShareBrowserBlock.vue",
-                                                                "icon":  "FolderOpenOutline",
-                                                                "description":  "Проводник сетевой папки \\\\pc5700\\_WORK с контекстным меню и PSExec запуском",
-                                                                "defaultSize":  {
-                                                                                    "w":  12,
-                                                                                    "h":  6
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  8,
-                                                                                "h":  4
-                                                                            }
-                                                            }
-                                                        ]
-                                         }
-                                     ]
-                    },
-                    {
-                        "id":  "quick-actions",
-                        "name":  "Быстрые действия",
-                        "description":  "Панель быстрых действий (перезагрузка, служба, пинг)",
-                        "author":  {
-                                       "name":  "TMAdmin Core",
-                                       "url":  "https://github.com/mentalchaos0x2b"
-                                   },
-                        "category":  "utility",
-                        "icon":  "FlashOutline",
-                        "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
-                        "license":  "MIT",
-                        "latestVersion":  "1.0.3",
-                        "releases":  [
-                                         {
-                                             "version":  "1.0.0",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-19T04:46:55.640Z",
-                                             "changelog":  "Release version 1.0.0",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/quick-actions/1.0.0/plugin.zip",
-                                             "sha256":  "b07a06aa2299045642abf3825f42d73f4051f77682e9ccdbb9d43cf32057ef1d",
-                                             "permissions":  [
-                                                                 "process.exec",
-                                                                 "net.ping"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "quick-actions",
-                                                                "title":  "Быстрые действия",
-                                                                "entry":  "blocks/QuickActionsBlock.vue",
-                                                                "icon":  "FlashOutline",
-                                                                "description":  "Панель быстрых системных действий",
-                                                                "defaultSize":  {
-                                                                                    "w":  12,
-                                                                                    "h":  4
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  6,
-                                                                                "h":  3
-                                                                            }
-                                                            }
-                                                        ]
-                                         },
-                                         {
-                                             "version":  "1.0.1",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-20T10:21:21.018Z",
-                                             "changelog":  "Release version 1.0.1",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/quick-actions/1.0.1/plugin.zip",
-                                             "sha256":  "94f6d052e94babdd59e93f890c4393fd866c58e5a4198c581353e6024f5a2c56",
-                                             "permissions":  [
-                                                                 "process.exec",
-                                                                 "fs.external",
-                                                                 "net.ping",
-                                                                 "store.write",
-                                                                 "keychain"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "quick-actions",
-                                                                "title":  "Быстрые действия",
-                                                                "entry":  "blocks/QuickActionsBlock.vue",
-                                                                "icon":  "FlashOutline",
-                                                                "description":  "Панель быстрых системных действий",
-                                                                "defaultSize":  {
-                                                                                    "w":  12,
-                                                                                    "h":  4
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  6,
-                                                                                "h":  3
-                                                                            }
-                                                            }
-                                                        ]
-                                         },
-                                         {
-                                             "version":  "1.0.2",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-24T10:42:37.344Z",
-                                             "changelog":  "Release version 1.0.2",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/quick-actions/1.0.2/plugin.zip",
-                                             "sha256":  "e86246071c855a9fbf9bc94ae380b7544fde6f838ea4156a8ade1c63d2df8df3",
-                                             "permissions":  [
-                                                                 "process.exec",
-                                                                 "fs.external",
-                                                                 "net.ping",
-                                                                 "store.write",
-                                                                 "keychain"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "quick-actions",
-                                                                "title":  "Быстрые действия",
-                                                                "entry":  "blocks/QuickActionsBlock.vue",
-                                                                "icon":  "FlashOutline",
-                                                                "description":  "Панель быстрых системных действий",
-                                                                "defaultSize":  {
-                                                                                    "w":  12,
-                                                                                    "h":  4
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  6,
-                                                                                "h":  3
-                                                                            }
-                                                            }
-                                                        ]
-                                         },
-                                         {
-                                             "version":  "1.0.3",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-24T12:22:36.123Z",
-                                             "changelog":  "Release version 1.0.3",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/quick-actions/1.0.3/plugin.zip",
-                                             "sha256":  "f10333ef66de065286bacb7389d9ada470884677a7aa5b6b259ae760d3a09a37",
-                                             "permissions":  [
-                                                                 "process.exec",
-                                                                 "fs.external",
-                                                                 "net.ping",
-                                                                 "store.write",
-                                                                 "keychain"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "quick-actions",
-                                                                "title":  "Быстрые действия",
-                                                                "entry":  "blocks/QuickActionsBlock.vue",
-                                                                "icon":  "FlashOutline",
-                                                                "description":  "Панель быстрых системных действий",
-                                                                "defaultSize":  {
-                                                                                    "w":  12,
-                                                                                    "h":  4
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  6,
-                                                                                "h":  3
-                                                                            }
-                                                            }
-                                                        ]
-                                         }
-                                     ]
-                    },
-                    {
-                        "id":  "notes",
-                        "name":  "Заметки",
-                        "description":  "Быстрые рабочие заметки и напоминания администратора с постоянным автосохранением",
-                        "author":  {
-                                       "name":  "TMAdmin Core",
-                                       "url":  "https://github.com/mentalchaos0x2b"
-                                   },
-                        "category":  "utility",
-                        "icon":  "DocumentTextOutline",
-                        "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
-                        "license":  "MIT",
-                        "latestVersion":  "0.1.0",
-                        "releases":  [
-                                         {
-                                             "version":  "0.1.0",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-24T12:22:35.196Z",
-                                             "changelog":  "Release version 0.1.0",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/notes/0.1.0/plugin.zip",
-                                             "sha256":  "716199575eff700ef291b4c7f2b3b3a846072d19d9da8d43645f960cd6df14e0",
-                                             "permissions":  [
-                                                                 "store.write"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "notes",
-                                                                "title":  "Заметки",
-                                                                "entry":  "blocks/NotesBlock.vue",
-                                                                "icon":  "DocumentTextOutline",
-                                                                "description":  "Полноэкранный блок заметок с автосохранением, статистикой и адаптацией к любому размеру",
-                                                                "defaultSize":  {
-                                                                                    "w":  24,
-                                                                                    "h":  10
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  6,
-                                                                                "h":  4
-                                                                            }
-                                                            }
-                                                        ]
-                                         }
-                                     ]
-                    },
-                    {
-                        "id":  "osaitp-cards",
-                        "name":  "Поиск карточек (OSAITP)",
-                        "description":  "Быстрый поиск карточек и документов в сетевом хранилище (\\\\fs2\\OSAITP или произвольной папке) с фильтрацией, сортировкой и историей запросов",
-                        "author":  {
-                                       "name":  "Averkin Roman",
-                                       "url":  "https://github.com/mentalchaos0x2b"
-                                   },
-                        "category":  "utility",
-                        "icon":  "SearchOutline",
-                        "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
-                        "license":  "MIT",
-                        "latestVersion":  "1.0.3",
-                        "releases":  [
-                                         {
-                                             "version":  "1.0.1",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-23T16:54:53.613Z",
-                                             "changelog":  "Release version 1.0.1",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/osaitp-cards/1.0.1/plugin.zip",
-                                             "sha256":  "08f1add79189bdb7d3867398f2e2c2894cabbb0db90010dc3056219b7dc4cfed",
-                                             "permissions":  [
-                                                                 "fs.read",
-                                                                 "process.exec",
-                                                                 "store.write"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "file-search",
-                                                                "title":  "Быстрый поиск карточек",
-                                                                "entry":  "blocks/FileSearch.vue",
-                                                                "icon":  "SearchOutline",
-                                                                "defaultSize":  {
-                                                                                    "w":  12,
-                                                                                    "h":  8
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  8,
-                                                                                "h":  5
-                                                                            },
-                                                                "description":  "Быстрый поиск карточек и файлов в папках сетевого хранилища с открытием в проводнике и копированием пути"
-                                                            }
-                                                        ]
-                                         },
-                                         {
-                                             "version":  "1.0.2",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-24T10:00:46.536Z",
-                                             "changelog":  "Release version 1.0.2",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/osaitp-cards/1.0.2/plugin.zip",
-                                             "sha256":  "da8e8ddc2630887540dd8745e82560aa1fd9594a3b1ec4092fa9aca50fc280f6",
-                                             "permissions":  [
-                                                                 "fs.read",
-                                                                 "process.exec",
-                                                                 "store.write"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "file-search",
-                                                                "title":  "Быстрый поиск карточек",
-                                                                "entry":  "blocks/FileSearch.vue",
-                                                                "icon":  "SearchOutline",
-                                                                "defaultSize":  {
-                                                                                    "w":  12,
-                                                                                    "h":  8
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  8,
-                                                                                "h":  5
-                                                                            },
-                                                                "description":  "Быстрый поиск карточек и файлов в папках сетевого хранилища с открытием в проводнике и копированием пути"
-                                                            }
-                                                        ]
-                                         },
-                                         {
-                                             "version":  "1.0.3",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-24T12:22:35.239Z",
-                                             "changelog":  "Release version 1.0.3",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/osaitp-cards/1.0.3/plugin.zip",
-                                             "sha256":  "14a786864873318e7d82c2684dd45f5c552e01c0a24b7f05378b4c8493913157",
-                                             "permissions":  [
-                                                                 "fs.read",
-                                                                 "process.exec",
-                                                                 "store.write"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "file-search",
-                                                                "title":  "Быстрый поиск карточек",
-                                                                "entry":  "blocks/FileSearch.vue",
-                                                                "icon":  "SearchOutline",
-                                                                "defaultSize":  {
-                                                                                    "w":  12,
-                                                                                    "h":  8
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  8,
-                                                                                "h":  5
-                                                                            },
-                                                                "description":  "Быстрый поиск карточек и файлов в папках сетевого хранилища с открытием в проводнике и копированием пути"
-                                                            }
-                                                        ]
-                                         }
-                                     ]
-                    },
-                    {
-                        "id":  "notify-service",
-                        "name":  "NotifyService",
-                        "description":  "Проверка папки C:\\$NS на удалённом ПК, чтение даты профилактики (service_date), сброс и установка NotifyService через PSX.",
-                        "author":  {
-                                       "name":  "TMAdmin Core",
-                                       "url":  "https://github.com/mentalchaos0x2b"
-                                   },
-                        "category":  "utility",
-                        "icon":  "NotificationsOutline",
-                        "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
-                        "license":  "MIT",
-                        "latestVersion":  "1.0.0",
-                        "releases":  [
-                                         {
-                                             "version":  "1.0.0",
-                                             "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-24T12:22:35.233Z",
-                                             "changelog":  "Release version 1.0.0",
-                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/notify-service/1.0.0/plugin.zip",
-                                             "sha256":  "fd15040b4d75c74830381c83ffcaadedf86c2914b582bcf7df50ba2e2e086d60",
-                                             "permissions":  [
-                                                                 "fs.read",
-                                                                 "process.exec",
-                                                                 "fs.external"
-                                                             ],
-                                             "blocks":  [
-                                                            {
-                                                                "id":  "notify-service",
-                                                                "title":  "NotifyService",
-                                                                "entry":  "blocks/NotifyServiceBlock.vue",
-                                                                "icon":  "NotificationsOutline",
-                                                                "defaultSize":  {
-                                                                                    "w":  8,
-                                                                                    "h":  5
-                                                                                },
-                                                                "minSize":  {
-                                                                                "w":  6,
-                                                                                "h":  4
-                                                                            },
-                                                                "description":  "Статус профилактики NotifyService, сброс даты и установка через PSX"
-                                                            }
-                                                        ]
-                                         }
-                                     ]
-                    }
-                ],
-    "updatedAt":  "2026-11-24T12:22:36.224Z",
-    "schemaVersion":  1
+  "plugins": [
+    {
+      "id": "network",
+      "name": "Мониторинг сети",
+      "description": "Сетевая диагностика: информация о целевом узле и график задержки RTT в реальном времени",
+      "author": {
+        "name": "TMAdmin Core",
+        "url": "https://github.com/mentalchaos0x2b"
+      },
+      "category": "utility",
+      "icon": "PulseOutline",
+      "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+      "license": "MIT",
+      "latestVersion": "1.0.7",
+      "releases": [
+        {
+          "version": "1.0.0",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-19T04:46:54.896Z",
+          "changelog": "Release version 1.0.0",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.0/plugin.zip",
+          "sha256": "c8be80d5ffc6723a3fda4823e513d3b0eabf93fa19b40ad0f9cc91bfeb8b63af",
+          "permissions": [
+            "net.ping",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "info",
+              "title": "Информация об узле",
+              "entry": "blocks/DeviceInfo.vue",
+              "icon": "InformationCircleOutline",
+              "description": "Параметры текущего целевого узла (IP, статус, задержка, заметки)",
+              "defaultSize": {
+                "w": 8,
+                "h": 6
+              },
+              "minSize": {
+                "w": 6,
+                "h": 4
+              }
+            },
+            {
+              "id": "ping-chart",
+              "title": "График задержки (Ping)",
+              "entry": "blocks/PingChart.vue",
+              "icon": "PulseOutline",
+              "description": "График RTT в реальном времени с метриками min/avg/max/jitter/loss%",
+              "defaultSize": {
+                "w": 16,
+                "h": 8
+              },
+              "minSize": {
+                "w": 8,
+                "h": 6
+              }
+            }
+          ]
+        },
+        {
+          "version": "1.0.1",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-20T10:21:20.003Z",
+          "changelog": "Release version 1.0.1",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.1/plugin.zip",
+          "sha256": "4f97d263781da17827e167de756622f924fd33251ec293c639fc48af1b49cccc",
+          "permissions": [
+            "net.ping",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "info",
+              "title": "Информация об узле",
+              "entry": "blocks/DeviceInfo.vue",
+              "icon": "InformationCircleOutline",
+              "description": "Параметры текущего целевого узла (IP, статус, задержка, заметки)",
+              "defaultSize": {
+                "w": 8,
+                "h": 6
+              },
+              "minSize": {
+                "w": 6,
+                "h": 4
+              }
+            },
+            {
+              "id": "ping-chart",
+              "title": "График задержки (Ping)",
+              "entry": "blocks/PingChart.vue",
+              "icon": "PulseOutline",
+              "description": "График RTT в реальном времени с метриками min/avg/max/jitter/loss%",
+              "defaultSize": {
+                "w": 16,
+                "h": 8
+              },
+              "minSize": {
+                "w": 8,
+                "h": 6
+              }
+            }
+          ]
+        },
+        {
+          "version": "1.0.2",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-23T16:20:54.442Z",
+          "changelog": "Release version 1.0.2",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.2/plugin.zip",
+          "sha256": "90f1c0de8350f3c6372125886550de4a518b05d4fd11cf324179b76d3cfed038",
+          "permissions": [
+            "net.ping",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "info",
+              "title": "Информация об узле",
+              "entry": "blocks/DeviceInfo.vue",
+              "icon": "InformationCircleOutline",
+              "description": "Параметры текущего целевого узла (IP, статус, задержка, заметки)",
+              "defaultSize": {
+                "w": 8,
+                "h": 6
+              },
+              "minSize": {
+                "w": 6,
+                "h": 4
+              }
+            },
+            {
+              "id": "ping-chart",
+              "title": "График задержки (Ping)",
+              "entry": "blocks/PingChart.vue",
+              "icon": "PulseOutline",
+              "description": "График RTT в реальном времени с метриками min/avg/max/jitter/loss%",
+              "defaultSize": {
+                "w": 16,
+                "h": 8
+              },
+              "minSize": {
+                "w": 8,
+                "h": 6
+              }
+            }
+          ]
+        },
+        {
+          "version": "1.0.3",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-23T16:44:56.943Z",
+          "changelog": "Release version 1.0.3",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.3/plugin.zip",
+          "sha256": "5d032ad2e3911a541fd2ea8d0506c09a9a76ea0abf3c910277e7f2a38ad2bd93",
+          "permissions": [
+            "net.ping",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "info",
+              "title": "Информация об узле",
+              "entry": "blocks/DeviceInfo.vue",
+              "icon": "InformationCircleOutline",
+              "description": "Параметры текущего целевого узла (IP, статус, задержка, заметки)",
+              "defaultSize": {
+                "w": 8,
+                "h": 6
+              },
+              "minSize": {
+                "w": 6,
+                "h": 4
+              }
+            },
+            {
+              "id": "ping-chart",
+              "title": "График задержки (Ping)",
+              "entry": "blocks/PingChart.vue",
+              "icon": "PulseOutline",
+              "description": "График RTT в реальном времени с метриками min/avg/max/jitter/loss%",
+              "defaultSize": {
+                "w": 16,
+                "h": 8
+              },
+              "minSize": {
+                "w": 8,
+                "h": 6
+              }
+            }
+          ]
+        },
+        {
+          "version": "1.0.4",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-23T16:54:53.584Z",
+          "changelog": "Release version 1.0.4",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.4/plugin.zip",
+          "sha256": "8e2513979641bcf19bd11e30343e059c5224745a9d35e2ae52ac9e01f937eea6",
+          "permissions": [
+            "net.ping",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "info",
+              "title": "Информация об узле",
+              "entry": "blocks/DeviceInfo.vue",
+              "icon": "InformationCircleOutline",
+              "description": "Параметры текущего целевого узла (IP, статус, задержка, заметки)",
+              "defaultSize": {
+                "w": 8,
+                "h": 6
+              },
+              "minSize": {
+                "w": 6,
+                "h": 4
+              }
+            },
+            {
+              "id": "ping-chart",
+              "title": "График задержки (Ping)",
+              "entry": "blocks/PingChart.vue",
+              "icon": "PulseOutline",
+              "description": "График RTT в реальном времени с метриками min/avg/max/jitter/loss%",
+              "defaultSize": {
+                "w": 16,
+                "h": 8
+              },
+              "minSize": {
+                "w": 8,
+                "h": 6
+              }
+            }
+          ]
+        },
+        {
+          "version": "1.0.5",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-24T10:42:35.978Z",
+          "changelog": "Release version 1.0.5",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.5/plugin.zip",
+          "sha256": "13844a97f0bc32c228ba532db250881b7afb7bc8f2c8eccc5c48a82821bd8e9a",
+          "permissions": [
+            "net.ping",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "info",
+              "title": "Информация об узле",
+              "entry": "blocks/DeviceInfo.vue",
+              "icon": "InformationCircleOutline",
+              "description": "Параметры текущего целевого узла (IP, статус, задержка, заметки)",
+              "defaultSize": {
+                "w": 8,
+                "h": 6
+              },
+              "minSize": {
+                "w": 6,
+                "h": 4
+              }
+            },
+            {
+              "id": "ping-chart",
+              "title": "График задержки (Ping)",
+              "entry": "blocks/PingChart.vue",
+              "icon": "PulseOutline",
+              "description": "График RTT в реальном времени с метриками min/avg/max/jitter/loss%",
+              "defaultSize": {
+                "w": 16,
+                "h": 8
+              },
+              "minSize": {
+                "w": 8,
+                "h": 6
+              }
+            }
+          ]
+        },
+        {
+          "version": "1.0.6",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-24T12:35:45.838Z",
+          "changelog": "Release version 1.0.6",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.6/plugin.zip",
+          "sha256": "ee3eadbc9dd0fadd11317548fcc7fcc256825d67f744eb4b56130c84f233c954",
+          "permissions": [
+            "net.ping",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "info",
+              "title": "Информация об узле",
+              "entry": "blocks/DeviceInfo.vue",
+              "icon": "InformationCircleOutline",
+              "description": "Параметры текущего целевого узла (IP, статус, задержка, заметки)",
+              "defaultSize": {
+                "w": 8,
+                "h": 6
+              },
+              "minSize": {
+                "w": 6,
+                "h": 4
+              }
+            },
+            {
+              "id": "ping-chart",
+              "title": "График задержки (Ping)",
+              "entry": "blocks/PingChart.vue",
+              "icon": "PulseOutline",
+              "description": "График RTT в реальном времени с метриками min/avg/max/jitter/loss%",
+              "defaultSize": {
+                "w": 16,
+                "h": 8
+              },
+              "minSize": {
+                "w": 8,
+                "h": 6
+              }
+            }
+          ]
+        },
+        {
+          "version": "1.0.7",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-24T12:36:26.698Z",
+          "changelog": "Release version 1.0.7",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.7/plugin.zip",
+          "sha256": "7c9fc483e10f6af11bf80e084e2194a50ca817a07c14d82f847457a1cf94423e",
+          "permissions": [
+            "net.ping",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "info",
+              "title": "Информация об узле",
+              "entry": "blocks/DeviceInfo.vue",
+              "icon": "InformationCircleOutline",
+              "description": "Параметры текущего целевого узла (IP, статус, задержка, заметки)",
+              "defaultSize": {
+                "w": 8,
+                "h": 6
+              },
+              "minSize": {
+                "w": 6,
+                "h": 4
+              }
+            },
+            {
+              "id": "ping-chart",
+              "title": "График задержки (Ping)",
+              "entry": "blocks/PingChart.vue",
+              "icon": "PulseOutline",
+              "description": "График RTT в реальном времени с метриками min/avg/max/jitter/loss%",
+              "defaultSize": {
+                "w": 16,
+                "h": 8
+              },
+              "minSize": {
+                "w": 8,
+                "h": 6
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "laps",
+      "name": "Windows LAPS",
+      "description": "Просмотр и ротация пароля локального администратора LAPS (Local Administrator Password Solution) в Active Directory",
+      "author": {
+        "name": "TMAdmin Core",
+        "url": "https://github.com/mentalchaos0x2b"
+      },
+      "category": "utility",
+      "icon": "KeyOutline",
+      "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+      "license": "MIT",
+      "latestVersion": "1.0.5",
+      "releases": [
+        {
+          "version": "1.0.0",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-20T10:21:19.988Z",
+          "changelog": "Release version 1.0.0",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.0/plugin.zip",
+          "sha256": "d25c53a7e63d3ef79f9c5b5346c7369374819e74da3646de030f3109c1415983",
+          "permissions": [
+            "process.exec",
+            "fs.external",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "view",
+              "title": "Пароль LAPS",
+              "entry": "blocks/LapsPasswordBlock.vue",
+              "icon": "KeyOutline",
+              "description": "Пароль локального администратора целевого узла из Active Directory, срок действия, копирование и принудительная ротация",
+              "defaultSize": {
+                "w": 8,
+                "h": 5
+              },
+              "minSize": {
+                "w": 6,
+                "h": 4
+              }
+            }
+          ]
+        },
+        {
+          "version": "1.0.1",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-23T15:25:54.39Z",
+          "changelog": "Release version 1.0.1",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.1/plugin.zip",
+          "sha256": "988a29ad889244d868166d63b269c90dd1d2be63f1788cf0addfc4a639c6e605",
+          "permissions": [
+            "process.exec",
+            "fs.external",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "view",
+              "title": "Пароль LAPS",
+              "entry": "blocks/LapsPasswordBlock.vue",
+              "icon": "KeyOutline",
+              "description": "Пароль локального администратора целевого узла из Active Directory, срок действия, копирование и принудительная ротация",
+              "defaultSize": {
+                "w": 8,
+                "h": 5
+              },
+              "minSize": {
+                "w": 6,
+                "h": 4
+              }
+            }
+          ]
+        },
+        {
+          "version": "1.0.2",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-23T16:54:53.557Z",
+          "changelog": "Release version 1.0.2",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.2/plugin.zip",
+          "sha256": "143bc08a6b814ada6163724640719aed455967574e7f742c3f0c1a8a652d586b",
+          "permissions": [
+            "process.exec",
+            "fs.external",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "view",
+              "title": "Пароль LAPS",
+              "entry": "blocks/LapsPasswordBlock.vue",
+              "icon": "KeyOutline",
+              "description": "Пароль локального администратора целевого узла из Active Directory, срок действия, копирование и принудительная ротация",
+              "defaultSize": {
+                "w": 8,
+                "h": 5
+              },
+              "minSize": {
+                "w": 6,
+                "h": 4
+              }
+            }
+          ]
+        },
+        {
+          "version": "1.0.3",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-24T10:00:46.463Z",
+          "changelog": "Release version 1.0.3",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.3/plugin.zip",
+          "sha256": "06247a1d54b5361aa8a315d21b3752bf08b73ca0e997a4087b52b2bc00ebf774",
+          "permissions": [
+            "process.exec",
+            "fs.external",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "view",
+              "title": "Пароль LAPS",
+              "entry": "blocks/LapsPasswordBlock.vue",
+              "icon": "KeyOutline",
+              "description": "Пароль локального администратора целевого узла из Active Directory, срок действия, копирование и принудительная ротация",
+              "defaultSize": {
+                "w": 8,
+                "h": 5
+              },
+              "minSize": {
+                "w": 6,
+                "h": 4
+              }
+            }
+          ]
+        },
+        {
+          "version": "1.0.4",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-24T10:42:35.947Z",
+          "changelog": "Release version 1.0.4",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.4/plugin.zip",
+          "sha256": "f292393d534373ef2c7a791e8733e1e89a757917276f88486baac2577f38a827",
+          "permissions": [
+            "process.exec",
+            "fs.external",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "view",
+              "title": "Пароль LAPS",
+              "entry": "blocks/LapsPasswordBlock.vue",
+              "icon": "KeyOutline",
+              "description": "Пароль локального администратора целевого узла из Active Directory, срок действия, копирование и принудительная ротация",
+              "defaultSize": {
+                "w": 8,
+                "h": 5
+              },
+              "minSize": {
+                "w": 6,
+                "h": 4
+              }
+            }
+          ]
+        },
+        {
+          "version": "1.0.5",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-24T12:36:26.675Z",
+          "changelog": "Release version 1.0.5",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.5/plugin.zip",
+          "sha256": "20cb6ae2c17b452cddcb42073e779c8cadc76d10e83a487b21a297aa800d8867",
+          "permissions": [
+            "process.exec",
+            "fs.external",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "view",
+              "title": "Пароль LAPS",
+              "entry": "blocks/LapsPasswordBlock.vue",
+              "icon": "KeyOutline",
+              "description": "Пароль локального администратора целевого узла из Active Directory, срок действия, копирование и принудительная ротация",
+              "defaultSize": {
+                "w": 8,
+                "h": 5
+              },
+              "minSize": {
+                "w": 6,
+                "h": 4
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smb",
+      "name": "Принтеры и SMB",
+      "description": "Сетевые папки SMB и подключенные принтеры на удалённом компьютере: отчёт по портам и драйверам, быстрое подключение принтера",
+      "author": {
+        "name": "TMAdmin Core",
+        "url": "https://github.com/mentalchaos0x2b"
+      },
+      "category": "utility",
+      "icon": "PrintOutline",
+      "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+      "license": "MIT",
+      "latestVersion": "1.0.1",
+      "releases": [
+        {
+          "version": "1.0.0",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-20T10:21:21.058Z",
+          "changelog": "Release version 1.0.0",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/smb/1.0.0/plugin.zip",
+          "sha256": "2a64369f0ad33380d0663654d36ba341dad7fe3a76e808c178ee3b595306c7e4",
+          "permissions": [
+            "process.exec",
+            "fs.external",
+            "terminal",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "shares",
+              "title": "Принтеры и сетевые ресурсы",
+              "entry": "blocks/PrintersAndSharesBlock.vue",
+              "icon": "PrintOutline",
+              "description": "Отчёт по подключённым сетевым/локальным принтерам и SMB-шарам на удалённом ПК, сценарий быстрого подключения принтера",
+              "defaultSize": {
+                "w": 16,
+                "h": 8
+              },
+              "minSize": {
+                "w": 10,
+                "h": 6
+              }
+            }
+          ]
+        },
+        {
+          "version": "1.0.1",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-24T12:36:27.061Z",
+          "changelog": "Release version 1.0.1",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/smb/1.0.1/plugin.zip",
+          "sha256": "7d0ca68eb4ba0c5d2898883d664685594d341401013b5491b0282aceae6bc483",
+          "permissions": [
+            "process.exec",
+            "fs.external",
+            "terminal",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "shares",
+              "title": "Принтеры и сетевые ресурсы",
+              "entry": "blocks/PrintersAndSharesBlock.vue",
+              "icon": "PrintOutline",
+              "description": "Отчёт по подключённым сетевым/локальным принтерам и SMB-шарам на удалённом ПК, сценарий быстрого подключения принтера",
+              "defaultSize": {
+                "w": 16,
+                "h": 8
+              },
+              "minSize": {
+                "w": 10,
+                "h": 6
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "terminal",
+      "name": "Терминал",
+      "description": "Интерактивный PTY терминал PowerShell и CMD с быстрыми скриптами диагностики узла",
+      "author": {
+        "name": "TMAdmin Core",
+        "url": "https://github.com/mentalchaos0x2b"
+      },
+      "category": "utility",
+      "icon": "TerminalOutline",
+      "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+      "license": "MIT",
+      "latestVersion": "1.0.1",
+      "releases": [
+        {
+          "version": "1.0.0",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-20T10:21:21.077Z",
+          "changelog": "Release version 1.0.0",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/terminal/1.0.0/plugin.zip",
+          "sha256": "60a3bbd2b994729f4bb057b1bb1b0aa398ffb3fb767e715290675217ef2c21b4",
+          "permissions": [
+            "terminal",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "pty",
+              "title": "Встроенный терминал",
+              "entry": "blocks/TerminalBlock.vue",
+              "icon": "TerminalOutline",
+              "description": "PTY сессия PowerShell/CMD с авто-контекстом текущего узла",
+              "defaultSize": {
+                "w": 24,
+                "h": 8
+              },
+              "minSize": {
+                "w": 8,
+                "h": 4
+              }
+            }
+          ]
+        },
+        {
+          "version": "1.0.1",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-24T12:36:27.072Z",
+          "changelog": "Release version 1.0.1",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/terminal/1.0.1/plugin.zip",
+          "sha256": "82a9b7a567437f8a70212425cc2eb5a9f0d9c394287a17293b190e42866502c8",
+          "permissions": [
+            "terminal",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "pty",
+              "title": "Встроенный терминал",
+              "entry": "blocks/TerminalBlock.vue",
+              "icon": "TerminalOutline",
+              "description": "PTY сессия PowerShell/CMD с авто-контекстом текущего узла",
+              "defaultSize": {
+                "w": 24,
+                "h": 8
+              },
+              "minSize": {
+                "w": 8,
+                "h": 4
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "network-share-browser",
+      "name": "Easy SMB",
+      "description": "Проводник по сетевой папке \\\\pc5700\\_WORK с контекстным меню копирования пути и запуска через PSExec",
+      "author": {
+        "name": "TMAdmin Core",
+        "url": "https://github.com/mentalchaos0x2b"
+      },
+      "category": "utility",
+      "icon": "FolderOpenOutline",
+      "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+      "license": "MIT",
+      "latestVersion": "1.0.4",
+      "releases": [
+        {
+          "version": "1.0.1",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-18T12:48:59.862Z",
+          "changelog": "Release version 1.0.1",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network-share-browser/1.0.1/plugin.zip",
+          "sha256": "8aba7ccb8978dc3adfbfa801a1305e30e651425d56a5d8d580161b8e2b1d8553",
+          "permissions": [
+            "fs.read",
+            "process.exec"
+          ],
+          "blocks": [
+            {
+              "id": "share-browser",
+              "title": "Сетевая папка _WORK",
+              "entry": "blocks/ShareBrowserBlock.vue",
+              "icon": "FolderOpenOutline",
+              "description": "Проводник сетевой папки \\\\pc5700\\_WORK с контекстным меню и PSExec запуском",
+              "defaultSize": {
+                "w": 12,
+                "h": 6
+              },
+              "minSize": {
+                "w": 8,
+                "h": 4
+              }
+            }
+          ]
+        },
+        {
+          "version": "1.0.2",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-19T04:08:10.089Z",
+          "changelog": "Release version 1.0.2",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network-share-browser/1.0.2/plugin.zip",
+          "sha256": "d48a62144990b37070b55f7d5ccbcc62d4ef277cb2d7b7da48821f8ebe96a55f",
+          "permissions": [
+            "fs.read",
+            "process.exec",
+            "fs.external"
+          ],
+          "blocks": [
+            {
+              "id": "share-browser",
+              "title": "Сетевая папка _WORK",
+              "entry": "blocks/ShareBrowserBlock.vue",
+              "icon": "FolderOpenOutline",
+              "description": "Проводник сетевой папки \\\\pc5700\\_WORK с контекстным меню и PSExec запуском",
+              "defaultSize": {
+                "w": 12,
+                "h": 6
+              },
+              "minSize": {
+                "w": 8,
+                "h": 4
+              }
+            }
+          ]
+        },
+        {
+          "version": "1.0.3",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-20T10:21:20.032Z",
+          "changelog": "Release version 1.0.3",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network-share-browser/1.0.3/plugin.zip",
+          "sha256": "ae5b0b9f54b074704c4a078836bebf5c5e7747e79cd339518ce87083c6693128",
+          "permissions": [
+            "fs.read",
+            "process.exec",
+            "fs.external"
+          ],
+          "blocks": [
+            {
+              "id": "share-browser",
+              "title": "Сетевая папка _WORK",
+              "entry": "blocks/ShareBrowserBlock.vue",
+              "icon": "FolderOpenOutline",
+              "description": "Проводник сетевой папки \\\\pc5700\\_WORK с контекстным меню и PSExec запуском",
+              "defaultSize": {
+                "w": 12,
+                "h": 6
+              },
+              "minSize": {
+                "w": 8,
+                "h": 4
+              }
+            }
+          ]
+        },
+        {
+          "version": "1.0.4",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-24T12:36:26.708Z",
+          "changelog": "Release version 1.0.4",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network-share-browser/1.0.4/plugin.zip",
+          "sha256": "2efdf681bf85814d5851e4160f35c51245d94692f8bb97c953fd65c897a708e3",
+          "permissions": [
+            "fs.read",
+            "process.exec",
+            "fs.external"
+          ],
+          "blocks": [
+            {
+              "id": "share-browser",
+              "title": "Сетевая папка _WORK",
+              "entry": "blocks/ShareBrowserBlock.vue",
+              "icon": "FolderOpenOutline",
+              "description": "Проводник сетевой папки \\\\pc5700\\_WORK с контекстным меню и PSExec запуском",
+              "defaultSize": {
+                "w": 12,
+                "h": 6
+              },
+              "minSize": {
+                "w": 8,
+                "h": 4
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quick-actions",
+      "name": "Быстрые действия",
+      "description": "Панель быстрых действий (перезагрузка, служба, пинг)",
+      "author": {
+        "name": "TMAdmin Core",
+        "url": "https://github.com/mentalchaos0x2b"
+      },
+      "category": "utility",
+      "icon": "FlashOutline",
+      "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+      "license": "MIT",
+      "latestVersion": "1.0.3",
+      "releases": [
+        {
+          "version": "1.0.0",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-19T04:46:55.64Z",
+          "changelog": "Release version 1.0.0",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/quick-actions/1.0.0/plugin.zip",
+          "sha256": "b07a06aa2299045642abf3825f42d73f4051f77682e9ccdbb9d43cf32057ef1d",
+          "permissions": [
+            "process.exec",
+            "net.ping"
+          ],
+          "blocks": [
+            {
+              "id": "quick-actions",
+              "title": "Быстрые действия",
+              "entry": "blocks/QuickActionsBlock.vue",
+              "icon": "FlashOutline",
+              "description": "Панель быстрых системных действий",
+              "defaultSize": {
+                "w": 12,
+                "h": 4
+              },
+              "minSize": {
+                "w": 6,
+                "h": 3
+              }
+            }
+          ]
+        },
+        {
+          "version": "1.0.1",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-20T10:21:21.018Z",
+          "changelog": "Release version 1.0.1",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/quick-actions/1.0.1/plugin.zip",
+          "sha256": "94f6d052e94babdd59e93f890c4393fd866c58e5a4198c581353e6024f5a2c56",
+          "permissions": [
+            "process.exec",
+            "fs.external",
+            "net.ping",
+            "store.write",
+            "keychain"
+          ],
+          "blocks": [
+            {
+              "id": "quick-actions",
+              "title": "Быстрые действия",
+              "entry": "blocks/QuickActionsBlock.vue",
+              "icon": "FlashOutline",
+              "description": "Панель быстрых системных действий",
+              "defaultSize": {
+                "w": 12,
+                "h": 4
+              },
+              "minSize": {
+                "w": 6,
+                "h": 3
+              }
+            }
+          ]
+        },
+        {
+          "version": "1.0.2",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-24T10:42:37.344Z",
+          "changelog": "Release version 1.0.2",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/quick-actions/1.0.2/plugin.zip",
+          "sha256": "e86246071c855a9fbf9bc94ae380b7544fde6f838ea4156a8ade1c63d2df8df3",
+          "permissions": [
+            "process.exec",
+            "fs.external",
+            "net.ping",
+            "store.write",
+            "keychain"
+          ],
+          "blocks": [
+            {
+              "id": "quick-actions",
+              "title": "Быстрые действия",
+              "entry": "blocks/QuickActionsBlock.vue",
+              "icon": "FlashOutline",
+              "description": "Панель быстрых системных действий",
+              "defaultSize": {
+                "w": 12,
+                "h": 4
+              },
+              "minSize": {
+                "w": 6,
+                "h": 3
+              }
+            }
+          ]
+        },
+        {
+          "version": "1.0.3",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-24T12:36:27.036Z",
+          "changelog": "Release version 1.0.3",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/quick-actions/1.0.3/plugin.zip",
+          "sha256": "078f645a425691a5e680e31ef69a3f92707bf65efe7ee8c50e0da18e9e0f1099",
+          "permissions": [
+            "process.exec",
+            "fs.external",
+            "net.ping",
+            "store.write",
+            "keychain"
+          ],
+          "blocks": [
+            {
+              "id": "quick-actions",
+              "title": "Быстрые действия",
+              "entry": "blocks/QuickActionsBlock.vue",
+              "icon": "FlashOutline",
+              "description": "Панель быстрых системных действий",
+              "defaultSize": {
+                "w": 12,
+                "h": 4
+              },
+              "minSize": {
+                "w": 6,
+                "h": 3
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "notes",
+      "name": "Заметки",
+      "description": "Быстрые рабочие заметки и напоминания администратора с постоянным автосохранением",
+      "author": {
+        "name": "TMAdmin Core",
+        "url": "https://github.com/mentalchaos0x2b"
+      },
+      "category": "utility",
+      "icon": "DocumentTextOutline",
+      "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+      "license": "MIT",
+      "latestVersion": "0.1.0",
+      "releases": [
+        {
+          "version": "0.1.0",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-24T12:36:26.713Z",
+          "changelog": "Release version 0.1.0",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/notes/0.1.0/plugin.zip",
+          "sha256": "83bdedb69140919b7da29774ccd618b81c7155c76c6934d4957698864185d259",
+          "permissions": [
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "notes",
+              "title": "Заметки",
+              "entry": "blocks/NotesBlock.vue",
+              "icon": "DocumentTextOutline",
+              "description": "Полноэкранный блок заметок с автосохранением, статистикой и адаптацией к любому размеру",
+              "defaultSize": {
+                "w": 24,
+                "h": 10
+              },
+              "minSize": {
+                "w": 6,
+                "h": 4
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "osaitp-cards",
+      "name": "Поиск карточек (OSAITP)",
+      "description": "Быстрый поиск карточек и документов в сетевом хранилище (\\\\fs2\\OSAITP или произвольной папке) с фильтрацией, сортировкой и историей запросов",
+      "author": {
+        "name": "Averkin Roman",
+        "url": "https://github.com/mentalchaos0x2b"
+      },
+      "category": "utility",
+      "icon": "SearchOutline",
+      "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+      "license": "MIT",
+      "latestVersion": "1.0.3",
+      "releases": [
+        {
+          "version": "1.0.1",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-23T16:54:53.613Z",
+          "changelog": "Release version 1.0.1",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/osaitp-cards/1.0.1/plugin.zip",
+          "sha256": "08f1add79189bdb7d3867398f2e2c2894cabbb0db90010dc3056219b7dc4cfed",
+          "permissions": [
+            "fs.read",
+            "process.exec",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "file-search",
+              "title": "Быстрый поиск карточек",
+              "entry": "blocks/FileSearch.vue",
+              "icon": "SearchOutline",
+              "defaultSize": {
+                "w": 12,
+                "h": 8
+              },
+              "minSize": {
+                "w": 8,
+                "h": 5
+              },
+              "description": "Быстрый поиск карточек и файлов в папках сетевого хранилища с открытием в проводнике и копированием пути"
+            }
+          ]
+        },
+        {
+          "version": "1.0.2",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-24T10:00:46.536Z",
+          "changelog": "Release version 1.0.2",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/osaitp-cards/1.0.2/plugin.zip",
+          "sha256": "da8e8ddc2630887540dd8745e82560aa1fd9594a3b1ec4092fa9aca50fc280f6",
+          "permissions": [
+            "fs.read",
+            "process.exec",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "file-search",
+              "title": "Быстрый поиск карточек",
+              "entry": "blocks/FileSearch.vue",
+              "icon": "SearchOutline",
+              "defaultSize": {
+                "w": 12,
+                "h": 8
+              },
+              "minSize": {
+                "w": 8,
+                "h": 5
+              },
+              "description": "Быстрый поиск карточек и файлов в папках сетевого хранилища с открытием в проводнике и копированием пути"
+            }
+          ]
+        },
+        {
+          "version": "1.0.3",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-24T12:36:26.731Z",
+          "changelog": "Release version 1.0.3",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/osaitp-cards/1.0.3/plugin.zip",
+          "sha256": "20597e06b42d1182037994dcc24eb7c81f8cd9228b50b79a5c9d919e0a83569e",
+          "permissions": [
+            "fs.read",
+            "process.exec",
+            "store.write"
+          ],
+          "blocks": [
+            {
+              "id": "file-search",
+              "title": "Быстрый поиск карточек",
+              "entry": "blocks/FileSearch.vue",
+              "icon": "SearchOutline",
+              "defaultSize": {
+                "w": 12,
+                "h": 8
+              },
+              "minSize": {
+                "w": 8,
+                "h": 5
+              },
+              "description": "Быстрый поиск карточек и файлов в папках сетевого хранилища с открытием в проводнике и копированием пути"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "notify-service",
+      "name": "NotifyService",
+      "description": "Проверка папки C:\\$NS на удалённом ПК, чтение даты профилактики (service_date), сброс и установка NotifyService через PSX.",
+      "author": {
+        "name": "TMAdmin Core",
+        "url": "https://github.com/mentalchaos0x2b"
+      },
+      "category": "utility",
+      "icon": "NotificationsOutline",
+      "repository": "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+      "license": "MIT",
+      "latestVersion": "1.0.0",
+      "releases": [
+        {
+          "version": "1.0.0",
+          "minAppVersion": "0.1.0",
+          "releasedAt": "2026-11-24T12:36:26.726Z",
+          "changelog": "Release version 1.0.0",
+          "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/notify-service/1.0.0/plugin.zip",
+          "sha256": "02a5a1c83bfe57405ecfa081fe5f84d2b3e3b0699dd500168dc17660cf8ace57",
+          "permissions": [
+            "fs.read",
+            "process.exec",
+            "fs.external"
+          ],
+          "blocks": [
+            {
+              "id": "notify-service",
+              "title": "NotifyService",
+              "entry": "blocks/NotifyServiceBlock.vue",
+              "icon": "NotificationsOutline",
+              "defaultSize": {
+                "w": 8,
+                "h": 5
+              },
+              "minSize": {
+                "w": 6,
+                "h": 4
+              },
+              "description": "Статус профилактики NotifyService, сброс даты и установка через PSX"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "updatedAt": "2026-11-24T12:36:27.073Z",
+  "schemaVersion": 1
 }
