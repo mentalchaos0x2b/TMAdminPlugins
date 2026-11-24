@@ -13,7 +13,7 @@
 5. [Разрешённые импорты в песочнице](#5-разрешённые-импорты-в-песочнице)
 6. [Справочник API (`@tmadmin/sdk`)](#6-справочник-api-tmadminsdk)
    - [defineBlock](#defineblock)
-   - [useTarget](#usetarget)
+   - [useTarget, onTargetConnect, onTargetReset](#usetarget-ontargetconnect-ontargetreset)
    - [usePluginStore](#usepluginstore)
    - [useSharedStore](#usesharedstore)
    - [useExec](#useexec)
@@ -24,6 +24,7 @@
    - [Chart.js (`Chart`, `registerables`)](#chartjs-chart-registerables)
 7. [Полный пример плагина (`blocks/*.vue` + `lib/*.ts`)](#7-полный-пример-плагина-blocks-vue--lib-ts)
 8. [Упаковка и публикация в Plugin Market](#8-упаковка-и-публикация-в-plugin-market)
+9. [Руководство для ИИ-агентов (AI Plugin Authoring Guide)](#9-руководство-для-ии-агентов-ai-plugin-authoring-guide)
 
 ---
 
@@ -197,29 +198,65 @@ function useTarget(): ComputedRef<Target | undefined>;
 interface Target {
   raw: string;
   host: string;
+### `useTarget`, `onTargetConnect`, `onTargetReset`
+
+Реактивный доступ к целевому хосту в шапке workspace и события жизненного цикла подключения:
+
+- `useTarget()` — возвращает `ComputedRef<Target | undefined>`. При редактировании поля ввода в шапке значение `target.value?.host` обновляется **динамически** со статусом `"idle"` (или `undefined` при очистке поля).
+- `onTargetConnect(callback)` — вызывается при нажатии «Подключиться» (Enter, кнопка молнии или выбор ПК из истории). Идеально для немедленного запуска загрузки данных (например, LAPS-паролей, принтеров/SMB, диагностики). При вызове внутри `<script setup>` автоматически отписывается в `onUnmounted`.
+- `onTargetReset(callback)` — вызывается при изменении целевого узла в поле ввода или его очистке (`reason: "input-changed" | "cleared" | "disconnected"`). Используйте для сброса кэшированных данных предыдущего ПК и остановки локальных процессов/графиков.
+
+```ts
+interface Target {
+  raw: string;
+  host: string;
   ip?: string;
   status: "idle" | "resolving" | "online" | "offline" | "error";
   responseTimeMs?: number;
   lastChecked?: string;
   errorMessage?: string;
 }
+
+interface TargetConnectEvent {
+  host: string;
+  raw: string;
+  ip?: string;
+  timestamp: string;
+}
+
+interface TargetResetEvent {
+  reason: "input-changed" | "cleared" | "disconnected";
+}
+
+function onTargetConnect(callback: (event: TargetConnectEvent) => void): () => void;
+function onTargetReset(callback: (event: TargetResetEvent) => void): () => void;
 ```
 
 ```ts
-import { watch } from "vue";
-import { useTarget } from "@tmadmin/sdk";
+import { ref, watch } from "vue";
+import { useTarget, onTargetConnect, onTargetReset } from "@tmadmin/sdk";
 
 const target = useTarget();
+const deviceData = ref<string | null>(null);
 
+// Динамическая реакция на ввод нового узла
 watch(
   () => target.value?.host,
   (host) => {
-    if (host) {
-      console.log("Выбран целевой хост:", host, "IP:", target.value?.ip);
-    }
+    console.log("Текущий узел в шапке:", host ?? "не задан");
   },
   { immediate: true },
 );
+
+// Немедленная загрузка при нажатии «Подключиться»
+onTargetConnect(async ({ host }) => {
+  deviceData.value = await loadSomethingFor(host);
+});
+
+// Очистка состояния при изменении или стирании узла
+onTargetReset(() => {
+  deviceData.value = null;
+});
 ```
 
 ---
@@ -827,3 +864,73 @@ async function exportFindings(): Promise<void> {
 1. Проверьте, что в корне архива `plugin.zip` лежат `plugin.json`, `blocks/`, при необходимости `lib/` и `external/` (без лишней вложенной папки-обёртки).
 2. Вычислите контрольную сумму `SHA-256` для `plugin.zip` (64 hex-символа).
 3. Опубликуйте релиз в репозитории реестра **TMAdminPlugins** согласно спецификации [docs/MARKET.md](./MARKET.md).
+4. Для локальной установки без публикации используйте **Plugin Market → Добавить локальный плагин** (выбор папки с `plugin.json` или `.zip`-архива) либо кнопку **«Установить в TMAdmin»** в Developer Studio — оба варианта сохраняют плагин на диск с меткой «Локальный».
+
+---
+
+## 9. Руководство для ИИ-агентов (AI Plugin Authoring Guide)
+
+Этот раздел предназначен для ИИ-ассистентов и автономных агентов (LLM), которым поручено разработать или модифицировать плагин для TMAdmin.
+
+### Краткий контекст платформы
+- **TMAdmin** — десктопная оболочка для системных администраторов на базе **Tauri 2 (Rust) + Vue 3 + TypeScript + Naive UI**.
+- Плагины компилируются **в рантайме** (`@vue/compiler-sfc`) внутри изолированной песочницы.
+- **Один блок = один файл `blocks/<Name>.vue`** с `<script setup lang="ts">`. Вспомогательная логика выносится в `lib/*.ts`.
+
+### Жёсткие ограничения песочницы (MUST FOLLOW)
+1. **Разрешённые импорты**: только `vue`, `naive-ui`, `@vicons/ionicons5`, `chart.js`, `@tmadmin/sdk` и относительные пути (`./`, `../`) внутри папки плагина.
+2. **Запрещено**: `fs`, `path`, `child_process`, `os`, `fetch` к локальному API Tauri напрямую (`@tauri-apps/api`), `window.__TAURI_INTERNALS__`, `eval`, доступ к внутренним store оболочки (`@/stores/*`). Все системные операции выполняются **только через `@tmadmin/sdk`**.
+3. **Разрешения в `plugin.json`**: любая операция SDK проверяет `permissions` в рантайме. Матрица соответствия:
+   - `useExec().pluginExec / pluginSpawn` → `["process.exec", "fs.external"]`
+   - `useExec().hostSpawn` → `["process.exec"]`
+   - `useExec().pingStart / pingStop / listenPing` → `["net.ping"]`
+   - `useFs().fs.read / dir.read / dir.search` → `["fs.read"]`
+   - `useFs().fs.write` → `["fs.write"]`
+   - `usePluginStore().set / remove`, `useSharedStore().set / remove` → `["store.write"]`
+   - `useSecrets().get / set / delete` → `["keychain"]`
+   - `useTerminal().spawn / write / execScript / kill / listen` → `["terminal"]` (`runCommand` работает без прав)
+
+### Обязательный шаблон жизненного цикла блока
+```vue
+<script setup lang="ts">
+import { ref } from "vue";
+import { NButton, NCard, NEmpty, NSpace, NTag } from "naive-ui";
+import { useTarget, onTargetConnect, onTargetReset, useMessage } from "@tmadmin/sdk";
+
+const target = useTarget();
+const message = useMessage();
+const loading = ref(false);
+const result = ref<string | null>(null);
+
+async function loadData(host?: string): Promise<void> {
+  const targetHost = (host ?? target.value?.host)?.trim();
+  if (!targetHost) return;
+  loading.value = true;
+  try {
+    // Вызов useExec / useFs / useSecrets ...
+    result.value = `OK: ${targetHost}`;
+  } catch (err) {
+    message.error(err instanceof Error ? err.message : String(err));
+  } finally {
+    loading.value = false;
+  }
+}
+
+// 1. Автозагрузка при нажатии «Подключиться» в шапке
+onTargetConnect(({ host }) => {
+  void loadData(host);
+});
+
+// 2. Мгновенный сброс при изменении или очистке узла в шапке
+onTargetReset(() => {
+  result.value = null;
+  loading.value = false;
+});
+</script>
+```
+
+### Правила UI для ИИ-агентов
+- Всегда используйте компоненты **Naive UI** (`n-button`, `n-input`, `n-tag`, `n-space`, `n-empty`, `n-spin`, `n-select`, `n-data-table`), а не самописные аналоги.
+- Используйте CSS-переменные темы (`var(--tm-tx)`, `var(--tm-mut)`, `var(--tm-accent)`, `var(--tm-panel)`, `var(--tm-line)`) — не хардкодьте цвета фона/текста, чтобы блок работал в светлой и тёмной темах и поверх кастомного фона.
+- Блок рендерится внутри изменяемого контейнера 24-колоночной сетки: задавайте корневому элементу `height: 100%; width: 100%; min-width: 0; min-height: 0; overflow: hidden;` и прокручиваемую внутреннюю область при необходимости.
+- Идентификаторы `id` в `plugin.json` — только в `kebab-case` (`my-custom-plugin`), `version` — строгий SemVer (`1.0.0`).

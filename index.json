@@ -12,7 +12,7 @@
                         "icon":  "PulseOutline",
                         "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
                         "license":  "MIT",
-                        "latestVersion":  "1.0.5",
+                        "latestVersion":  "1.0.6",
                         "releases":  [
                                          {
                                              "version":  "1.0.0",
@@ -237,10 +237,54 @@
                                          {
                                              "version":  "1.0.5",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-23T17:07:50.541Z",
+                                             "releasedAt":  "2026-11-24T10:42:35.978Z",
                                              "changelog":  "Release version 1.0.5",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.5/plugin.zip",
-                                             "sha256":  "da3acc2d84e14c2b9fbbd623a1ba1cd5b2da7fab4e20bfeabea7ee7920810a94",
+                                             "sha256":  "13844a97f0bc32c228ba532db250881b7afb7bc8f2c8eccc5c48a82821bd8e9a",
+                                             "permissions":  [
+                                                                 "net.ping",
+                                                                 "store.write"
+                                                             ],
+                                             "blocks":  [
+                                                            {
+                                                                "id":  "info",
+                                                                "title":  "Информация об узле",
+                                                                "entry":  "blocks/DeviceInfo.vue",
+                                                                "icon":  "InformationCircleOutline",
+                                                                "description":  "Параметры текущего целевого узла (IP, статус, задержка, заметки)",
+                                                                "defaultSize":  {
+                                                                                    "w":  8,
+                                                                                    "h":  6
+                                                                                },
+                                                                "minSize":  {
+                                                                                "w":  6,
+                                                                                "h":  4
+                                                                            }
+                                                            },
+                                                            {
+                                                                "id":  "ping-chart",
+                                                                "title":  "График задержки (Ping)",
+                                                                "entry":  "blocks/PingChart.vue",
+                                                                "icon":  "PulseOutline",
+                                                                "description":  "График RTT в реальном времени с метриками min/avg/max/jitter/loss%",
+                                                                "defaultSize":  {
+                                                                                    "w":  16,
+                                                                                    "h":  8
+                                                                                },
+                                                                "minSize":  {
+                                                                                "w":  8,
+                                                                                "h":  6
+                                                                            }
+                                                            }
+                                                        ]
+                                         },
+                                         {
+                                             "version":  "1.0.6",
+                                             "minAppVersion":  "0.1.0",
+                                             "releasedAt":  "2026-11-24T12:22:35.137Z",
+                                             "changelog":  "Release version 1.0.6",
+                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.6/plugin.zip",
+                                             "sha256":  "d3452b1c9e324b4c887e5f204761a5334d7b383a380292694519fdfea92da38d",
                                              "permissions":  [
                                                                  "net.ping",
                                                                  "store.write"
@@ -292,7 +336,7 @@
                         "icon":  "KeyOutline",
                         "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
                         "license":  "MIT",
-                        "latestVersion":  "1.0.3",
+                        "latestVersion":  "1.0.5",
                         "releases":  [
                                          {
                                              "version":  "1.0.0",
@@ -387,10 +431,70 @@
                                          {
                                              "version":  "1.0.3",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-23T17:07:50.524Z",
+                                             "releasedAt":  "2026-11-24T10:00:46.463Z",
                                              "changelog":  "Release version 1.0.3",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.3/plugin.zip",
                                              "sha256":  "06247a1d54b5361aa8a315d21b3752bf08b73ca0e997a4087b52b2bc00ebf774",
+                                             "permissions":  [
+                                                                 "process.exec",
+                                                                 "fs.external",
+                                                                 "store.write"
+                                                             ],
+                                             "blocks":  [
+                                                            {
+                                                                "id":  "view",
+                                                                "title":  "Пароль LAPS",
+                                                                "entry":  "blocks/LapsPasswordBlock.vue",
+                                                                "icon":  "KeyOutline",
+                                                                "description":  "Пароль локального администратора целевого узла из Active Directory, срок действия, копирование и принудительная ротация",
+                                                                "defaultSize":  {
+                                                                                    "w":  8,
+                                                                                    "h":  5
+                                                                                },
+                                                                "minSize":  {
+                                                                                "w":  6,
+                                                                                "h":  4
+                                                                            }
+                                                            }
+                                                        ]
+                                         },
+                                         {
+                                             "version":  "1.0.4",
+                                             "minAppVersion":  "0.1.0",
+                                             "releasedAt":  "2026-11-24T10:42:35.947Z",
+                                             "changelog":  "Release version 1.0.4",
+                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.4/plugin.zip",
+                                             "sha256":  "f292393d534373ef2c7a791e8733e1e89a757917276f88486baac2577f38a827",
+                                             "permissions":  [
+                                                                 "process.exec",
+                                                                 "fs.external",
+                                                                 "store.write"
+                                                             ],
+                                             "blocks":  [
+                                                            {
+                                                                "id":  "view",
+                                                                "title":  "Пароль LAPS",
+                                                                "entry":  "blocks/LapsPasswordBlock.vue",
+                                                                "icon":  "KeyOutline",
+                                                                "description":  "Пароль локального администратора целевого узла из Active Directory, срок действия, копирование и принудительная ротация",
+                                                                "defaultSize":  {
+                                                                                    "w":  8,
+                                                                                    "h":  5
+                                                                                },
+                                                                "minSize":  {
+                                                                                "w":  6,
+                                                                                "h":  4
+                                                                            }
+                                                            }
+                                                        ]
+                                         },
+                                         {
+                                             "version":  "1.0.5",
+                                             "minAppVersion":  "0.1.0",
+                                             "releasedAt":  "2026-11-24T12:22:35.113Z",
+                                             "changelog":  "Release version 1.0.5",
+                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.5/plugin.zip",
+                                             "sha256":  "52345a2234e0c782c8d403597c57d9b6478f1a932b75a6a5a0616c36c1e9a01d",
                                              "permissions":  [
                                                                  "process.exec",
                                                                  "fs.external",
@@ -464,7 +568,7 @@
                                          {
                                              "version":  "1.0.1",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-23T17:07:51.319Z",
+                                             "releasedAt":  "2026-11-24T12:22:36.188Z",
                                              "changelog":  "Release version 1.0.1",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/smb/1.0.1/plugin.zip",
                                              "sha256":  "95f22bee891a7f14973bc863348725ec5c6d6c609ea4423048d08370c04a0df3",
@@ -540,7 +644,7 @@
                                          {
                                              "version":  "1.0.1",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-23T17:07:51.336Z",
+                                             "releasedAt":  "2026-11-24T12:22:36.222Z",
                                              "changelog":  "Release version 1.0.1",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/terminal/1.0.1/plugin.zip",
                                              "sha256":  "4365dca24196eae928f959c47ee77027fb35e277d990c3c43da4250c7395e081",
@@ -674,7 +778,7 @@
                                          {
                                              "version":  "1.0.4",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-23T17:07:50.560Z",
+                                             "releasedAt":  "2026-11-24T12:22:35.179Z",
                                              "changelog":  "Release version 1.0.4",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network-share-browser/1.0.4/plugin.zip",
                                              "sha256":  "7d383d1e9361c35f5a4050adb404de1ac366b82c49bc4aef99e6104fbdb921e1",
@@ -715,7 +819,7 @@
                         "icon":  "FlashOutline",
                         "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
                         "license":  "MIT",
-                        "latestVersion":  "1.0.2",
+                        "latestVersion":  "1.0.3",
                         "releases":  [
                                          {
                                              "version":  "1.0.0",
@@ -781,10 +885,42 @@
                                          {
                                              "version":  "1.0.2",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-23T17:07:51.284Z",
+                                             "releasedAt":  "2026-11-24T10:42:37.344Z",
                                              "changelog":  "Release version 1.0.2",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/quick-actions/1.0.2/plugin.zip",
                                              "sha256":  "e86246071c855a9fbf9bc94ae380b7544fde6f838ea4156a8ade1c63d2df8df3",
+                                             "permissions":  [
+                                                                 "process.exec",
+                                                                 "fs.external",
+                                                                 "net.ping",
+                                                                 "store.write",
+                                                                 "keychain"
+                                                             ],
+                                             "blocks":  [
+                                                            {
+                                                                "id":  "quick-actions",
+                                                                "title":  "Быстрые действия",
+                                                                "entry":  "blocks/QuickActionsBlock.vue",
+                                                                "icon":  "FlashOutline",
+                                                                "description":  "Панель быстрых системных действий",
+                                                                "defaultSize":  {
+                                                                                    "w":  12,
+                                                                                    "h":  4
+                                                                                },
+                                                                "minSize":  {
+                                                                                "w":  6,
+                                                                                "h":  3
+                                                                            }
+                                                            }
+                                                        ]
+                                         },
+                                         {
+                                             "version":  "1.0.3",
+                                             "minAppVersion":  "0.1.0",
+                                             "releasedAt":  "2026-11-24T12:22:36.123Z",
+                                             "changelog":  "Release version 1.0.3",
+                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/quick-actions/1.0.3/plugin.zip",
+                                             "sha256":  "f10333ef66de065286bacb7389d9ada470884677a7aa5b6b259ae760d3a09a37",
                                              "permissions":  [
                                                                  "process.exec",
                                                                  "fs.external",
@@ -829,7 +965,7 @@
                                          {
                                              "version":  "0.1.0",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-23T17:07:50.573Z",
+                                             "releasedAt":  "2026-11-24T12:22:35.196Z",
                                              "changelog":  "Release version 0.1.0",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/notes/0.1.0/plugin.zip",
                                              "sha256":  "716199575eff700ef291b4c7f2b3b3a846072d19d9da8d43645f960cd6df14e0",
@@ -868,7 +1004,7 @@
                         "icon":  "SearchOutline",
                         "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
                         "license":  "MIT",
-                        "latestVersion":  "1.0.2",
+                        "latestVersion":  "1.0.3",
                         "releases":  [
                                          {
                                              "version":  "1.0.1",
@@ -903,7 +1039,7 @@
                                          {
                                              "version":  "1.0.2",
                                              "minAppVersion":  "0.1.0",
-                                             "releasedAt":  "2026-11-23T17:07:50.578Z",
+                                             "releasedAt":  "2026-11-24T10:00:46.536Z",
                                              "changelog":  "Release version 1.0.2",
                                              "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/osaitp-cards/1.0.2/plugin.zip",
                                              "sha256":  "da8e8ddc2630887540dd8745e82560aa1fd9594a3b1ec4092fa9aca50fc280f6",
@@ -929,10 +1065,86 @@
                                                                 "description":  "Быстрый поиск карточек и файлов в папках сетевого хранилища с открытием в проводнике и копированием пути"
                                                             }
                                                         ]
+                                         },
+                                         {
+                                             "version":  "1.0.3",
+                                             "minAppVersion":  "0.1.0",
+                                             "releasedAt":  "2026-11-24T12:22:35.239Z",
+                                             "changelog":  "Release version 1.0.3",
+                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/osaitp-cards/1.0.3/plugin.zip",
+                                             "sha256":  "14a786864873318e7d82c2684dd45f5c552e01c0a24b7f05378b4c8493913157",
+                                             "permissions":  [
+                                                                 "fs.read",
+                                                                 "process.exec",
+                                                                 "store.write"
+                                                             ],
+                                             "blocks":  [
+                                                            {
+                                                                "id":  "file-search",
+                                                                "title":  "Быстрый поиск карточек",
+                                                                "entry":  "blocks/FileSearch.vue",
+                                                                "icon":  "SearchOutline",
+                                                                "defaultSize":  {
+                                                                                    "w":  12,
+                                                                                    "h":  8
+                                                                                },
+                                                                "minSize":  {
+                                                                                "w":  8,
+                                                                                "h":  5
+                                                                            },
+                                                                "description":  "Быстрый поиск карточек и файлов в папках сетевого хранилища с открытием в проводнике и копированием пути"
+                                                            }
+                                                        ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "id":  "notify-service",
+                        "name":  "NotifyService",
+                        "description":  "Проверка папки C:\\$NS на удалённом ПК, чтение даты профилактики (service_date), сброс и установка NotifyService через PSX.",
+                        "author":  {
+                                       "name":  "TMAdmin Core",
+                                       "url":  "https://github.com/mentalchaos0x2b"
+                                   },
+                        "category":  "utility",
+                        "icon":  "NotificationsOutline",
+                        "repository":  "https://github.com/mentalchaos0x2b/TMAdminPlugins",
+                        "license":  "MIT",
+                        "latestVersion":  "1.0.0",
+                        "releases":  [
+                                         {
+                                             "version":  "1.0.0",
+                                             "minAppVersion":  "0.1.0",
+                                             "releasedAt":  "2026-11-24T12:22:35.233Z",
+                                             "changelog":  "Release version 1.0.0",
+                                             "downloadUrl":  "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/notify-service/1.0.0/plugin.zip",
+                                             "sha256":  "fd15040b4d75c74830381c83ffcaadedf86c2914b582bcf7df50ba2e2e086d60",
+                                             "permissions":  [
+                                                                 "fs.read",
+                                                                 "process.exec",
+                                                                 "fs.external"
+                                                             ],
+                                             "blocks":  [
+                                                            {
+                                                                "id":  "notify-service",
+                                                                "title":  "NotifyService",
+                                                                "entry":  "blocks/NotifyServiceBlock.vue",
+                                                                "icon":  "NotificationsOutline",
+                                                                "defaultSize":  {
+                                                                                    "w":  8,
+                                                                                    "h":  5
+                                                                                },
+                                                                "minSize":  {
+                                                                                "w":  6,
+                                                                                "h":  4
+                                                                            },
+                                                                "description":  "Статус профилактики NotifyService, сброс даты и установка через PSX"
+                                                            }
+                                                        ]
                                          }
                                      ]
                     }
                 ],
-    "updatedAt":  "2026-11-23T17:07:51.338Z",
+    "updatedAt":  "2026-11-24T12:22:36.224Z",
     "schemaVersion":  1
 }

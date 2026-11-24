@@ -456,7 +456,7 @@ function getActionIcon(id: string): Component {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 8px 10px;
+  padding: 0;
   min-height: 100%;
   width: 100%;
   box-sizing: border-box;

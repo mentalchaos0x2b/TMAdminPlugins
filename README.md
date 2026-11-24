@@ -1,81 +1,40 @@
-# TMAdmin Plugins Repository (`TMAdminPlugins`)
+# TMAdmin Plugins (`TMAdminPlugins`)
 
-Официальный репозиторий плагинов для **TMAdmin** (Tauri 2 · Vue 3 · TypeScript). Здесь публикуются официальные и сторонние расширения, виджеты и инструменты для системных администраторов.
+Официальный репозиторий плагинов и обновлений для **TMAdmin** (Tauri 2 · Vue 3 · TypeScript · Naive UI).
 
 ---
 
-## 📁 Структура репозитория
+## 📁 Структура
 
 ```text
-├── index.json             # Главный манифест маркета плагинов со списком всех доступных пакетов и версий
-├── app/
-│   └── latest.json          # Манифест обновлений самого приложения TMAdmin
+├── index.json         # Каталог плагинов, версий, прав и SHA-256
+├── app/latest.json    # Манифест автообновления TMAdmin Desktop
 ├── docs/
-│   ├── SDK.md             # Документация по разработке плагинов и использованию TMAdmin SDK
-│   └── PUBLISHING.md      # Инструкция по сборке, валидации и публикации плагинов в маркет
-├── plugins/               # Скомпилированные пакеты (.zip) и контрольные суммы SHA-256
-│   ├── network/
-│   │   └── 1.0.0/
-│   │       ├── plugin.zip
-│   │       └── SHA256SUMS
-│   ├── network-share-browser/
-│   │   └── 1.0.0/
-│   │       ├── plugin.zip
-│   │       └── SHA256SUMS
-│   └── quick-actions/
-│       └── 1.0.0/
-│           ├── plugin.zip
-│           └── SHA256SUMS
-└── sources/               # Исходные коды плагинов (для разработки и аудита)
-    ├── network/
-    ├── network-share-browser/   # Включает external/PSX.exe
-    └── quick-actions/
+│   ├── SDK.md         # Документация @tmadmin/sdk + гайд для ИИ-агентов
+│   └── PUBLISHING.md  # Инструкция по публикации в маркет
+├── scripts/
+│   └── build-plugins.ps1  # Автоматическая сборка .zip, SHA256SUMS и index.json
+├── sources/<id>/      # Исходные коды плагинов
+└── plugins/<id>/      # Собранные пакеты (plugin.zip + SHA256SUMS)
 ```
 
 ---
 
-## 🔌 Доступные плагины в Маркете
+## 📚 Документация
 
-1. **Network Monitor** (`network`)
-   - **Описание:** Мониторинг доступности удалённых ПК, ping в реальном времени с графиком задержек RTT и потерь пакетов.
-   - **Блоки:** Информация об узле (`info`), График задержки (`ping-chart`).
-   - **Права:** `net.ping`, `store.write`.
+- [TMAdmin Plugin SDK](docs/SDK.md) — API (`@tmadmin/sdk`), структура плагина, `permissions` и [руководство для ИИ-агентов](docs/SDK.md#9-руководство-для-ии-агентов-ai-plugin-authoring-guide).
+- [Руководство по публикации](docs/PUBLISHING.md) — упаковка `plugin.zip`, `SHA256SUMS` и регистрация в `index.json`.
 
-2. **Сетевая папка _WORK** (`network-share-browser`)
-   - **Описание:** Проводник по сетевой папке `\\pc5700\_WORK` с контекстным меню копирования пути и запуска исполняемых файлов через `external/PSX.exe`.
-   - **Блоки:** Сетевая папка `_WORK` (`share-browser`).
-   - **Права:** `fs.read`, `process.exec`, `fs.external`.
-
-3. **Quick Actions** (`quick-actions`)
-   - **Описание:** Панель быстрых системных действий (перезагрузка, управление службами, пинг).
-   - **Блоки:** Быстрые действия (`quick-actions`).
-   - **Права:** `system.exec`, `net.ping`, `service.manage`.
+> Актуальный список всех доступных плагинов и их версий всегда находится в [`index.json`](index.json) и в разделе **Plugin Market** внутри TMAdmin.
 
 ---
 
-## 🛠️ Работа с `external/` и запуском процессов (`useExec`)
+## 📦 Сборка и публикация
 
-Плагины в TMAdmin изолированы, однако некоторые специализированные инструменты (например, `PSX.exe` для удалённого запуска через PSExec) могут поставляться внутри плагина в папке `external/`.
-
-Для безопасного запуска внешних бинарников из папки плагина используется метод `pluginSpawn` из `useExec`:
-
-```typescript
-import { useExec } from "@tmadmin/sdk";
-
-const execApi = useExec();
-// Запуск external/PSX.exe с аргументами
-const res = await execApi.pluginSpawn("external/PSX.exe", [`\\\\${host}`, "-i", "-d", fullPath]);
-```
-
-> **Важно:** Плагин должен явно задекларировать разрешение `"fs.external"` в своем `plugin.json`.
-
----
-
-## 📦 Процесс сборки и публикации плагина
-
-1. Создайте исходный код плагина в папке `sources/<plugin-id>/`.
-2. Убедитесь в наличии корректного `plugin.json` с указанием прав (`permissions`), блоков (`blocks`) и версии.
-3. Запакуйте содержимое папки `sources/<plugin-id>/` в архив `plugins/<plugin-id>/<version>/plugin.zip` (все пути внутри архива должны использовать прямые слэши `/`).
-4. Посчитайте контрольную сумму SHA-256 архива и запишите её в `plugins/<plugin-id>/<version>/SHA256SUMS`.
-5. Обновите манифест `index.json`, добавив или обновив информацию о плагине, ссылке скачивания (`downloadUrl`), SHA-256 и правах.
-6. Закоммитьте изменения и отправьте их в репозиторий (`git push origin main`).
+1. Разместите исходники плагина в `sources/<plugin-id>/` (`plugin.json`, `blocks/*.vue`, при необходимости `lib/*.ts` и `external/`).
+2. Запустите скрипт сборки:
+   ```powershell
+   powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-plugins.ps1
+   ```
+   Скрипт автоматически соберёт `plugins/<id>/<version>/plugin.zip`, посчитает `SHA256SUMS` и обновит `index.json`.
+3. Отправьте изменения в репозиторий (`git push origin main`).

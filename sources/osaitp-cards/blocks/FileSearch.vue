@@ -22,7 +22,6 @@ import {
   NRadioGroup,
   NRadioButton,
   NPopover,
-  NSwitch,
 } from "naive-ui";
 import {
   SearchOutline,
@@ -33,7 +32,6 @@ import {
   DocumentTextOutline,
   FolderOutline,
   TimeOutline,
-  SettingsOutline,
 } from "@vicons/ionicons5";
 
 defineBlock({
@@ -44,6 +42,8 @@ defineBlock({
   minSize: { w: 8, h: 5 },
 });
 
+const props = defineProps<{ block?: { id?: string; config?: Record<string, unknown> } }>();
+
 const target = useTarget();
 const { dir } = useFs();
 const exec = useExec();
@@ -51,16 +51,8 @@ const message = useMessage();
 const store = usePluginStore();
 
 const searchPath = ref<string>(store.get<string>("searchPath") ?? "\\\\fs2\\OSAITP");
-const autoSyncTarget = ref<boolean>(store.get<boolean>("autoSyncTarget") ?? true);
+const autoSyncTarget = computed<boolean>(() => props.block?.config?.autoSyncTarget !== false);
 const searchQuery = ref<string>("");
-
-function handleToggleAutoSyncTarget(val: boolean): void {
-  autoSyncTarget.value = val;
-  void store.set("autoSyncTarget", val, { persist: "permanent" });
-  if (val && target.value?.host?.trim()) {
-    searchQuery.value = target.value.host.trim();
-  }
-}
 const isLoading = ref<boolean>(false);
 const isOpening = ref<boolean>(false);
 const results = ref<Array<{ name: string; path: string; isDir: boolean; size: number }>>([]);
@@ -422,30 +414,6 @@ onUnmounted(() => {
       >
         Искать
       </n-button>
-
-      <n-popover trigger="click" placement="bottom-end">
-        <template #trigger>
-          <n-button
-            size="small"
-            quaternary
-            title="Настройки поиска"
-            data-testid="cards-settings-btn"
-          >
-            <template #icon>
-              <n-icon :component="SettingsOutline" />
-            </template>
-          </n-button>
-        </template>
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 2px 0;">
-          <span style="font-size: 12px;">Автоподстановка target в поиск</span>
-          <n-switch
-            :value="autoSyncTarget"
-            size="small"
-            data-testid="cards-autosync-switch"
-            @update:value="handleToggleAutoSyncTarget"
-          />
-        </div>
-      </n-popover>
     </div>
 
     <!-- Панель фильтров и статистики -->

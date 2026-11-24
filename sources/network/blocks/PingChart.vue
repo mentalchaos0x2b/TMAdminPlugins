@@ -715,7 +715,7 @@ onUnmounted(() => {
   min-width: 0;
   min-height: 0;
   box-sizing: border-box;
-  padding: 6px 8px;
+  padding: 0;
   gap: 6px;
   font-size: 11px;
   color: #e6edf3;

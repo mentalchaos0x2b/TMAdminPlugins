@@ -15,8 +15,6 @@ import {
   NSpace,
   NIcon,
   NTooltip,
-  NPopover,
-  NSwitch,
 } from "naive-ui";
 import {
   KeyOutline,
@@ -28,7 +26,6 @@ import {
   SyncOutline,
   PersonOutline,
   TimeOutline,
-  SettingsOutline,
 } from "@vicons/ionicons5";
 import {
   maskPassword,
@@ -45,6 +42,8 @@ defineBlock({
   minSize: { w: 6, h: 4 },
 });
 
+const props = defineProps<{ block?: { id?: string; config?: Record<string, unknown> } }>();
+
 const target = useTarget();
 const store = usePluginStore();
 const exec = useExec();
@@ -55,14 +54,9 @@ const isQuerying = ref(false);
 const isRotating = ref(false);
 const copiedToast = ref(false);
 const lapsData = ref<LapsRecord | null>(null);
-const autoLoadOnConnect = ref<boolean>(store.get<boolean>("autoLoadOnConnect") ?? true);
+const autoLoadOnConnect = computed<boolean>(() => props.block?.config?.autoLoadOnConnect !== false);
 const LAPS_QUERY_TIMEOUT_MS = 6000;
 let queryGeneration = 0;
-
-function handleToggleAutoLoad(val: boolean): void {
-  autoLoadOnConnect.value = val;
-  void store.set("autoLoadOnConnect", val, { persist: "permanent" });
-}
 
 const activeHost = computed(() => target.value?.host || "localhost");
 const expirationInfo = computed(() => {
@@ -223,38 +217,12 @@ async function copyPassword(): Promise<void> {
         <b data-testid="laps-target-host">{{ activeHost }}</b>
       </n-tag>
 
-      <n-space :size="4" align="center">
-        <n-tag size="small" :bordered="false" class="acc-tag">
-          <template #icon>
-            <n-icon :component="PersonOutline" />
-          </template>
-          <span data-testid="laps-account-name">{{ lapsData?.accountName || "Administrator" }}</span>
-        </n-tag>
-
-        <n-popover trigger="click" placement="bottom-end">
-          <template #trigger>
-            <n-button
-              size="tiny"
-              quaternary
-              data-testid="laps-settings-btn"
-              title="Настройки LAPS"
-            >
-              <template #icon>
-                <n-icon :component="SettingsOutline" />
-              </template>
-            </n-button>
-          </template>
-          <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 2px 0;">
-            <span style="font-size: 12px;">Автоматически загружать при подключении</span>
-            <n-switch
-              :value="autoLoadOnConnect"
-              size="small"
-              data-testid="laps-autoload-switch"
-              @update:value="handleToggleAutoLoad"
-            />
-          </div>
-        </n-popover>
-      </n-space>
+      <n-tag size="small" :bordered="false" class="acc-tag">
+        <template #icon>
+          <n-icon :component="PersonOutline" />
+        </template>
+        <span data-testid="laps-account-name">{{ lapsData?.accountName || "Administrator" }}</span>
+      </n-tag>
     </div>
 
     <!-- Поле пароля с кнопками действий -->
@@ -366,7 +334,7 @@ async function copyPassword(): Promise<void> {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 8px 10px;
+  padding: 0;
   height: 100%;
   box-sizing: border-box;
   font-size: 12px;

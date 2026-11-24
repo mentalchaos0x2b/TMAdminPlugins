@@ -1,11 +1,11 @@
 {
-  "version": "1.0.4",
-  "notes": "Обновление TMAdmin v1.0.4: современные нативные диалоги Windows, оффлайн-режим и локальные плагины в Market, персистентная установка из Studio, onTargetConnect/onTargetReset в SDK, график задержки в стиле Диспетчера задач и быстрый таймаут LAPS.",
-  "pub_date": "2026-11-23T16:20:00Z",
+  "version": "1.0.5",
+  "notes": "Обновление TMAdmin v1.0.5: мягкая коллизия блоков сетки, улучшенное меню действий, UAC-манифест администратора, плагин NotifyService, доработки Developer Studio (дерево всех файлов/папок, защита бинарников) и перенос настроек блоков в BlockSettingsModal.",
+  "pub_date": "2026-11-24T12:25:00Z",
   "platforms": {
     "windows-x86_64": {
       "signature": null,
-      "url": "https://github.com/mentalchaos0x2b/TMAdminPlugins/releases/download/v1.0.4/TMAdmin_1.0.4_x64-setup.exe"
+      "url": "https://github.com/mentalchaos0x2b/TMAdminPlugins/releases/download/v1.0.5/TMAdmin_1.0.5_x64-setup.exe"
     }
   }
 }

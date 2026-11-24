@@ -1,7 +1,7 @@
 {
   "id": "osaitp-cards",
   "name": "Поиск карточек (OSAITP)",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Averkin Roman",
   "description": "Быстрый поиск карточек и документов в сетевом хранилище (\\\\fs2\\OSAITP или произвольной папке) с фильтрацией, сортировкой и историей запросов",
   "icon": "SearchOutline",
