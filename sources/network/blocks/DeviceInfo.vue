@@ -174,7 +174,13 @@ async function performQuickPing(): Promise<void> {
           {{ currentStatus.toUpperCase() }}
         </n-tag>
       </div>
-      <n-space :size="4" align="center">
+      <n-space
+        :size="4"
+        align="center"
+        :wrap="false"
+        class="conn-actions"
+        data-testid="device-info-actions"
+      >
         <n-tooltip trigger="hover">
           <template #trigger>
             <n-button
@@ -299,22 +305,33 @@ async function performQuickPing(): Promise<void> {
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
+  min-width: 0;
 }
 .conn-title-group {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
 }
 .conn-title {
   font-weight: 700;
   font-size: 12px;
   color: var(--tm-tx, #f0f6fc);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 .status-tag {
   font-weight: 700;
   font-size: 9.5px;
+  flex-shrink: 0;
+}
+.conn-actions {
+  flex-shrink: 0;
+  flex-wrap: nowrap !important;
 }
 .info-list {
   display: flex;

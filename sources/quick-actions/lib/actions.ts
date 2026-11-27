@@ -56,6 +56,12 @@ export function cleanQuotes(str?: string): string {
   return res;
 }
 
+export const LEGACY_SPOOLER_ARGS =
+  '\\\\{host} cmd /c net stop spooler & del /Q /F /S "%systemroot%\\System32\\Spool\\Printers\\*.*" & net start spooler';
+
+export const DEFAULT_SPOOLER_ARGS =
+  '\\\\{host} -accepteula -n 15 -s cmd /c "net stop spooler /y & del /Q /F %SystemRoot%\\System32\\spool\\PRINTERS\\*.* & net start spooler"';
+
 export const DEFAULT_VNC_ACTIONS: readonly BlockActionItem[] = [
   { id: "tightvnc", name: "TightVNC", command: "TightVNC.exe", args: "{host}", variant: "vnc", isBuiltin: true, testId: "vnc-connect-btn" },
   { id: "ultravnc", name: "UltraVNC", command: "UltraVNC.exe", args: "{host}", variant: "vnc", isBuiltin: true, testId: "vnc-ultravnc-btn" },
@@ -66,6 +72,29 @@ export const DEFAULT_VNC_ACTIONS: readonly BlockActionItem[] = [
   { id: "disk-d", name: "Диск D$", command: "explorer.exe", args: "\\\\{host}\\d$", variant: "default", isBuiltin: true, testId: "vnc-disk-d-btn" },
   { id: "wiztree-c", name: "WizTree C", command: "WizTree/WizTree64.exe", args: "\\\\{host}\\c$", variant: "default", isBuiltin: true, testId: "vnc-wiztree-c-btn" },
   { id: "wiztree-d", name: "WizTree D", command: "WizTree/WizTree64.exe", args: "\\\\{host}\\d$", variant: "default", isBuiltin: true, testId: "vnc-wiztree-d-btn" },
-  { id: "spooler", name: "Очистить печать", command: "PSX.exe", args: '\\\\{host} cmd /c net stop spooler & del /Q /F /S "%systemroot%\\System32\\Spool\\Printers\\*.*" & net start spooler', variant: "warn", isBuiltin: true, testId: "vnc-spooler-btn" },
+  { id: "spooler", name: "Очистить печать", command: "PSX.exe", args: DEFAULT_SPOOLER_ARGS, variant: "warn", isBuiltin: true, testId: "vnc-spooler-btn" },
   { id: "reboot", name: "Перезагрузка", command: "shutdown.exe", args: "/r /m \\\\{host} /t 0", variant: "danger", isBuiltin: true, testId: "vnc-reboot-btn" },
 ];
+
+/**
+ * Builds command and argument array for the spooler cleanup action, migrating
+ * legacy broken saved arguments to the fixed PSX.exe invocation.
+ */
+export function buildSpoolerExecInvocation(
+  host: string,
+  customAction?: Pick<BlockActionItem, "command" | "args">,
+): { command: string; args: string[] } {
+  const cleanHost = host.trim();
+  const replaceTarget = (str: string): string =>
+    str.replace(/\{host\}|\{target\}/gi, cleanHost);
+
+  const rawCommand = customAction?.command?.trim() || "PSX.exe";
+  const rawArgs = customAction?.args?.trim();
+  const effectiveArgs =
+    !rawArgs || rawArgs === LEGACY_SPOOLER_ARGS ? DEFAULT_SPOOLER_ARGS : rawArgs;
+
+  return {
+    command: cleanQuotes(replaceTarget(rawCommand)),
+    args: splitCommandArgs(replaceTarget(effectiveArgs)),
+  };
+}

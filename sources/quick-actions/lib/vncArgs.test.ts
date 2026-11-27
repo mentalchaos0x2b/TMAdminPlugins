@@ -161,5 +161,48 @@ describe("vncArgs library", () => {
       expect(cleanQuotes("'C:\\Tools\\Victoria.exe'")).toBe("C:\\Tools\\Victoria.exe");
       expect(cleanQuotes("C:\\Tools\\Victoria.exe")).toBe("C:\\Tools\\Victoria.exe");
     });
+
+    it("parses default spooler action args without breaking cmd /c string", async () => {
+      const { DEFAULT_VNC_ACTIONS, splitCommandArgs, buildSpoolerExecInvocation, LEGACY_SPOOLER_ARGS } =
+        await import("./actions");
+      const spooler = DEFAULT_VNC_ACTIONS.find((a) => a.id === "spooler");
+      expect(spooler).toBeDefined();
+      expect(spooler?.command).toBe("PSX.exe");
+
+      const replaced = (spooler?.args ?? "").replace(/\{host\}/gi, "pc-print-01");
+      const parsed = splitCommandArgs(replaced);
+      expect(parsed).toEqual([
+        "\\\\pc-print-01",
+        "-accepteula",
+        "-n",
+        "15",
+        "-s",
+        "cmd",
+        "/c",
+        "net stop spooler /y & del /Q /F %SystemRoot%\\System32\\spool\\PRINTERS\\*.* & net start spooler",
+      ]);
+
+      // Migrates legacy broken spooler args automatically
+      expect(
+        buildSpoolerExecInvocation(" pc-print-01 ", {
+          command: "PSX.exe",
+          args: LEGACY_SPOOLER_ARGS,
+        }),
+      ).toEqual({
+        command: "PSX.exe",
+        args: parsed,
+      });
+
+      // Preserves custom user-configured spooler args
+      expect(
+        buildSpoolerExecInvocation("pc-print-02", {
+          command: "powershell.exe",
+          args: '-NoProfile -Command "Restart-Service -Name Spooler"',
+        }),
+      ).toEqual({
+        command: "powershell.exe",
+        args: ["-NoProfile", "-Command", "Restart-Service -Name Spooler"],
+      });
+    });
   });
 });

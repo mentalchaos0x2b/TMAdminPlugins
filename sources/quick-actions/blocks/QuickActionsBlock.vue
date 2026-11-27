@@ -13,6 +13,7 @@ import {
 import { isValidVncHost, sanitizeVncPassword } from "../lib/vncArgs";
 import {
   DEFAULT_VNC_ACTIONS,
+  buildSpoolerExecInvocation,
   splitCommandArgs,
   cleanQuotes,
   type BlockActionItem,
@@ -233,17 +234,10 @@ const openDisk = (d: "c$" | "d$") =>
   runSpawn("explorer.exe", [`\\\\${activeHost.value.trim()}\\${d}`], `Диск ${d.toUpperCase()}`);
 const openWizTree = (d: "c$" | "d$") =>
   runSpawn("WizTree/WizTree64.exe", [`\\\\${activeHost.value.trim()}\\${d}`], `WizTree ${d.toUpperCase()}`);
-const clearSpooler = () =>
-  runExecCmd(
-    "PSX.exe",
-    [
-      `\\\\${activeHost.value.trim()}`,
-      "cmd",
-      "/c",
-      'net stop spooler & del /Q /F /S "%systemroot%\\System32\\Spool\\Printers\\*.*" & net start spooler',
-    ],
-    "Очистка очереди печати",
-  );
+const clearSpooler = (act?: BlockActionItem) => {
+  const { command, args } = buildSpoolerExecInvocation(activeHost.value, act);
+  return runExecCmd(command, args, "Очистка очереди печати");
+};
 const rebootHost = () =>
   runExecCmd("shutdown.exe", ["/r", "/m", `\\\\${activeHost.value.trim()}`, "/t", "0"], "Перезагрузка shutdown.exe");
 
@@ -328,7 +322,7 @@ function handleActionClick(act: BlockActionItem): void {
       void openWizTree("d$");
       break;
     case "spooler":
-      void clearSpooler();
+      void clearSpooler(act);
       break;
     case "reboot":
       void rebootHost();

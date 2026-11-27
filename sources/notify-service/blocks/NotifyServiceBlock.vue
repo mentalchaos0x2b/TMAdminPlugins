@@ -10,7 +10,6 @@ import {
   useTarget,
 } from "@tmadmin/sdk";
 import {
-  NAlert,
   NButton,
   NCard,
   NEmpty,
@@ -67,7 +66,6 @@ const busyAction = ref<BusyAction>(null);
 const serviceDate = ref<ParsedServiceDate | null>(null);
 const dateSourceName = ref<"service_date.txt" | "service_date" | null>(null);
 const counterValue = ref<string | null>(null);
-const errorMessage = ref<string | null>(null);
 const copied = ref<boolean>(false);
 
 let checkGeneration = 0;
@@ -123,7 +121,6 @@ function resetState(): void {
   serviceDate.value = null;
   dateSourceName.value = null;
   counterValue.value = null;
-  errorMessage.value = null;
   copied.value = false;
 }
 
@@ -142,7 +139,7 @@ async function readServiceDateAndCounter(
   } catch (err: unknown) {
     if (gen !== checkGeneration) return { ok: false };
     if (!isNotFoundError(err)) {
-      errorMessage.value = `Не удалось прочитать service_date.txt: ${extractErrorMessage(err)}`;
+      message.error(`Не удалось прочитать service_date.txt: ${extractErrorMessage(err)}`);
       return { ok: false };
     }
 
@@ -154,7 +151,7 @@ async function readServiceDateAndCounter(
     } catch (fallbackErr: unknown) {
       if (gen !== checkGeneration) return { ok: false };
       if (!isNotFoundError(fallbackErr)) {
-        errorMessage.value = `Не удалось прочитать service_date: ${extractErrorMessage(fallbackErr)}`;
+        message.error(`Не удалось прочитать service_date: ${extractErrorMessage(fallbackErr)}`);
         return { ok: false };
       }
     }
@@ -185,7 +182,6 @@ async function checkNotifyService(hostOverride?: string): Promise<void> {
   const gen = ++checkGeneration;
   checkingHost = host;
   status.value = "checking";
-  errorMessage.value = null;
 
   try {
     await fsApi.dir.read(buildRemoteNsDirPath(host));
@@ -202,10 +198,9 @@ async function checkNotifyService(hostOverride?: string): Promise<void> {
       serviceDate.value = null;
       dateSourceName.value = null;
       counterValue.value = null;
-      errorMessage.value = null;
     } else {
       status.value = "error";
-      errorMessage.value = `Ошибка проверки ${buildRemoteNsDirPath(host)}: ${extractErrorMessage(err)}`;
+      message.error(`Ошибка проверки ${buildRemoteNsDirPath(host)}: ${extractErrorMessage(err)}`);
     }
   } finally {
     if (gen === checkGeneration) {
@@ -226,7 +221,6 @@ async function runPsxCommand(
 
   const gen = checkGeneration;
   busyAction.value = action;
-  errorMessage.value = null;
 
   try {
     const res = await execApi.pluginExec("external/PSX.exe", args);
@@ -243,13 +237,11 @@ async function runPsxCommand(
       res.stdout.trim() ||
       `код завершения ${res.exit_code ?? "неизвестен"}`;
     const fullError = `${errorPrefix}: ${details}`;
-    errorMessage.value = fullError;
     message.error(fullError);
     return false;
   } catch (err: unknown) {
     if (gen !== checkGeneration) return false;
     const fullError = `${errorPrefix}: ${extractErrorMessage(err)}`;
-    errorMessage.value = fullError;
     message.error(fullError);
     return false;
   } finally {
@@ -340,6 +332,7 @@ onTargetReset(() => {
   <n-card
     size="small"
     :bordered="false"
+    :content-style="{ padding: '0' }"
     class="ns-card"
     data-testid="notify-service-block"
   >
@@ -385,43 +378,20 @@ onTargetReset(() => {
       </n-tooltip>
     </div>
 
-    <n-alert
-      v-if="errorMessage"
-      type="error"
-      size="small"
-      closable
-      class="ns-alert"
-      data-testid="ns-error-alert"
-      @close="errorMessage = null"
-    >
-      {{ errorMessage }}
-    </n-alert>
-
     <n-spin :show="isChecking" size="small" class="ns-spin">
       <div class="ns-body">
         <!-- Узел не в сети -->
-        <template v-if="!isOnline">
-          <n-alert
-            v-if="status === 'installed' || status === 'not_installed'"
-            type="warning"
-            size="small"
-            class="ns-alert"
-            data-testid="ns-offline-state"
-          >
-            Узел не в сети — проверка C:\$NS недоступна
-          </n-alert>
-          <n-empty
-            v-else
-            size="small"
-            description="Узел не в сети — проверка C:\$NS недоступна"
-            class="ns-empty"
-            data-testid="ns-offline-state"
-          >
-            <template #icon>
-              <n-icon :component="CloudOfflineOutline" />
-            </template>
-          </n-empty>
-        </template>
+        <n-empty
+          v-if="!isOnline && status !== 'installed' && status !== 'not_installed'"
+          size="small"
+          description="Узел не в сети — проверка C:\$NS недоступна"
+          class="ns-empty"
+          data-testid="ns-offline-state"
+        >
+          <template #icon>
+            <n-icon :component="CloudOfflineOutline" />
+          </template>
+        </n-empty>
 
         <!-- Установлен -->
         <div
@@ -501,7 +471,7 @@ onTargetReset(() => {
             >
               <template #trigger>
                 <n-button
-                  size="small"
+                  size="tiny"
                   type="warning"
                   secondary
                   :loading="busyAction === 'reset'"
@@ -535,7 +505,7 @@ onTargetReset(() => {
             </template>
             <template #extra>
               <n-button
-                size="small"
+                size="tiny"
                 type="primary"
                 :loading="busyAction === 'install'"
                 :disabled="!isOnline || isBusy || isChecking"
@@ -563,6 +533,7 @@ onTargetReset(() => {
 <style scoped>
 .ns-card {
   height: 100%;
+  padding: 0;
   display: flex;
   flex-direction: column;
   background: transparent;
@@ -572,9 +543,10 @@ onTargetReset(() => {
 .ns-card :deep(.n-card__content) {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 10px 12px;
+  gap: 6px;
+  padding: 0;
   height: 100%;
+  min-height: 0;
   box-sizing: border-box;
 }
 
@@ -582,62 +554,64 @@ onTargetReset(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  padding-bottom: 6px;
+  gap: 6px;
+  padding-bottom: 4px;
   border-bottom: 1px solid var(--tm-line);
+  flex-shrink: 0;
 }
 
 .ns-header-left {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   min-width: 0;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow: hidden;
 }
 
 .ns-title-icon {
   color: var(--tm-mut);
-  font-size: 15px;
-  flex-shrink: 0;
-}
-
-.ns-alert {
+  font-size: 14px;
   flex-shrink: 0;
 }
 
 .ns-spin {
   flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
 }
 
 .ns-spin :deep(.n-spin-content) {
   flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
 }
 
 .ns-body {
   flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 8px;
+  gap: 6px;
 }
 
 .ns-details {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 10px;
+  gap: 6px;
   flex: 1;
+  min-height: 0;
 }
 
 .ns-info-panel {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 8px 10px;
+  gap: 4px;
+  padding: 6px 8px;
   border: 1px solid var(--tm-line);
   border-radius: 6px;
 }
@@ -646,39 +620,40 @@ onTargetReset(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  min-height: 24px;
+  gap: 6px;
+  min-height: 20px;
 }
 
 .ns-label {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  font-size: 12px;
+  gap: 4px;
+  font-size: 11.5px;
   color: var(--tm-mut);
   white-space: nowrap;
 }
 
 .ns-row-icon {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--tm-mut);
 }
 
 .ns-value-group {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   min-width: 0;
 }
 
 .ns-value {
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--tm-tx);
+  white-space: nowrap;
 }
 
 .ns-path {
-  font-size: 11.5px;
+  font-size: 11px;
   color: var(--tm-mut);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -692,17 +667,34 @@ onTargetReset(() => {
 
 .ns-actions {
   margin-top: auto;
+  flex-shrink: 0;
 }
 
 .ns-not-installed,
 .ns-error-placeholder {
   flex: 1;
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .ns-empty {
-  padding: 8px 0;
+  padding: 2px 0;
+}
+
+.ns-empty :deep(.n-empty__icon) {
+  font-size: 26px;
+  width: 26px;
+  height: 26px;
+}
+
+.ns-empty :deep(.n-empty__description) {
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+.ns-empty :deep(.n-empty__extra) {
+  margin-top: 6px;
 }
 </style>

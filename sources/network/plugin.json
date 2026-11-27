@@ -1,7 +1,7 @@
 {
     "id":  "network",
     "name":  "Мониторинг сети",
-    "version":  "1.0.7",
+    "version":  "1.0.8",
     "author":  "TMAdmin Core",
     "description":  "Сетевая диагностика: информация о целевом узле и график задержки RTT в реальном времени",
     "icon":  "PulseOutline",

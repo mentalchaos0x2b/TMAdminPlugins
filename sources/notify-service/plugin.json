@@ -1,7 +1,7 @@
 {
   "id": "notify-service",
   "name": "NotifyService",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "TMAdmin Core",
   "description": "Проверка папки C:\\$NS на удалённом ПК, чтение даты профилактики (service_date), сброс и установка NotifyService через PSX.",
   "icon": "NotificationsOutline",
