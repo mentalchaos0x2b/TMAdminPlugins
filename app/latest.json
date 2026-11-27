@@ -1,11 +1,11 @@
 {
-  "version": "1.0.6",
-  "notes": "Обновление TMAdmin v1.0.6: плавный drag & resize и каскадное разрешение коллизий в WorkspaceGrid, стабильность ширины без дёргания, настройка режима коллизий (none/push/compact), обновления плагинов NotifyService (v1.0.1), quick-actions (v1.0.4, исправлена очистка печати) и network (v1.0.8).",
-  "pub_date": "2026-11-27T09:16:00Z",
+  "version": "1.0.7",
+  "notes": "Обновление TMAdmin v1.0.7: расширение SDK (axios, socket.io-client, powershellExec, useTerminalSettings), Windows ConPTY и новый терминал со вкладками, персонализация панелей (Sidebar, Header, Titlebar), локальный шрифт Rubik, новый логотип >_, а также обновления плагинов terminal (1.0.2), network (1.0.9), laps (1.0.6), notes (0.1.1), quick-actions (1.0.5) и smb (1.0.2).",
+  "pub_date": "2026-11-27T21:25:00Z",
   "platforms": {
     "windows-x86_64": {
       "signature": null,
-      "url": "https://github.com/mentalchaos0x2b/TMAdminPlugins/releases/download/v1.0.6/TMAdmin_1.0.6_x64-setup.exe"
+      "url": "https://github.com/mentalchaos0x2b/TMAdminPlugins/releases/download/v1.0.7/TMAdmin_1.0.7_x64-setup.exe"
     }
   }
 }
