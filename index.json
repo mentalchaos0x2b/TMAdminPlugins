@@ -372,7 +372,7 @@
           "releasedAt": "2026-11-27T20:30:22.021Z",
           "changelog": "Release version 1.0.8",
           "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.8/plugin.zip",
-          "sha256": "bdcaef4d72ef6c9b3a97c53fb537c40bbd98891a8490bf44fb02de6b9aa1b50f",
+          "sha256": "65ec0c81086fdd0cba87920801db796c2e7313456f44483671af84ec14ce5ecf",
           "permissions": [
             "net.ping",
             "store.write"
@@ -413,7 +413,7 @@
         {
           "version": "1.0.9",
           "minAppVersion": "0.1.0",
-          "releasedAt": "2026-11-27T21:19:17.502Z",
+          "releasedAt": "2026-11-27T21:30:21.377Z",
           "changelog": "Release version 1.0.9",
           "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network/1.0.9/plugin.zip",
           "sha256": "9849a1650e25d57a619b965eadaa359b550a6a39549c16f7d0dc11a0a742098e",
@@ -626,7 +626,7 @@
           "releasedAt": "2026-11-27T20:30:21.993Z",
           "changelog": "Release version 1.0.5",
           "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.5/plugin.zip",
-          "sha256": "72b9d8166bdbdf604dccb359c3c5ab7fac9a90fe17cbd8d98c0fbf2aa22d1be5",
+          "sha256": "52345a2234e0c782c8d403597c57d9b6478f1a932b75a6a5a0616c36c1e9a01d",
           "permissions": [
             "process.exec",
             "fs.external",
@@ -653,7 +653,7 @@
         {
           "version": "1.0.6",
           "minAppVersion": "0.1.0",
-          "releasedAt": "2026-11-27T21:19:17.482Z",
+          "releasedAt": "2026-11-27T21:30:21.35Z",
           "changelog": "Release version 1.0.6",
           "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/laps/1.0.6/plugin.zip",
           "sha256": "43131ddd007eef9948fcf06a8c3de4d919001370dcda11125f9472f286395680",
@@ -733,7 +733,7 @@
           "releasedAt": "2026-11-27T20:30:22.632Z",
           "changelog": "Release version 1.0.1",
           "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/smb/1.0.1/plugin.zip",
-          "sha256": "d61bea8b381b0d4f701624d505f2819ab37bf9ce24e3b9e861ddeadebc47dc52",
+          "sha256": "95f22bee891a7f14973bc863348725ec5c6d6c609ea4423048d08370c04a0df3",
           "permissions": [
             "process.exec",
             "fs.external",
@@ -761,7 +761,7 @@
         {
           "version": "1.0.2",
           "minAppVersion": "0.1.0",
-          "releasedAt": "2026-11-27T21:19:18.026Z",
+          "releasedAt": "2026-11-27T21:30:21.996Z",
           "changelog": "Release version 1.0.2",
           "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/smb/1.0.2/plugin.zip",
           "sha256": "c3000fe3d2126b1fdddd6fcac07da3c2471d8c09f561702a8a84ea59803e4966",
@@ -866,7 +866,7 @@
         {
           "version": "1.0.2",
           "minAppVersion": "0.1.0",
-          "releasedAt": "2026-11-27T21:19:18.042Z",
+          "releasedAt": "2026-11-27T21:30:22.015Z",
           "changelog": "Release version 1.0.2",
           "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/terminal/1.0.2/plugin.zip",
           "sha256": "a81cda159dd1fcc990a35be5860fd38b473f1eec4f6cc539851f553b70fcaa41",
@@ -1000,7 +1000,7 @@
         {
           "version": "1.0.4",
           "minAppVersion": "0.1.0",
-          "releasedAt": "2026-11-27T21:19:17.519Z",
+          "releasedAt": "2026-11-27T21:30:21.395Z",
           "changelog": "Release version 1.0.4",
           "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/network-share-browser/1.0.4/plugin.zip",
           "sha256": "18ba528c1505dfbe939e24e667c81f0abb60094e991361c49f480a26427f2452",
@@ -1174,7 +1174,7 @@
           "releasedAt": "2026-11-27T20:30:22.591Z",
           "changelog": "Release version 1.0.4",
           "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/quick-actions/1.0.4/plugin.zip",
-          "sha256": "d14ca586579b1bdfd58d4a1ebcd5e18eba1f227f088028323c008d63438ee80a",
+          "sha256": "70d6db38ef4caf5334989f5b5397b78b2fad1861d00ec9f51c15ccacda58cf3d",
           "permissions": [
             "process.exec",
             "fs.external",
@@ -1203,7 +1203,7 @@
         {
           "version": "1.0.5",
           "minAppVersion": "0.1.0",
-          "releasedAt": "2026-11-27T21:19:17.992Z",
+          "releasedAt": "2026-11-27T21:30:21.956Z",
           "changelog": "Release version 1.0.5",
           "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/quick-actions/1.0.5/plugin.zip",
           "sha256": "d6fb50f1855bc1b2dd0ffbdebad326346a8b29143896aaffada7e6f4708db941",
@@ -1254,7 +1254,7 @@
           "releasedAt": "2026-11-27T20:30:22.058Z",
           "changelog": "Release version 0.1.0",
           "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/notes/0.1.0/plugin.zip",
-          "sha256": "73c639bd57ea70c163ef99daa969114a14cfcda2e6cc6f85936fe9cc7210d658",
+          "sha256": "716199575eff700ef291b4c7f2b3b3a846072d19d9da8d43645f960cd6df14e0",
           "permissions": [
             "store.write"
           ],
@@ -1279,7 +1279,7 @@
         {
           "version": "0.1.1",
           "minAppVersion": "0.1.0",
-          "releasedAt": "2026-11-27T21:19:17.548Z",
+          "releasedAt": "2026-11-27T21:30:21.424Z",
           "changelog": "Release version 0.1.1",
           "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/notes/0.1.1/plugin.zip",
           "sha256": "acdf56bc40f48faff13257dd37dc6ec92428cccdb88d64917f998ae35b52c549",
@@ -1383,7 +1383,7 @@
         {
           "version": "1.0.3",
           "minAppVersion": "0.1.0",
-          "releasedAt": "2026-11-27T21:19:17.572Z",
+          "releasedAt": "2026-11-27T21:30:21.459Z",
           "changelog": "Release version 1.0.3",
           "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/osaitp-cards/1.0.3/plugin.zip",
           "sha256": "a3a0e4754517fb2350d4969ef36c8d469d005a1d91d1654a042bfa622a65bfa4",
@@ -1459,7 +1459,7 @@
         {
           "version": "1.0.1",
           "minAppVersion": "0.1.0",
-          "releasedAt": "2026-11-27T21:19:17.566Z",
+          "releasedAt": "2026-11-27T21:30:21.451Z",
           "changelog": "Release version 1.0.1",
           "downloadUrl": "https://raw.githubusercontent.com/mentalchaos0x2b/TMAdminPlugins/main/plugins/notify-service/1.0.1/plugin.zip",
           "sha256": "862f361f534ae97c5ca83bc761c7ba5e1c36b8e3d81152db4b0ea6ce507a789a",
@@ -1489,6 +1489,6 @@
       ]
     }
   ],
-  "updatedAt": "2026-11-27T21:19:18.043Z",
+  "updatedAt": "2026-11-27T21:30:22.016Z",
   "schemaVersion": 1
 }
