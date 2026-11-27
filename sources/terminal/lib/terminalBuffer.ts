@@ -1,3 +1,7 @@
+export type TerminalShell = "powershell" | "cmd";
+
+export type TerminalSessionStatus = "connecting" | "online" | "terminated" | "error";
+
 export interface AnsiSpan {
   text: string;
   color?: string;
@@ -9,7 +13,23 @@ export interface TerminalLine {
   stream: "stdout" | "stderr" | "system";
   raw: string;
   spans: AnsiSpan[];
-  timestamp: string;
+  incomplete?: boolean;
+  sourceText?: string;
+}
+
+export interface TerminalTab {
+  id: string;
+  number: number;
+  title: string;
+  shell: TerminalShell;
+  target: string;
+  sessionId: string | null;
+  status: TerminalSessionStatus;
+  lines: TerminalLine[];
+  history: string[];
+  historyIndex: number;
+  draftInput: string;
+  unlistenFn: (() => void) | null;
 }
 
 export interface QuickScript {
@@ -72,10 +92,25 @@ const ANSI_COLOR_MAP: Record<number, string> = {
 };
 
 /**
+ * Удаляет OSC-последовательности и не-SGR управляющие CSI-коды, сохраняя SGR (\x1b[...m).
+ */
+function stripNonSgrControlSequences(input: string): string {
+  // eslint-disable-next-line no-control-regex
+  const withoutOsc = input.replace(/\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)/g, "");
+  // eslint-disable-next-line no-control-regex
+  return withoutOsc.replace(/\x1b\[[0-9;?]*[A-LN-Za-ln-z]/g, "");
+}
+
+/**
  * Разбирает строку с ANSI SGR кодами (\x1b[...m) на массив стилизованных сегментов.
  */
 export function parseAnsiToSpans(input: string): AnsiSpan[] {
   if (!input) {
+    return [];
+  }
+
+  const sanitized = stripNonSgrControlSequences(input);
+  if (!sanitized) {
     return [];
   }
 
@@ -86,10 +121,10 @@ export function parseAnsiToSpans(input: string): AnsiSpan[] {
   let currentColor: string | undefined;
   let currentBold = false;
 
-  let match: RegExpExecArray | null = regex.exec(input);
+  let match: RegExpExecArray | null = regex.exec(sanitized);
   while (match !== null) {
     if (match.index > lastIndex) {
-      const textSegment = input.slice(lastIndex, match.index);
+      const textSegment = sanitized.slice(lastIndex, match.index);
       if (textSegment.length > 0) {
         spans.push({
           text: textSegment,
@@ -118,11 +153,11 @@ export function parseAnsiToSpans(input: string): AnsiSpan[] {
     }
 
     lastIndex = regex.lastIndex;
-    match = regex.exec(input);
+    match = regex.exec(sanitized);
   }
 
-  if (lastIndex < input.length) {
-    const remaining = input.slice(lastIndex);
+  if (lastIndex < sanitized.length) {
+    const remaining = sanitized.slice(lastIndex);
     if (remaining.length > 0) {
       spans.push({
         text: remaining,
@@ -140,44 +175,104 @@ export function parseAnsiToSpans(input: string): AnsiSpan[] {
  */
 export function stripAnsi(input: string): string {
   // eslint-disable-next-line no-control-regex
-  return input.replace(/\x1b\[[0-9;]*[a-zA-Z]/g, "");
+  const withoutOsc = input.replace(/\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)/g, "");
+  // eslint-disable-next-line no-control-regex
+  return withoutOsc.replace(/\x1b\[[0-9;?]*[a-zA-Z]/g, "");
 }
 
 let lineIdCounter = 1;
 
 /**
- * Добавляет новый пакет вывода PTY в массив строк терминала с ограничением размера буфера.
+ * Приводит символы возврата каретки (`\r`) внутри одной строки к финальному содержимому:
+ * возвращает последний сегмент с видимым текстом (не считая одних лишь ANSI-последовательностей)
+ * и не оставляет одиночных `\r`.
+ */
+function resolveCarriageReturnLine(lineSource: string): string {
+  if (!lineSource.includes("\r")) {
+    return lineSource;
+  }
+  const parts = lineSource.split("\r");
+  for (let i = parts.length - 1; i >= 0; i--) {
+    const part = parts[i] ?? "";
+    if (stripAnsi(part).length > 0) {
+      return part;
+    }
+  }
+  return "";
+}
+
+/**
+ * Сохраняет хвост незавершённой строки, начиная с последнего сегмента с видимым текстом
+ * до/после `\r`, чтобы корректно обрабатывать `\r\n` и ANSI-последовательности на границе чанков.
+ */
+function sliceIncompleteSourceTail(lineSource: string): string {
+  if (!lineSource.includes("\r")) {
+    return lineSource;
+  }
+  const parts = lineSource.split("\r");
+  for (let i = parts.length - 1; i >= 0; i--) {
+    const part = parts[i] ?? "";
+    if (stripAnsi(part).length > 0) {
+      return parts.slice(i).join("\r");
+    }
+  }
+  return lineSource.endsWith("\r") ? "\r" : "";
+}
+
+/**
+ * Добавляет новый пакет вывода PTY в массив строк терминала с поддержкой
+ * дописывания незавершённой строки, корректной обработки `\r`/`\r\n` и ограничением размера буфера.
  */
 export function appendPayloadToLines(
   existing: TerminalLine[],
   payload: { seq: number; data: string; stream: "stdout" | "stderr" | "system" },
-  maxLines = 400,
+  maxLines = 500,
 ): TerminalLine[] {
-  const normalized = payload.data.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
-  const rawParts = normalized.split("\n");
+  if (!payload.data) {
+    return existing;
+  }
 
   const next = [...existing];
-  const now = new Date().toLocaleTimeString("ru-RU", {
-    hour12: false,
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  });
+  const lastLine = next[next.length - 1];
+  const mergeWithLast = Boolean(lastLine && lastLine.incomplete && lastLine.stream === payload.stream);
 
-  for (let i = 0; i < rawParts.length; i++) {
-    const part = rawParts[i] ?? "";
-    // Пропускаем пустой хвост после завершающего \n
-    if (i === rawParts.length - 1 && part === "" && rawParts.length > 1) {
-      continue;
-    }
+  const combined = mergeWithLast ? `${lastLine?.sourceText ?? ""}${payload.data}` : payload.data;
+  const normalized = combined.replace(/\r+\n/g, "\n");
+  const endsWithNewline = normalized.endsWith("\n");
+  const rawParts = normalized.split("\n");
+  if (endsWithNewline) {
+    rawParts.pop();
+  }
 
-    next.push({
-      id: lineIdCounter++,
+  if (rawParts.length === 0) {
+    return existing;
+  }
+
+  const buildLine = (part: string, isIncomplete: boolean, existingId?: number): TerminalLine => {
+    const resolvedPart = resolveCarriageReturnLine(part);
+    return {
+      id: existingId ?? lineIdCounter++,
       stream: payload.stream,
-      raw: stripAnsi(part),
-      spans: parseAnsiToSpans(part),
-      timestamp: now,
-    });
+      raw: stripAnsi(resolvedPart),
+      spans: parseAnsiToSpans(resolvedPart),
+      incomplete: isIncomplete,
+      sourceText: isIncomplete ? sliceIncompleteSourceTail(part) : undefined,
+    };
+  };
+
+  let startIndex = 0;
+  if (mergeWithLast && lastLine) {
+    const firstPart = rawParts[0] ?? "";
+    const stillIncomplete = rawParts.length === 1 && !endsWithNewline;
+    next[next.length - 1] = buildLine(firstPart, stillIncomplete, lastLine.id);
+    startIndex = 1;
+  }
+
+  for (let i = startIndex; i < rawParts.length; i++) {
+    const part = rawParts[i] ?? "";
+    const isLastPart = i === rawParts.length - 1;
+    const isIncomplete = isLastPart && !endsWithNewline;
+    next.push(buildLine(part, isIncomplete));
   }
 
   if (next.length > maxLines) {
@@ -225,7 +320,6 @@ export function navigateHistory(
     };
   }
 
-  // direction === "down"
   if (currentIndex === -1 || currentIndex >= history.length - 1) {
     return { index: -1, value: "" };
   }
@@ -237,31 +331,41 @@ export function navigateHistory(
   };
 }
 
-export interface ActivePtySession {
+/**
+ * Форматирует компактный заголовок вкладки в стиле Windows 11 Terminal.
+ */
+export function formatTabTitle(
+  shell: TerminalShell,
+  targetHost: string,
+  tabNumber: number,
+): string {
+  const shellLabel = shell === "powershell" ? "PowerShell" : "CMD";
+  const cleanHost = targetHost.trim() || "localhost";
+  return tabNumber > 1 ? `${shellLabel} #${tabNumber} · ${cleanHost}` : `${shellLabel} · ${cleanHost}`;
+}
+
+/**
+ * Создаёт новое состояние вкладки терминала.
+ */
+export function createTerminalTab(options: {
   id: string;
+  number: number;
+  shell: TerminalShell;
   target: string;
-  shell: "powershell" | "cmd";
-  lines: TerminalLine[];
-  history: string[];
-  status: "connecting" | "online" | "terminated" | "error";
-  unlisten?: (() => void) | null;
+}): TerminalTab {
+  const cleanTarget = options.target.trim() || "localhost";
+  return {
+    id: options.id,
+    number: options.number,
+    title: formatTabTitle(options.shell, cleanTarget, options.number),
+    shell: options.shell,
+    target: cleanTarget,
+    sessionId: null,
+    status: "connecting",
+    lines: [],
+    history: [],
+    historyIndex: -1,
+    draftInput: "",
+    unlistenFn: null,
+  };
 }
-
-const activePtySessions = new Map<string, ActivePtySession>();
-
-export function getActivePtySession(targetKey: string): ActivePtySession | undefined {
-  return activePtySessions.get(targetKey);
-}
-
-export function setActivePtySession(targetKey: string, session: ActivePtySession): void {
-  activePtySessions.set(targetKey, session);
-}
-
-export function removeActivePtySession(targetKey: string): void {
-  activePtySessions.delete(targetKey);
-}
-
-export function clearAllPtySessions(): void {
-  activePtySessions.clear();
-}
-

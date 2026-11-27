@@ -338,7 +338,7 @@ async function copyPassword(): Promise<void> {
   height: 100%;
   box-sizing: border-box;
   font-size: 12px;
-  color: #e6edf3;
+  color: var(--tm-tx, #e6edf3);
   overflow: hidden;
 }
 
@@ -362,8 +362,8 @@ async function copyPassword(): Promise<void> {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  background: rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--tm-panel-subtle, rgba(0, 0, 0, 0.25));
+  border: 1px solid var(--tm-line, rgba(255, 255, 255, 0.08));
   border-radius: 6px;
   padding: 6px 8px;
   min-height: 38px;
@@ -380,7 +380,7 @@ async function copyPassword(): Promise<void> {
 
 .pwd-label {
   font-size: 11px;
-  color: #8b949e;
+  color: var(--tm-mut, #8b949e);
   flex-shrink: 0;
 }
 
@@ -389,7 +389,7 @@ async function copyPassword(): Promise<void> {
   font-family: "JetBrains Mono", Consolas, monospace;
   font-size: 13px;
   font-weight: 700;
-  color: #f0f6fc;
+  color: var(--tm-tx, #f0f6fc);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -398,7 +398,7 @@ async function copyPassword(): Promise<void> {
 }
 
 .pwd-val.revealed {
-  color: #63e2b7;
+  color: #18a058;
 }
 
 .pwd-actions {
@@ -412,8 +412,9 @@ async function copyPassword(): Promise<void> {
   font-size: 11px;
   padding: 4px 8px;
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.03);
-  color: #8b949e;
+  background: var(--tm-panel-subtle, rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--tm-line, rgba(255, 255, 255, 0.08));
+  color: var(--tm-mut, #8b949e);
 }
 
 .exp-left {
@@ -423,7 +424,7 @@ async function copyPassword(): Promise<void> {
 }
 
 .exp-container b {
-  color: #f0f6fc;
+  color: var(--tm-tx, #f0f6fc);
   font-family: monospace;
 }
 

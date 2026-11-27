@@ -763,7 +763,7 @@ async function setDefaultPrinter(printer: PrinterItem): Promise<void> {
   height: 100%;
   box-sizing: border-box;
   font-size: 12px;
-  color: #e6edf3;
+  color: var(--tm-tx, #e6edf3);
   overflow: hidden;
 }
 
@@ -841,7 +841,7 @@ async function setDefaultPrinter(printer: PrinterItem): Promise<void> {
 
 .smb-data-table th {
   font-size: 11px;
-  color: #8b949e;
+  color: var(--tm-mut, #8b949e);
 }
 
 .printer-name {

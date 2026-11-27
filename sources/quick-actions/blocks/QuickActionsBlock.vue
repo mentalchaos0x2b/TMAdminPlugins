@@ -455,7 +455,7 @@ function getActionIcon(id: string): Component {
   width: 100%;
   box-sizing: border-box;
   font-size: 11px;
-  color: #e6edf3;
+  color: var(--tm-tx, #e6edf3);
 }
 .top-row {
   display: flex;
@@ -463,7 +463,7 @@ function getActionIcon(id: string): Component {
   align-items: center;
   gap: 6px;
   font-size: 11px;
-  color: #8b949e;
+  color: var(--tm-mut, #8b949e);
   flex-shrink: 0;
 }
 .host-section {
@@ -473,7 +473,7 @@ function getActionIcon(id: string): Component {
 }
 .host-lbl,
 .port-lbl {
-  color: #8b949e;
+  color: var(--tm-mut, #8b949e);
   font-size: 11px;
 }
 .host-tag b {

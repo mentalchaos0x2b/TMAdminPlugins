@@ -1,9 +1,9 @@
 {
     "id":  "terminal",
     "name":  "Терминал",
-    "version":  "1.0.1",
+    "version":  "1.0.2",
     "author":  "TMAdmin Core",
-    "description":  "Интерактивный PTY терминал PowerShell и CMD с быстрыми скриптами диагностики узла",
+    "description":  "Многовкладочный PTY терминал PowerShell и CMD в стиле Windows 11 Terminal с быстрыми скриптами",
     "icon":  "TerminalOutline",
     "permissions":  [
                         "terminal",

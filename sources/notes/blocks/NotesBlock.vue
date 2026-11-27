@@ -268,7 +268,7 @@ function handleClear(): void {
   gap: 8px;
   overflow: hidden;
   background: transparent;
-  color: #e6edf3;
+  color: var(--tm-tx, #e6edf3);
 }
 
 .notes-top-bar {
@@ -289,7 +289,7 @@ function handleClear(): void {
 
 .title-icon {
   font-size: 16px;
-  color: #58a6ff;
+  color: var(--tm-accent, #58a6ff);
   flex-shrink: 0;
 }
 
@@ -318,7 +318,7 @@ function handleClear(): void {
 :deep(.notes-textarea .n-input__wrapper) {
   height: 100%;
   box-sizing: border-box;
-  background: rgba(0, 0, 0, 0.22);
+  background: var(--tm-panel-subtle, rgba(0, 0, 0, 0.22));
 }
 
 :deep(.notes-textarea .n-input__textarea) {
@@ -350,11 +350,11 @@ function handleClear(): void {
 }
 
 .stat-item b {
-  color: #f0f6fc;
+  color: var(--tm-tx, #f0f6fc);
 }
 
 .stat-divider {
-  color: #8b949e;
+  color: var(--tm-mut, #8b949e);
 }
 
 .footer-hint {

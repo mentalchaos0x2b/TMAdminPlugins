@@ -1,7 +1,7 @@
 {
     "id":  "notes",
     "name":  "Заметки",
-    "version":  "0.1.0",
+    "version":  "0.1.1",
     "author":  "TMAdmin Core",
     "description":  "Быстрые рабочие заметки и напоминания администратора с постоянным автосохранением",
     "icon":  "DocumentTextOutline",

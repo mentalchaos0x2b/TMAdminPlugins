@@ -338,7 +338,7 @@ async function performQuickPing(): Promise<void> {
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
-  background: rgba(0, 0, 0, 0.22);
+  background: var(--tm-panel-subtle, rgba(0, 0, 0, 0.22));
   border: 1px solid var(--tm-line, rgba(255, 255, 255, 0.06));
   border-radius: 6px;
   padding: 2px 8px;
@@ -349,7 +349,7 @@ async function performQuickPing(): Promise<void> {
   align-items: center;
   gap: 12px;
   padding: 4px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid var(--tm-line, rgba(255, 255, 255, 0.04));
   min-width: 0;
 }
 .info-row:last-child {

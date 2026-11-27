@@ -1,7 +1,7 @@
 {
   "id": "quick-actions",
   "name": "Быстрые действия",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "TMAdmin Core",
   "description": "Панель быстрых действий (перезагрузка, служба, пинг)",
   "icon": "FlashOutline",

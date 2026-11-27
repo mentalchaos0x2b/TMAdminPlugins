@@ -7,6 +7,7 @@ import {
   useExec,
   useSharedStore,
   usePluginStore,
+  useTerminalSettings,
   Chart,
   type ScriptableContext,
 } from "@tmadmin/sdk";
@@ -29,6 +30,8 @@ const target = useTarget();
 const exec = useExec();
 const sharedStore = useSharedStore();
 const pluginStore = usePluginStore();
+const termSettings = useTerminalSettings();
+const isDark = computed<boolean>(() => termSettings.value.isDark);
 
 const MAX_POINTS = 60;
 const FIXED_LABELS: string[] = Array.from({ length: MAX_POINTS }, (_, i) => `#${i + 1}`);
@@ -264,6 +267,60 @@ function getHitSpotStyle(idx: number): Record<string, string> {
   };
 }
 
+function getChartThemeColors(dark: boolean): {
+  gridX: string;
+  gridY: string;
+  tick: string;
+  ticksText: string;
+  pointHoverBg: string;
+} {
+  return dark
+    ? {
+        gridX: "rgba(255, 255, 255, 0.05)",
+        gridY: "rgba(255, 255, 255, 0.06)",
+        tick: "rgba(255, 255, 255, 0.08)",
+        ticksText: "#8b949e",
+        pointHoverBg: "#63e2b7",
+      }
+    : {
+        gridX: "rgba(20, 26, 43, 0.07)",
+        gridY: "rgba(20, 26, 43, 0.08)",
+        tick: "rgba(20, 26, 43, 0.12)",
+        ticksText: "#5c6783",
+        pointHoverBg: "#18a058",
+      };
+}
+
+function applyChartTheme(dark: boolean): void {
+  if (!chartInstance) return;
+  const palette = getChartThemeColors(dark);
+  const scales = chartInstance.options.scales;
+  if (scales?.x) {
+    if (scales.x.grid) {
+      scales.x.grid.color = palette.gridX;
+      scales.x.grid.tickColor = palette.tick;
+    }
+    if (scales.x.ticks) {
+      scales.x.ticks.color = palette.ticksText;
+    }
+  }
+  if (scales?.y) {
+    if (scales.y.grid) {
+      scales.y.grid.color = palette.gridY;
+      scales.y.grid.tickColor = palette.tick;
+    }
+    if (scales.y.ticks) {
+      scales.y.ticks.color = palette.ticksText;
+    }
+  }
+  const lineDataset = chartInstance.data.datasets[0] as
+    | { pointHoverBackgroundColor?: string }
+    | undefined;
+  if (lineDataset) {
+    lineDataset.pointHoverBackgroundColor = palette.pointHoverBg;
+  }
+}
+
 function initOrUpdateChart(): void {
   if (!canvasRef.value) return;
   // Guard against headless/test environments where Canvas layout or getContext is unattached
@@ -274,6 +331,7 @@ function initOrUpdateChart(): void {
   if (!ctx) return;
 
   const { labels, rttData: data, lossData } = buildChartSeries(rttHistory.value);
+  const palette = getChartThemeColors(isDark.value);
 
   if (!chartInstance) {
     chartInstance = new Chart<"line" | "bar", (number | null)[], string>(ctx, {
@@ -315,7 +373,7 @@ function initOrUpdateChart(): void {
             pointHoverRadius: (context: ScriptableContext<"line">) => {
               return context.dataIndex >= rttHistory.value.length ? 0 : 5;
             },
-            pointHoverBackgroundColor: "#63e2b7",
+            pointHoverBackgroundColor: palette.pointHoverBg,
             pointHoverBorderColor: "#ffffff",
             pointHoverBorderWidth: 2,
             spanGaps: false,
@@ -381,11 +439,11 @@ function initOrUpdateChart(): void {
         scales: {
           x: {
             grid: {
-              color: "rgba(255, 255, 255, 0.05)",
-              tickColor: "rgba(255, 255, 255, 0.08)",
+              color: palette.gridX,
+              tickColor: palette.tick,
             },
             ticks: {
-              color: "#8b949e",
+              color: palette.ticksText,
               font: { size: 9, family: "monospace" },
               maxRotation: 0,
               minRotation: 0,
@@ -400,11 +458,11 @@ function initOrUpdateChart(): void {
               axis.width = 48;
             },
             grid: {
-              color: "rgba(255, 255, 255, 0.06)",
-              tickColor: "rgba(255, 255, 255, 0.08)",
+              color: palette.gridY,
+              tickColor: palette.tick,
             },
             ticks: {
-              color: "#8b949e",
+              color: palette.ticksText,
               font: { size: 9, family: "monospace" },
               callback: (val) => `${val} мс`,
             },
@@ -418,6 +476,7 @@ function initOrUpdateChart(): void {
       },
     });
   } else {
+    applyChartTheme(isDark.value);
     chartInstance.data.labels = labels;
     chartInstance.data.datasets[0].data = data;
     if (chartInstance.data.datasets[1]) {
@@ -426,6 +485,11 @@ function initOrUpdateChart(): void {
     chartInstance.update("none");
   }
 }
+
+watch(isDark, (dark) => {
+  applyChartTheme(dark);
+  chartInstance?.update("none");
+});
 
 watch(
   () => rttHistory.value,
@@ -718,7 +782,7 @@ onUnmounted(() => {
   padding: 0;
   gap: 6px;
   font-size: 11px;
-  color: #e6edf3;
+  color: var(--tm-tx, #e6edf3);
   overflow: hidden;
 }
 .chart-top {
@@ -740,7 +804,7 @@ onUnmounted(() => {
 .title {
   font-weight: 700;
   font-size: 12px;
-  color: #f0f6fc;
+  color: var(--tm-tx, #f0f6fc);
 }
 .host-tag {
   font-family: monospace;
@@ -755,7 +819,7 @@ onUnmounted(() => {
   gap: 8px;
   font-family: monospace;
   font-size: 10.5px;
-  color: #8b949e;
+  color: var(--tm-mut, #8b949e);
   min-width: 0;
   flex: 1;
   overflow: hidden;
@@ -763,10 +827,10 @@ onUnmounted(() => {
   text-overflow: ellipsis;
 }
 .top-metrics b {
-  color: #e6edf3;
+  color: var(--tm-tx, #e6edf3);
 }
 .c-min { color: #58a6ff; }
-.c-avg { color: #63e2b7; }
+.c-avg { color: #18a058; }
 .c-max { color: #f0883e; }
 .c-loss { color: #e55353 !important; }
 .top-btns {
@@ -781,8 +845,8 @@ onUnmounted(() => {
   min-height: 0;
   width: 100%;
   position: relative;
-  background: rgba(0, 0, 0, 0.28);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--tm-panel-subtle, rgba(0, 0, 0, 0.28));
+  border: 1px solid var(--tm-line, rgba(255, 255, 255, 0.06));
   border-radius: 4px;
   overflow: hidden;
 }
@@ -804,7 +868,7 @@ onUnmounted(() => {
   top: 10px;
   bottom: 24px;
   width: 1px;
-  border-left: 1.5px dashed #63e2b7;
+  border-left: 1.5px dashed #18a058;
   pointer-events: none;
   z-index: 6;
   opacity: 0.85;
@@ -812,9 +876,10 @@ onUnmounted(() => {
 .chart-tooltip {
   position: absolute;
   z-index: 20;
-  background: rgba(13, 17, 23, 0.94);
-  border: 1px solid rgba(99, 226, 183, 0.45);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.55);
+  background: var(--tm-card-bg, rgba(13, 17, 23, 0.94));
+  border: 1px solid var(--tm-line, rgba(99, 226, 183, 0.45));
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  color: var(--tm-tx, #e6edf3);
   border-radius: 5px;
   padding: 5px 8px;
   font-size: 10px;
@@ -828,12 +893,12 @@ onUnmounted(() => {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 3px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--tm-line, rgba(255, 255, 255, 0.08));
   padding-bottom: 2px;
 }
 .tip-seq {
   font-weight: 700;
-  color: #c9d1d9;
+  color: var(--tm-tx, #c9d1d9);
 }
 .tip-badge {
   font-size: 8.5px;
@@ -860,10 +925,10 @@ onUnmounted(() => {
   line-height: 1.35;
 }
 .tip-lbl {
-  color: #8b949e;
+  color: var(--tm-mut, #8b949e);
 }
 .tip-val {
-  color: #f0f6fc;
+  color: var(--tm-tx, #f0f6fc);
 }
 .chart-empty-overlay {
   position: absolute;
@@ -871,8 +936,8 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(13, 17, 23, 0.65);
-  color: #8b949e;
+  background: var(--tm-panel-subtle, rgba(13, 17, 23, 0.65));
+  color: var(--tm-mut, #8b949e);
   font-size: 11px;
   pointer-events: none;
 }
